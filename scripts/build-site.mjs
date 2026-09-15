@@ -52,7 +52,7 @@ export async function generate() {
       const json = JSON.stringify(structuredData(page)).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
       head += `<script type="application/ld+json">${json}</script>\n`;
     } else head += '<meta name="robots" content="noindex,follow">\n';
-    head += `<link rel="icon" href="data:,"><link rel="stylesheet" href="${site.basePath}styles.css?v=${versions['styles.css']}">`;
+    head += `<link rel="icon" type="image/png" sizes="32x32" href="${site.basePath}assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="${site.basePath}assets/favicon-16.png"><link rel="stylesheet" href="${site.basePath}styles.css?v=${versions['styles.css']}">`;
     let html = template.replace('{{HEAD}}', head).replace('{{MAIN}}', page.html).replace('{{SCRIPTS}}', scripts);
     html = publicHTML(html, route).replace(/data-nav="([^"]+)"/g, (attribute, nav) => attribute + (nav === page.nav ? ' aria-current="page"' : ''));
     const file = route === '/404' ? '404.html' : route === '/' ? 'index.html' : route.slice(1) + '/index.html';

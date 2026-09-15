@@ -63,3 +63,5 @@ npm run dev
 robots.txt 只在主机根生效。项目中的 `/gan-lab-site/robots.txt` 不能控制 `xiaosen3333.github.io`，所以本仓库不放一个冒充根规则的文件。未来 edu 主机的管理者须在其根目录确认抓取规则与 sitemap 声明。
 
 按本轮要求，不接入、不验证、不提交 Google Search Console，也不核验当前域名的收录、排名或流量。等 edu 域名稳定后，可由管理者验证实际 URL-prefix/域名所有权，提交该域名的 sitemap，再查看抓取与索引报告；本轮不添加验证码、账户或凭据，不声称已提交或已收录。
+
+标签页图标采用墨圈与蓝色像素方案，原图为 `assets/gan-mark.png`，16/32 像素 PNG 在页面构建时通过统一部署路径引用。
