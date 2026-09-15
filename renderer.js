@@ -91,8 +91,7 @@ function memberPage(m){
  </div></article>`;
 }
 function about(){return `<div class="shell">${heading('关于 GAN lab','在人工智能、人机交互与传统文化的交叉处，开展面向具体问题的研究。','关于')}<section class="page-section about-grid"><h2>团队与研究</h2><div><p>GAN lab 是浙江大学团队。官网以研究为主线，介绍关注的问题、具体项目、相关成果与研究者。</p><p style="margin-top:16px">团队导师为李泽健。研究生成模型与智能设计，并关注人机协作与文化遗产保护。</p>${inline('#/research','探索研究问题')}</div></section><section class="page-section about-grid"><h2>相关学术资源</h2><div><div class="resource-row">浙江大学国际设计研究院<a href="http://idi.zju.edu.cn/" target="_blank" rel="noopener">访问官网 ${iconArrow}</a></div><div class="resource-row">浙江大学软件学院<a href="https://www.cst.zju.edu.cn/" target="_blank" rel="noopener">访问官网 ${iconArrow}</a></div><div class="resource-row">浙江大学人工智能学院<a href="https://ai.zju.edu.cn/" target="_blank" rel="noopener">访问官网 ${iconArrow}</a></div></div></section><section class="page-section about-grid"><h2>研究动态</h2><div><p>研究动态即将补充。当前可从研究页了解已有工作。</p>${inline('#/research','查看研究')}</div></section><section class="page-section about-grid"><h2>交流与合作</h2><div><p>学术方法、文化场景或研究参与，可以从各自关心的问题开始交流。</p>${inline('#/contact','选择交流主题')}</div></section></div>`;}
-const contactIntents={academic:{label:'学术交流',title:'从一个研究问题开始。',body:'可以围绕文化内容的理解与生成、人机协作中的判断，或相关交互方法展开讨论。先了解双方正在关注的问题，再判断是否具有共同的研究切入点。',next:'可以从具体项目或方法出发，讨论相关性和可能的下一步。',prepare:['感兴趣的研究问题或项目','希望交流的方法、发现或疑问','可供阅读的相关工作（如有）']},culture:{label:'文化场景合作',title:'把真实场景带进研究。',body:'如果你的工作涉及文化图像、资料整理、专业判断或文化体验，可以围绕具体对象和人的工作讨论研究合作的可能性。',next:'先理解文化语境与专业工作，再共同判断什么问题值得研究、需要怎样的参与。这是讨论入口，不预先承诺具体服务。',prepare:['希望讨论的文化对象与使用场景','人在当前工作中遇到的问题','相关资料是否可以用于交流（如有）']},join:{label:'了解参与',title:'看看研究兴趣如何相遇。',body:'先从研究问题和已有项目了解团队，再围绕你的兴趣、方法经验或希望探索的题目，交流参与研究的可能性。',next:'导师个人主页提供招生、实习与访问说明。研究方向和学位专业不是同一件事，具体名额与资格请先阅读当年说明，再直接交流。',prepare:['感兴趣的研究问题','相关经历或作品（如有）','希望进一步了解的参与方式']}};
-function contact(){return `<div class="shell">${heading('交流与合作','不同的背景，可以从共同关心的问题开始。','交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">导师公开学术邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健老师的学术邮箱，地址见图片" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">查看导师主页与参与说明 ${iconArrow}</a></section><div class="contact-layout"><div class="contact-tabs" aria-label="交流意图">${Object.entries(contactIntents).map(([key,item])=>`<a id="contact-tab-${key}" href="#/contact?intent=${key}#contact-panel-${key}" data-intent="${key}">${item.label}</a>`).join('')}</div><div class="contact-panels">${Object.entries(contactIntents).map(([key,c])=>`<section class="contact-panel" id="contact-panel-${key}" aria-labelledby="contact-tab-${key}"><h2>${c.title}</h2><p>${c.body}</p><h3>下一步如何展开</h3><p>${c.next}</p><h3>交流时可以带上</h3><ul>${c.prepare.map(item=>`<li>${item}</li>`).join('')}</ul>${inline(key==='join'?'#/people':'#/research',key==='join'?'先了解团队':'先阅读相关研究')}</section>`).join('')}</div></div></div>`;}
+function contact(){return `<div class="shell">${heading('交流与合作','','交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">导师公开学术邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健老师的学术邮箱，地址见图片" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">查看导师主页与参与说明 ${iconArrow}</a></section></div>`;}
 
 // Shared route and metadata rules. Content remains in the three data files above.
 const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({
@@ -114,9 +113,7 @@ function hrefFor(route) {
       parsed.hash = 'member-' + id;
     }
   }
-  if (path === '/contact' && Object.hasOwn(contactIntents, parsed.searchParams.get('intent'))) {
-    parsed.hash = 'contact-panel-' + parsed.searchParams.get('intent');
-  }
+  if (path === '/contact') return pathFor('/contact');
   return pathFor(path) + parsed.search + parsed.hash;
 }
 function publicHTML(html, route = '/') {
@@ -159,7 +156,7 @@ function pageFor(route) {
     description = 'GAN lab 在人工智能、人机交互与传统文化的交叉处，开展面向具体问题的研究。了解团队与研究、相关学术资源及交流合作。';
   } else if (route === '/contact') {
     html = contact(); title = '交流与合作｜GAN lab';
-    description = '与 GAN lab 开展学术交流、文化场景合作，或了解研究参与方式。从共同关心的问题开始，查看导师主页与参与说明。';
+    description = 'GAN lab 联系方式：李泽健老师的公开学术邮箱与导师个人主页。';
   } else {
     html = `<div class="shell">${heading('这个页面暂时不存在','可以从研究入口继续浏览。')}${inline('#/research','进入研究')}</div>`;
     title = '页面未找到｜GAN lab'; description = '这个页面暂时不存在，可以从 GAN lab 研究入口继续浏览。';
@@ -219,5 +216,3 @@ function legacyDestination({ pathname, search = '', hash = '' }) {
   if (!allRoutes().includes(path)) return pathFor('/not-found');
   return hrefFor(path + route.search + route.hash);
 }
-
-function normalizeIntent(value) { return Object.hasOwn(contactIntents, value) ? value : 'academic'; }

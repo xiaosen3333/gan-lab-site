@@ -65,7 +65,8 @@ export async function checkSite() {
   }
   const home = pages.get(site.basePath), contact = pages.get(pathFor('/contact'));
   for (const index of [0, 1, 2]) assert.ok(home.includes(`id="perspective-panel-${index}"`));
-  for (const key of ['academic', 'culture', 'join']) assert.ok(contact.includes(`id="contact-panel-${key}"`));
+  assert.doesNotMatch(contact, /contact-layout|contact-tabs|contact-panel|data-intent|下一步如何展开|交流时可以带上/);
+  assert.ok(contact.includes('assets/contact-channel.png'));
   assert.ok(!/\shidden(?:[\s=>])/.test(home + contact), 'Initial panels are visible without JavaScript');
   assert.equal((pages.get(pathFor('/outputs')).match(/class="paper-row"/g) || []).length, 28);
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card"/g) || []).length, 31);

@@ -16,7 +16,7 @@ export async function loadSite() {
   for (const file of sourceScripts.slice(0, -1)) {
     vm.runInContext(await readFile(resolve(root, file), 'utf8'), context, { filename: file });
   }
-  return vm.runInContext('({ site, allRoutes, pageFor, structuredData, publicHTML, pathFor, escapeHTML, members, works, publications, hasMemberDetails, presentation, hrefFor, legacyDestination, contactIntents, normalizeIntent })', context);
+  return vm.runInContext('({ site, allRoutes, pageFor, structuredData, publicHTML, pathFor, escapeHTML, members, works, publications, hasMemberDetails, presentation, hrefFor, legacyDestination })', context);
 }
 export async function generate() {
   const shared = await loadSite();
@@ -26,10 +26,9 @@ export async function generate() {
   const runtime = "'use strict';\n// Generated from site.config.json and the shared route rules.\n" +
     'const site = Object.freeze(' + JSON.stringify(site) + ');\n' +
     'const members = ' + JSON.stringify(shared.members.map(member => ({ id: member.id, detailed: shared.hasMemberDetails(member) }))) + ';\n' +
-    'const contactIntents = ' + JSON.stringify(Object.fromEntries(Object.keys(shared.contactIntents).map(key => [key, true]))) + ';\n' +
     'const routes = ' + JSON.stringify(allRoutes()) + ';\n' +
     'function hasMemberDetails(member) { return member.detailed; }\nfunction allRoutes() { return routes; }\n' +
-    [shared.pathFor, shared.hrefFor, shared.legacyDestination, shared.normalizeIntent].map(fn => fn.toString()).join('\n') + '\n';
+    [shared.pathFor, shared.hrefFor, shared.legacyDestination].map(fn => fn.toString()).join('\n') + '\n';
   const browserScripts = ['site-runtime.js', 'app.js'];
   const versions = { 'site-runtime.js': hash(runtime).slice(0, 12) };
   for (const file of ['app.js', 'styles.css']) versions[file] = hash(await readFile(resolve(root, file))).slice(0, 12);

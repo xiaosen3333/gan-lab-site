@@ -49,7 +49,7 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
 });
 
 test('legacy routes preserve members, thin identities, intents, filters and query location', async () => {
-  const { legacyDestination: resolveLegacy, normalizeIntent, site } = await loadSite();
+  const { legacyDestination: resolveLegacy, site } = await loadSite();
   const base = site.basePath;
   const cases = [
     ['#/people/li-zejian', '/gan-lab-site/people/li-zejian/'],
@@ -58,10 +58,10 @@ test('legacy routes preserve members, thin identities, intents, filters and quer
     ['#/people?member=zhang-jiahui', '/gan-lab-site/people/#member-zhang-jiahui'],
     ['#/people/zhang-jiahui', '/gan-lab-site/people/#member-zhang-jiahui'],
     ['#/people?focus=liu-qi', '/gan-lab-site/people/#member-liu-qi'],
-    ['#/contact?intent=join', '/gan-lab-site/contact/?intent=join#contact-panel-join'],
-    ['#/contact?intent=constructor', '/gan-lab-site/contact/?intent=constructor'],
-    ['#/contact?intent=__proto__', '/gan-lab-site/contact/?intent=__proto__'],
-    ['#/contact?intent=toString', '/gan-lab-site/contact/?intent=toString'],
+    ['#/contact?intent=join', '/gan-lab-site/contact/'],
+    ['#/contact?intent=constructor', '/gan-lab-site/contact/'],
+    ['#/contact?intent=__proto__', '/gan-lab-site/contact/'],
+    ['#/contact?intent=toString', '/gan-lab-site/contact/'],
     ['#/outputs?type=tools', '/gan-lab-site/outputs/?type=tools'],
     ['#/admin/review', '/gan-lab-site/'],
     ['#/preview', '/gan-lab-site/'],
@@ -72,8 +72,6 @@ test('legacy routes preserve members, thin identities, intents, filters and quer
   assert.equal(resolveLegacy({ pathname: base + 'outputs/', search: '?member=zhang-jiahui' }), base + 'people/#member-zhang-jiahui');
   assert.equal(resolveLegacy({ pathname: base + 'not-found/', hash: '' }), null);
   assert.equal(resolveLegacy({ pathname: base + 'contact/', search: '?intent=join', hash: '#contact-panel-join' }), null);
-  for (const invalid of ['constructor', '__proto__', 'toString', '', null]) assert.equal(normalizeIntent(invalid), 'academic');
-  for (const valid of ['academic', 'culture', 'join']) assert.equal(normalizeIntent(valid), valid);
 });
 
 test('raw HTTP returns every static page and resource, real unknown-path 404, and directory redirects', async () => {

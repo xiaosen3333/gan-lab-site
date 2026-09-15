@@ -2,7 +2,6 @@
 // Generated from site.config.json and the shared route rules.
 const site = Object.freeze({"origin":"https://xiaosen3333.github.io","basePath":"/gan-lab-site/","name":"GAN lab"});
 const members = [{"id":"li-zejian","detailed":true},{"id":"chen-pei","detailed":true},{"id":"zhang-shengyuan","detailed":true},{"id":"chen-tianrun","detailed":true},{"id":"hou-lefan","detailed":true},{"id":"meng-chenye","detailed":true},{"id":"zhang-ying","detailed":true},{"id":"zhang-jiahui","detailed":false},{"id":"liu-qi","detailed":true},{"id":"zhang-jiesi","detailed":true},{"id":"hu-xiangfei","detailed":true},{"id":"pan-jiaman","detailed":true},{"id":"ma-jiarui","detailed":true},{"id":"li-yize","detailed":true},{"id":"jia-kaixin","detailed":true},{"id":"zheng-xiuqi","detailed":true},{"id":"sun-zhongjian","detailed":true},{"id":"huang-rui","detailed":true},{"id":"feng-linya","detailed":false},{"id":"xie-changle","detailed":true},{"id":"zhao-an","detailed":true},{"id":"zhu-kewen","detailed":true},{"id":"zhang-hongjian","detailed":true},{"id":"zheng-weiting","detailed":true},{"id":"liu-zhongni","detailed":true},{"id":"mao-rongjie","detailed":true},{"id":"tian-shujun","detailed":false},{"id":"xiao-yuxuan","detailed":false},{"id":"zhu-yangrui","detailed":true},{"id":"yang-xihao","detailed":false},{"id":"yuan-jiaxin","detailed":false}];
-const contactIntents = {"academic":true,"culture":true,"join":true};
 const routes = ["/","/research","/outputs","/people","/about","/contact","/research/disback","/research/ink-restorer","/research/poempalette","/people/li-zejian","/people/chen-pei","/people/zhang-shengyuan","/people/chen-tianrun","/people/hou-lefan","/people/meng-chenye","/people/zhang-ying","/people/liu-qi","/people/zhang-jiesi","/people/hu-xiangfei","/people/pan-jiaman","/people/ma-jiarui","/people/li-yize","/people/jia-kaixin","/people/zheng-xiuqi","/people/sun-zhongjian","/people/huang-rui","/people/xie-changle","/people/zhao-an","/people/zhu-kewen","/people/zhang-hongjian","/people/zheng-weiting","/people/liu-zhongni","/people/mao-rongjie","/people/zhu-yangrui"];
 function hasMemberDetails(member) { return member.detailed; }
 function allRoutes() { return routes; }
@@ -21,9 +20,7 @@ function hrefFor(route) {
       parsed.hash = 'member-' + id;
     }
   }
-  if (path === '/contact' && Object.hasOwn(contactIntents, parsed.searchParams.get('intent'))) {
-    parsed.hash = 'contact-panel-' + parsed.searchParams.get('intent');
-  }
+  if (path === '/contact') return pathFor('/contact');
   return pathFor(path) + parsed.search + parsed.hash;
 }
 function legacyDestination({ pathname, search = '', hash = '' }) {
@@ -49,4 +46,3 @@ function legacyDestination({ pathname, search = '', hash = '' }) {
   if (!allRoutes().includes(path)) return pathFor('/not-found');
   return hrefFor(path + route.search + route.hash);
 }
-function normalizeIntent(value) { return Object.hasOwn(contactIntents, value) ? value : 'academic'; }

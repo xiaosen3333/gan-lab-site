@@ -31,7 +31,7 @@ if (legacyTarget) {
     list.setAttribute('role', 'tablist');
     list.parentElement.classList.add('tabs-enhanced');
     for (const tab of tabs) {
-      const id = selector === '[data-intent]' ? tab.dataset.intent : tab.dataset.perspective;
+      const id = tab.dataset.perspective;
       const panel = $(panelPrefix + id);
       const selected = id === String(value);
       tab.setAttribute('role', 'tab');
@@ -44,11 +44,6 @@ if (legacyTarget) {
   }
 
   function enhanceTabs() {
-    const query = new URLSearchParams(location.search);
-    let intent = query.get('intent');
-    const hashIntent = location.hash.match(/^#contact-panel-(academic|culture|join)$/)?.[1];
-    if (hashIntent) intent = hashIntent;
-    selectTab('[data-intent]', normalizeIntent(intent), 'contact-panel-');
     const perspective = location.hash.match(/^#perspective-panel-([012])$/)?.[1] || '0';
     selectTab('[data-perspective]', perspective, 'perspective-panel-');
   }
@@ -70,12 +65,6 @@ if (legacyTarget) {
       // Keep the selected perspective in this entry's real fragment for Back/Forward.
       history.replaceState(history.state, '', link.href);
       selectTab('[data-perspective]', link.dataset.perspective, 'perspective-panel-');
-      return;
-    }
-    if (link.dataset.intent) {
-      event.preventDefault();
-      history.replaceState(history.state, '', link.href);
-      selectTab('[data-intent]', link.dataset.intent, 'contact-panel-');
       return;
     }
     const target = new URL(link.href);
