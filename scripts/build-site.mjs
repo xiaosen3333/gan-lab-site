@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-export const sourceScripts = ['research.js', 'team.js', 'publications.js', 'renderer.js', 'app.js'];
+export const sourceScripts = ['research.js', 'team.js', 'publications.js', 'projects.js', 'renderer.js', 'app.js'];
 const hash = content => createHash('sha256').update(content).digest('hex');
 export async function loadSite() {
   const configuration = JSON.parse(await readFile(resolve(root, 'site.config.json'), 'utf8'));
@@ -16,7 +16,7 @@ export async function loadSite() {
   for (const file of sourceScripts.slice(0, -1)) {
     vm.runInContext(await readFile(resolve(root, file), 'utf8'), context, { filename: file });
   }
-  return vm.runInContext('({ site, allRoutes, pageFor, structuredData, publicHTML, pathFor, escapeHTML, members, works, publications, hasMemberDetails, presentation, hrefFor, legacyDestination })', context);
+  return vm.runInContext('({ site, allRoutes, pageFor, structuredData, publicHTML, pathFor, escapeHTML, members, works, publications, projects, projectCapabilities, projectPartners, hasMemberDetails, presentation, hrefFor, legacyDestination })', context);
 }
 export async function generate() {
   const shared = await loadSite();
@@ -76,7 +76,7 @@ export async function build({ check = false } = {}) {
   }
   if (check) {
     if (differences.length || stale.length) throw new Error('Generated files are missing or stale. Run npm run build: ' + [...differences, ...stale].join(', '));
-    return { pages: 34, changed: 0 };
+    return { pages: [...output.keys()].filter(file => file.endsWith('.html') && file !== '404.html').length, changed: 0 };
   }
   // Remove only obsolete, unchanged artifacts owned by the previous manifest.
   for (const file of stale) {
@@ -90,7 +90,7 @@ export async function build({ check = false } = {}) {
     await mkdir(dirname(resolve(root, file)), { recursive: true });
     await writeFile(resolve(root, file), output.get(file));
   }
-  return { pages: 34, changed: differences.length };
+  return { pages: [...output.keys()].filter(file => file.endsWith('.html') && file !== '404.html').length, changed: differences.length };
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const result = await build({ check: process.argv.includes('--check') });

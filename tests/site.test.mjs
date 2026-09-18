@@ -44,6 +44,23 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
     assert.match(migratedSitemap, /https:\/\/gan\.example\.edu\/research\/disback\//);
     for (const content of [migratedHome, migratedMember, migratedSitemap, migratedRuntime]) assert.ok(!content.includes('xiaosen3333.github.io') && !content.includes('/gan-lab-site/'));
     assert.equal(run().status, 0);
+    for (const url of ['https://gan.example.edu/', 'https://gan.example.edu/design/gan/']) {
+      await writeFile(resolve(temporary, 'site.config.json'), JSON.stringify({ url, name: 'GAN lab' }));
+      const result = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd: temporary, encoding: 'utf8' });
+      assert.equal(result.status, 0, result.stderr);
+      const projectHTML = await readFile(resolve(temporary, 'projects/index.html'), 'utf8');
+      const prefix = new URL(url).pathname;
+      assert.ok(projectHTML.includes(`rel="canonical" href="${url}projects/"`));
+      assert.ok(projectHTML.includes(`href="${prefix}projects/#canal-growth"`));
+      assert.ok(projectHTML.includes(`src="${prefix}assets/projects/moworld-teaser.jpg"`));
+      assert.ok(projectHTML.includes(`href="${prefix}assets/projects/ai-history-atlas.jpg"`));
+      assert.ok(projectHTML.includes(`href="${prefix}assets/favicon-32.png"`));
+      assert.ok(!projectHTML.includes('xiaosen3333.github.io') && !projectHTML.includes('/gan-lab-site/'));
+      const generatedSitemap = await readFile(resolve(temporary, 'sitemap.xml'), 'utf8');
+      assert.equal((generatedSitemap.match(/<loc>/g) || []).length, 35);
+      assert.ok(generatedSitemap.includes(`<loc>${url}projects/</loc>`));
+      assert.equal(run().status, 0);
+    }
 
   } finally { await rm(temporary, { recursive: true, force: true }); }
 });
@@ -53,6 +70,8 @@ test('legacy routes preserve members, thin identities, intents, filters and quer
   const base = site.basePath;
   const cases = [
     ['#/people/li-zejian', '/gan-lab-site/people/li-zejian/'],
+    ['#/projects#canal-growth', '/gan-lab-site/projects/#canal-growth'],
+    ['#/projects/unknown', '/gan-lab-site/not-found/'],
     ['#/research/disback', '/gan-lab-site/research/disback/'],
     ['#/outputs?member=li-zejian', '/gan-lab-site/people/li-zejian/'],
     ['#/people?member=zhang-jiahui', '/gan-lab-site/people/#member-zhang-jiahui'],
@@ -86,7 +105,7 @@ test('raw HTTP returns every static page and resource, real unknown-path 404, an
       assert.equal(response.status, 200);
       assert.match(await response.text(), /<main[^>]*>[\s\S]+<h1/);
     }
-    for (const path of ['/gan-lab-site/not-found/', '/gan-lab-site/people/zhang-jiahui/', '/gan-lab-site/research/unknown/']) {
+    for (const path of ['/gan-lab-site/not-found/', '/gan-lab-site/people/zhang-jiahui/', '/gan-lab-site/research/unknown/', '/gan-lab-site/projects/unknown/']) {
       const response = await fetch(base + path.replace('/gan-lab-site/', prefix));
       assert.equal(response.status, 404);
       const html = await response.text();
@@ -96,8 +115,66 @@ test('raw HTTP returns every static page and resource, real unknown-path 404, an
     const redirect = await fetch(base + prefix + 'research?test=1', { redirect: 'manual' });
     assert.equal(redirect.status, 301);
     assert.equal(redirect.headers.get('location'), prefix + 'research/?test=1');
-    for (const file of ['assets/culture-computation-concept.webp', 'assets/contact-channel.png', 'sitemap.xml', '404.html', ...sourceScripts, 'styles.css']) {
+    for (const file of ['assets/culture-computation-concept.webp', 'assets/contact-channel.png', 'assets/projects/moworld-teaser.jpg', 'assets/projects/canal-growth.jpg', 'assets/projects/moran.jpg', 'assets/projects/ai-history-atlas.jpg', 'assets/favicon-16.png', 'assets/favicon-32.png', 'sitemap.xml', '404.html', ...sourceScripts, 'styles.css']) {
       assert.equal((await fetch(base + prefix + file)).status, 200);
     }
   } finally { await new Promise(resolve => server.close(resolve)); }
+});
+
+test('Back restores the clicked project or member card and the history entry scroll position', async () => {
+  const { site } = await loadSite();
+  const runtime = await readFile(resolve(root, 'site-runtime.js'), 'utf8');
+  const enhancement = await readFile(resolve(root, 'app.js'), 'utf8');
+  for (const item of [
+    { className: 'project-card', id: 'project-card-canal-growth', from: '', to: 'projects/#canal-growth' },
+    { className: 'person-card', id: 'member-li-zejian', from: 'people/', to: 'people/li-zejian/' },
+  ]) {
+    // A small event surface exercises the shipped script's click/pagehide/pageshow flow.
+    // Real browser rendering, focus rings and scrolling are verified separately in the UI.
+    const createPage = ({ state = null, back = false, y = 1014 } = {}) => {
+      const documentEvents = {}, windowEvents = {};
+      const location = new URL('http://127.0.0.1' + site.basePath + item.from);
+      const body = { id: '', closest: () => null };
+      let document;
+      const card = {
+        id: item.id,
+        closest: selector => selector.split(',').map(value => value.trim()).includes('.' + item.className) ? card : null,
+        hasAttribute: () => true,
+        focus: () => { document.activeElement = card; },
+      };
+      document = {
+        activeElement: body,
+        getElementById: id => id === card.id ? card : null,
+        querySelectorAll: () => [],
+        addEventListener: (name, handler) => { documentEvents[name] = handler; },
+      };
+      const history = { state, replaceState: next => { history.state = next; } };
+      const window = {
+        scrollX: 0, scrollY: y,
+        addEventListener: (name, handler) => { windowEvents[name] = handler; },
+        scrollTo: ({ left = 0, top = 0 }) => { window.scrollX = left; window.scrollY = top; },
+      };
+      const context = vm.createContext({
+        URL, URLSearchParams, location, document, history, window,
+        performance: { getEntriesByType: () => [{ type: back ? 'back_forward' : 'navigate' }] },
+        requestAnimationFrame: callback => callback(), matchMedia: () => ({ matches: true }),
+      });
+      vm.runInContext(runtime, context);
+      vm.runInContext(enhancement, context);
+      windowEvents.pageshow({ persisted: false });
+      return { document, history, window, documentEvents, windowEvents, card };
+    };
+    const first = createPage();
+    const link = {
+      href: 'http://127.0.0.1' + site.basePath + item.to,
+      dataset: {}, target: '', hasAttribute: () => false,
+      closest: selector => first.card.closest(selector),
+    };
+    first.documentEvents.click({ button: 0, target: { closest: () => link } });
+    first.windowEvents.pagehide();
+    assert.equal(first.history.state.ganView.focusId, item.id);
+    const restored = createPage({ state: first.history.state, back: true, y: 0 });
+    assert.equal(restored.document.activeElement.id, item.id);
+    assert.equal(restored.window.scrollY, 1014);
+  }
 });

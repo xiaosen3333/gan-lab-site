@@ -5,18 +5,18 @@
 ## 内容真源与生成物
 
 ```text
-research.js + team.js + publications.js
+research.js + team.js + publications.js + projects.js
                   ↓
 renderer.js + templates/shell.html + site.config.json
                   ↓ npm run build
-34 个正文 HTML + 404.html + sitemap.xml + site-runtime.js
+35 个正文 HTML + 404.html + sitemap.xml + site-runtime.js
                   ↓
 GitHub Pages main/root
 ```
 
-三个数据文件分别维护研究、成员、论文关系。共享渲染层维护正文结构、可见字段、URL 与元信息规则。模板只保存页面壳；构建不会读取上一次生成的 index.html 作为输入。
+四个数据文件分别维护研究、成员、论文关系和项目作品。共享渲染层维护正文结构、可见字段、URL 与元信息规则。模板只保存页面壳；构建不会读取上一次生成的 index.html 作为输入。
 
-当前 34 个公开页面由 6 个栏目、3 项研究和 25 个有实质资料的成员页组成。完整名录保留 31 位成员，6 位资料较少者仅展示身份；28 条书目不额外生成薄论文详情页。生成器通过 manifest 管理派生文件，仅清理不再使用且未经手工修改的旧输出。
+当前 35 个公开页面由 7 个栏目、3 项研究和 25 个有实质资料的成员页组成。完整名录保留 31 位成员，6 位资料较少者仅展示身份；28 条书目不额外生成薄论文详情页。生成器通过 manifest 管理派生文件，仅清理不再使用且未经手工修改的旧输出。
 
 ## URL 与渐进增强
 
@@ -32,7 +32,7 @@ GitHub Pages main/root
 
 正文与结构化数据只表达已公开事实；学位 Title 不映射成职业资格，不把团队参与者子集写成完整作者列表。六个 `presentation` 开关继续控制隐藏字段。邮箱保持图片，不输出明文邮箱、mailto 或隐藏的结构化字段。
 
-首页使用现有概念视觉的无损 WebP，保留 PNG 回退与分享图。它是概念图，不表示研究实验或修复结果。
+首页主视觉使用现有概念视觉的无损 WebP，保留 PNG 回退与分享图。它是概念图，不表示研究实验或修复结果。项目与作品使用各自真实媒体，首页精选和项目页复用 projects.js，四项内容通过稳定锚点访问。图谱仅在独立视窗横向滚动，完整原图链接也经过统一部署路径处理。
 
 ## 检查与迁域名
 

@@ -11,7 +11,7 @@ if (legacyTarget) {
 
   function rememberView(focusId) {
     if (!ready) return;
-    const activeCard = document.activeElement?.closest('.person-card');
+    const activeCard = document.activeElement?.closest('.person-card, .project-card');
     const view = { x: window.scrollX, y: window.scrollY, focusId: focusId || activeCard?.id || history.state?.ganView?.focusId || null };
     history.replaceState({ ...history.state, ganView: view }, '', location.href);
   }
@@ -75,7 +75,7 @@ if (legacyTarget) {
       focusSection(target.hash.slice(1), { smooth: true });
       return;
     }
-    rememberView(link.closest('.person-card')?.id);
+    rememberView(link.closest('.person-card, .project-card')?.id);
   });
 
   document.addEventListener('keydown', event => {

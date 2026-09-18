@@ -77,3 +77,59 @@
 /* Reserve space for the two-row mobile header when following real anchors. */
 .perspective-panel,.project-body section{scroll-margin-top:16px}
 @media(max-width:760px){html{scroll-padding-top:132px}}
+
+/* Projects share the existing typography, line work and reading rhythm. */
+.featured-projects{padding-block:50px 60px;border-top:1px solid var(--line)}
+.featured-projects .section-topline .section-subtitle{margin-top:10px}
+.project-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.project-card{min-width:0}
+.project-card-link{display:block}
+.project-card-image{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:#f1f1ef}
+.project-card-image img{width:100%;height:100%;object-fit:contain}
+.project-card figcaption,.project-figure figcaption,.atlas-figure figcaption{font-size:11px;line-height:1.7;color:var(--muted);margin-top:9px}
+.project-card h3{font-size:24px;font-weight:500;margin-top:20px;letter-spacing:-.02em}
+.project-card-category{font-size:14px;color:var(--muted);margin-top:8px}
+.project-card-action{display:inline-flex;align-items:center;gap:12px;color:var(--blue);font-size:13px;min-height:44px;margin-top:8px}
+.project-index{display:flex;gap:12px 28px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:10px;margin-bottom:44px}
+.project-index a{display:inline-flex;align-items:center;min-height:40px;font-size:13px;color:var(--muted)}
+.project-index a:hover{color:var(--blue)}
+.portfolio-entry{padding-bottom:50px;margin-bottom:46px;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+.portfolio-entry:focus{outline:none}
+.portfolio-entry:focus-visible .portfolio-heading h2,.project-card:focus-visible h3,.atlas-scroll:focus-visible{outline:2px solid var(--blue);outline-offset:5px}
+.portfolio-heading{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:25px}
+.portfolio-heading .hero-kicker{margin-bottom:10px}
+.portfolio-heading h2{font-size:32px;font-weight:500;letter-spacing:-.025em}
+.portfolio-period{font-size:12px;color:var(--muted);max-width:25em;text-align:right}
+.portfolio-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:42px;align-items:start}
+.project-figure img{width:100%;height:auto}
+.portfolio-copy{min-width:0}
+.portfolio-copy>p{font-size:15px;line-height:1.9;color:var(--muted)}
+.portfolio-copy>p+p{margin-top:14px}
+.project-credits{font-size:12px;line-height:1.9;margin-top:25px;padding-top:18px;border-top:1px solid var(--line)}
+.project-credits>div{display:grid;grid-template-columns:68px minmax(0,1fr);gap:12px;margin-top:5px}
+.project-credits dt{color:var(--muted)}
+.project-credits dd{margin:0}
+.project-credits a{border-bottom:1px solid var(--line)}
+.project-source-links{display:flex;flex-wrap:wrap;gap:4px 23px;margin-top:18px}
+.atlas-figure{min-width:0}
+.atlas-scroll{--atlas-height:360px;overflow-x:auto;overflow-y:hidden;max-width:100%;background:#141116;overscroll-behavior-x:contain}
+.atlas-track{position:relative;width:calc(var(--atlas-height) * 12799 / 1080);height:var(--atlas-height)}
+.atlas-track img{position:absolute;top:0;left:0;width:var(--atlas-height);height:auto;max-width:none;transform-origin:top left;transform:translateY(var(--atlas-height)) rotate(-90deg)}
+.atlas-figure figcaption span{display:block;margin-top:3px}
+.project-capabilities{padding-bottom:43px;border-bottom:1px solid var(--line)}
+.capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px;margin-top:28px}
+.capability-grid h3{font-size:22px;font-weight:500}
+.capability-grid p{font-size:14px;line-height:1.9;color:var(--muted);margin-block:13px}
+.capability-grid article>div{display:flex;flex-direction:column;align-items:flex-start}
+.project-partners{padding-block:40px 50px}
+.project-partners ul{padding:0;list-style:none;display:flex;gap:20px 48px;flex-wrap:wrap;margin-block:28px 24px}
+.project-partners li{font-size:21px}
+@media(max-width:1000px){.project-cards{gap:20px}.project-card h3{font-size:22px}.portfolio-body{gap:28px}.capability-grid{gap:25px}.portfolio-heading{align-items:flex-start}}
+@media(max-width:760px){
+ .featured-projects{padding-block:35px 42px}.project-cards{grid-template-columns:1fr;gap:34px}.project-card-image{aspect-ratio:4/3}.project-card h3{margin-top:16px;font-size:25px}
+ .project-index{gap:4px 21px;margin-bottom:30px}.project-index a{font-size:12px}
+ .portfolio-entry{padding-bottom:32px;margin-bottom:32px}.portfolio-heading{display:block;margin-bottom:21px}.portfolio-heading h2{font-size:27px}.portfolio-period{text-align:left;margin-top:12px;max-width:none}
+ .portfolio-body{grid-template-columns:1fr;gap:23px}.portfolio-copy>p{font-size:15px}.project-credits{margin-top:21px}.atlas-scroll{--atlas-height:320px}
+ .capability-grid{grid-template-columns:1fr;gap:28px}.capability-grid h3{font-size:22px}.project-capabilities{padding-bottom:33px}.project-partners{padding-block:32px 39px}.project-partners ul{gap:18px 32px}.project-partners li{font-size:19px}
+ .header-inner nav{gap:12px}
+}

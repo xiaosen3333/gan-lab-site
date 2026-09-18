@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { root, loadSite } from './build-site.mjs';
@@ -7,9 +7,9 @@ import { root, loadSite } from './build-site.mjs';
 const values = (html, expression) => [...html.matchAll(expression)].map(match => match[1]);
 const decode = value => value.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 export async function checkSite() {
-  const { site, allRoutes, members, publications, works, hasMemberDetails, pathFor, presentation } = await loadSite();
+  const { site, allRoutes, members, publications, works, projects, projectPartners, hasMemberDetails, pathFor, presentation } = await loadSite();
   const routes = Array.from(allRoutes());
-  assert.equal(routes.length, 34);
+  assert.equal(routes.length, 35);
   assert.equal(members.length, 31);
   assert.equal(publications.length, 28);
   assert.equal(works.length, 3);
@@ -47,7 +47,7 @@ export async function checkSite() {
       assert.equal(person.name, members.find(member => route.endsWith('/' + member.id)).name);
     }
   }
-  assert.equal(titles.size, 34); assert.equal(descriptions.size, 34); assert.equal(canonicals.size, 34);
+  assert.equal(titles.size, 35); assert.equal(descriptions.size, 35); assert.equal(canonicals.size, 35);
   for (const [path, html] of pages) {
     const links = values(html, /(?:href|src|srcset)="([^"]+)"/g);
     for (const raw of links) {
@@ -68,6 +68,39 @@ export async function checkSite() {
   assert.doesNotMatch(contact, /contact-layout|contact-tabs|contact-panel|data-intent|下一步如何展开|交流时可以带上/);
   assert.ok(contact.includes('assets/contact-channel.png'));
   assert.ok(!/\shidden(?:[\s=>])/.test(home + contact), 'Initial panels are visible without JavaScript');
+  const projectHTML = pages.get(pathFor('/projects'));
+  assert.equal(projects.length, 4);
+  assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas']);
+  assert.equal(projects.filter(project => project.featured).length, 3);
+  assert.equal((home.match(/class="project-card"/g) || []).length, 3);
+  assert.equal((projectHTML.match(/class="portfolio-entry"/g) || []).length, 4);
+  assert.deepEqual(Array.from(projectPartners), ['字节跳动', '吉利', '阿里巴巴', '大疆']);
+  for (const project of projects) {
+    assert.ok(projectHTML.includes(`id="${project.id}"`), 'Stable project anchor: ' + project.id);
+    assert.ok(projectHTML.includes(project.title));
+    assert.ok(projectHTML.includes(`src="${site.basePath}${project.media.path}"`));
+    assert.ok(projectHTML.includes(`width="${project.media.width}" height="${project.media.height}"`));
+    assert.ok((await stat(resolve(root, project.media.path))).size < 4 * 1024 * 1024, 'Project images stay below 4 MB');
+    if (project.featured) {
+      assert.ok(home.includes(`href="${pathFor('/projects')}#${project.id}"`));
+      assert.ok(home.includes(`id="project-card-${project.id}" tabindex="-1"`));
+    }
+    for (const credit of project.credits) for (const person of credit.people) {
+      if (person.memberId) assert.equal(members.find(member => member.id === person.memberId)?.name, person.name, 'Credit matches confirmed member');
+      assert.ok(projectHTML.includes(person.name), 'Visible credit: ' + person.name);
+    }
+    for (const link of project.links) {
+      assert.ok(['http:', 'https:'].includes(new URL(link.url).protocol));
+      assert.ok(projectHTML.includes(`href="${link.url}"`));
+    }
+  }
+  for (const partner of projectPartners) assert.ok(projectHTML.includes(`<li>${partner}</li>`));
+  assert.ok(projectHTML.includes('class="atlas-scroll" role="region" tabindex="0"'));
+  assert.ok(projectHTML.includes(`href="${site.basePath}assets/projects/ai-history-atlas.jpg"`));
+  assert.doesNotMatch(projectHTML, /战略合作|独立研发|已开源部署|Coming Soon|canal-30|ai-history-1\.jpg/);
+  const projectSchema = JSON.parse(values(projectHTML, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)[0]);
+  assert.ok(projectSchema['@graph'].some(node => node['@type'] === 'CollectionPage'));
+  assert.ok(!projectSchema['@graph'].some(node => node.creator || node.sponsor));
   assert.equal((pages.get(pathFor('/outputs')).match(/class="paper-row"/g) || []).length, 28);
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card"/g) || []).length, 31);
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card-link" href=/g) || []).length, 25);

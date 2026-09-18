@@ -13,7 +13,8 @@ const heading=(title,description='',crumb='')=>`<div class="page-heading">${crum
 function perspectivePanel(i){const p=perspectives[i],w=works.find(w=>w.id===p.work);return `<h3>${p.question}</h3><p>${p.body}</p>${inline('#/research/'+w.id,'关联研究：'+w.name)}`;}
 function workRows(){return works.map(w=>`<article class="work-row"><div class="work-year">${w.venue} / ${w.year}<span>${w.theme}</span></div><div><h3><a href="#/research/${w.id}">${w.name}</a></h3><p>${w.summary}</p></div>${inline('#/research/'+w.id,'阅读研究')}</article>`).join('');}
 function home(){return `<div class="shell">
- <section class="hero" aria-labelledby="home-title"><div class="hero-copy"><p class="hero-kicker">GAN lab / 浙江大学团队</p><h1 id="home-title">AI、人机交互<br>与传统文化<span>。</span></h1><p class="hero-description">研究生成模型与人机协作，<br class="desktop-break">应用于古画修复、诗画创作与文化体验。</p><div class="hero-actions">${arrow('#/research','了解我们的研究')}<a class="quiet-link" href="#/people">认识团队 ${iconArrow}</a></div></div><figure class="hero-image"><picture><source srcset="assets/culture-computation-concept.webp" type="image/webp"><img src="assets/culture-computation-concept.png" alt="水墨山形与同形采样点云的黑白概念视觉" width="1536" height="1024" fetchpriority="high"></picture></figure><div class="hero-caption"><span>Culture × Computation</span><span>原创概念视觉</span></div></section>
+ <section class="hero" aria-labelledby="home-title"><div class="hero-copy"><p class="hero-kicker">GAN lab / 浙江大学团队</p><h1 id="home-title">AI、人机交互<br>与传统文化<span>。</span></h1><p class="hero-description">开展生成模型蒸馏、交互系统研发<br class="desktop-break">与文化作品创作。</p><div class="hero-actions">${arrow('#/projects','查看项目与作品')}<a class="quiet-link" href="#/research">了解研究 ${iconArrow}</a></div></div><figure class="hero-image"><picture><source srcset="assets/culture-computation-concept.webp" type="image/webp"><img src="assets/culture-computation-concept.png" alt="水墨山形与同形采样点云的黑白概念视觉" width="1536" height="1024" fetchpriority="high"></picture></figure><div class="hero-caption"><span>Culture × Computation</span><span>原创概念视觉</span></div></section>
+ ${featuredProjects()}
  <section class="research-intro" aria-labelledby="questions-title"><h2 class="section-title" id="questions-title">研究方向</h2><div class="perspectives"><div class="perspective-menu" aria-label="研究视角">${perspectives.map((p,i)=>`<a id="perspective-tab-${i}" href="#perspective-panel-${i}" data-perspective="${i}">${p.title}${iconArrow}</a>`).join('')}</div><div class="perspective-panels">${perspectives.map((p,i)=>`<section class="perspective-panel" id="perspective-panel-${i}" aria-labelledby="perspective-tab-${i}">${perspectivePanel(i)}</section>`).join('')}</div></div></section>
  <section class="featured-section" aria-labelledby="featured-title"><div class="section-topline"><div><h2 class="section-title" id="featured-title">精选研究</h2><p class="section-subtitle">导师参与的公开研究。</p></div>${inline('#/outputs','查看论文')}</div><div class="work-list">${workRows()}</div></section>
  <section class="lab-section" aria-labelledby="lab-title"><div><h2 class="section-title" id="lab-title">关于 GAN lab</h2><p>我们是浙江大学团队，导师为李泽健。关注生成模型、人机协作，以及智能技术与传统文化的交叉研究。</p><div class="resource-names"><span>相关学术资源</span><span>浙江大学国际设计研究院</span><span>浙江大学软件学院 · 浙江大学人工智能学院</span></div>${inline('#/about','了解团队背景')}</div></section>
@@ -120,10 +121,10 @@ function publicHTML(html, route = '/') {
   return html
     .replace(/href="#\/([^"]*)"/g, (_, target) => `href="${escapeHTML(hrefFor('/' + target))}"`)
     .replace(/href="#(work-[^"]+|perspective-panel-[^"]+)"/g, (_, id) => `href="${pathFor(route)}#${id}"`)
-    .replace(/(src|srcset)="assets\//g, `$1="${site.basePath}assets/`);
+    .replace(/(href|src|srcset)="assets\//g, `$1="${site.basePath}assets/`);
 }
 function allRoutes() {
-  return ['/', '/research', '/outputs', '/people', '/about', '/contact',
+  return ['/', '/projects', '/research', '/outputs', '/people', '/about', '/contact',
     ...works.map(work => '/research/' + work.id),
     ...members.filter(hasMemberDetails).map(member => '/people/' + member.id)];
 }
@@ -132,7 +133,10 @@ function pageFor(route) {
   if (route === '/') {
     html = home();
     title = 'GAN lab｜浙江大学 AI、人机交互与传统文化研究团队';
-    description = 'GAN lab 是浙江大学团队，导师为李泽健。研究生成模型与人机协作，应用于古画修复、诗画创作与文化体验。';
+    description = 'GAN lab 是浙江大学团队，导师为李泽健。开展生成模型蒸馏、交互系统研发与文化作品创作。';
+  } else if (route === '/projects') {
+    html = projectsPage(); title = '项目与作品｜GAN lab'; nav = 'projects'; kind = 'CollectionPage';
+    description = 'GAN lab 团队成员参与的系统研发与文化创作，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
   } else if (route === '/research') {
     html = research(); title = '研究｜GAN lab'; nav = 'research'; kind = 'CollectionPage';
     description = 'GAN lab 的生成模型、人机协作与文化创作研究，包括 DisBack、Ink Restorer 和 PoemPalette。';
@@ -183,7 +187,7 @@ function structuredData(page) {
     const isDetail = /^\/(research|people)\//.test(page.route);
     const parent = isDetail ? '/' + page.route.split('/')[1] : '/';
     const parentName = parent === '/research' ? '研究' : parent === '/people' ? '团队' : '首页';
-    const currentName = page.person?.name || works.find(work => page.route === '/research/' + work.id)?.name || ({ '/research': '研究', '/outputs': '论文', '/people': '团队', '/about': '关于', '/contact': '交流与合作' })[page.route];
+    const currentName = page.person?.name || works.find(work => page.route === '/research/' + work.id)?.name || ({ '/projects': '项目与作品', '/research': '研究', '/outputs': '论文', '/people': '团队', '/about': '关于', '/contact': '交流与合作' })[page.route];
     graph.push({ '@type': 'BreadcrumbList', '@id': url + '#breadcrumb', itemListElement: [
       { '@type': 'ListItem', position: 1, name: parentName, item: site.origin + pathFor(parent) },
       { '@type': 'ListItem', position: 2, name: currentName, item: url },
@@ -215,4 +219,61 @@ function legacyDestination({ pathname, search = '', hash = '' }) {
   if (member && !hasMemberDetails(member)) return pathFor('/people') + '#member-' + member.id;
   if (!allRoutes().includes(path)) return pathFor('/not-found');
   return hrefFor(path + route.search + route.hash);
+}
+
+function projectImage(media, className = '') {
+  return `<img${className ? ` class="${className}"` : ''} src="${escapeHTML(media.path)}" alt="${escapeHTML(media.alt)}" width="${media.width}" height="${media.height}" loading="lazy" decoding="async">`;
+}
+
+function featuredProjects() {
+  return `<section class="featured-projects" aria-labelledby="projects-title">
+    <div class="section-topline"><div><h2 class="section-title" id="projects-title">项目与作品</h2><p class="section-subtitle">团队成员参与的系统研发与文化创作。</p></div>${inline('#/projects', '全部项目')}</div>
+    <div class="project-cards">${projects.filter(project => project.featured).map(project => `<article class="project-card" id="project-card-${project.id}" tabindex="-1">
+      <a href="#/projects#${project.id}" class="project-card-link">
+        <figure><div class="project-card-image">${projectImage(project.media)}</div><figcaption>${escapeHTML(project.media.caption)}</figcaption></figure>
+        <h3>${escapeHTML(project.title)}</h3><p class="project-card-category">${escapeHTML(project.category)}</p>
+        <span class="project-card-action">${escapeHTML(project.action)} ${iconArrow}</span>
+      </a>
+    </article>`).join('')}</div>
+  </section>`;
+}
+
+function projectCredits(credits) {
+  return `<dl class="project-credits">${credits.map(credit => `<div><dt>${escapeHTML(credit.role)}</dt><dd>${credit.people.map(person => {
+    const member = members.find(member => member.id === person.memberId);
+    return member && hasMemberDetails(member) ? `<a href="#/people/${member.id}">${escapeHTML(person.name)}</a>` : escapeHTML(person.name);
+  }).join('、')}</dd></div>`).join('')}</dl>`;
+}
+
+function projectFigure(project) {
+  const media = project.media;
+  if (media.rotate === -90) {
+    return `<figure class="atlas-figure">
+      <div class="atlas-scroll" role="region" tabindex="0" aria-label="人工智能发展简史图谱，横向滚动查看" aria-describedby="atlas-instruction">
+        <div class="atlas-track">${projectImage(media)}</div>
+      </div>
+      <figcaption>${escapeHTML(media.caption)}<span id="atlas-instruction">左右滑动查看图谱；键盘可用左右方向键。</span></figcaption>
+      <a class="inline-link" href="${escapeHTML(media.path)}" target="_blank" rel="noopener">查看完整原图 ${iconArrow}</a>
+    </figure>`;
+  }
+  return `<figure class="project-figure">${projectImage(media)}<figcaption>${escapeHTML(media.caption)}</figcaption></figure>`;
+}
+
+function projectsPage() {
+  return `<div class="shell projects-page">
+    ${heading('项目与作品', '团队成员参与的系统研发、生成模型研究与文化创作。', '项目与作品')}
+    <nav class="project-index" aria-label="项目与作品目录">${projects.map(project => `<a href="#/projects#${project.id}">${escapeHTML(project.title)}</a>`).join('')}</nav>
+    <div class="portfolio-list">${projects.map(project => `<article class="portfolio-entry" id="${project.id}" aria-labelledby="${project.id}-title">
+      <div class="portfolio-heading"><div><p class="hero-kicker">${escapeHTML(project.category)}</p><h2 id="${project.id}-title">${escapeHTML(project.title)}</h2></div><p class="portfolio-period">${escapeHTML([project.period, project.venue].filter(Boolean).join(' · '))}</p></div>
+      <div class="portfolio-body">${projectFigure(project)}<div class="portfolio-copy">
+        ${project.description.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('')}
+        ${projectCredits(project.credits)}
+        <div class="project-source-links">${project.links.map(link => `<a class="inline-link" href="${escapeHTML(link.url)}" target="_blank" rel="noopener">${escapeHTML(link.label)} ${iconArrow}</a>`).join('')}</div>
+      </div></div>
+    </article>`).join('')}</div>
+    <section class="project-capabilities" aria-labelledby="capabilities-title"><h2 class="section-title" id="capabilities-title">合作方向</h2>
+      <div class="capability-grid">${projectCapabilities.map(capability => `<article><h3>${escapeHTML(capability.title)}</h3><p>${escapeHTML(capability.description)}</p><div>${capability.links.map(link => inline('#' + link.route, escapeHTML(link.label))).join('')}</div></article>`).join('')}</div>
+    </section>
+    <section class="project-partners" aria-labelledby="partners-title"><h2 class="section-title" id="partners-title">合作经历</h2><ul aria-label="合作单位">${projectPartners.map(partner => `<li>${escapeHTML(partner)}</li>`).join('')}</ul>${inline('#/contact', '交流与合作')}</section>
+  </div>`;
 }

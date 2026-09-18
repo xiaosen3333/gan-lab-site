@@ -1,6 +1,6 @@
 # GAN lab 网站
 
-AI、人机交互与传统文化。原生 HTML、CSS、JavaScript 静态站点，继续通过 GitHub Pages 从 main 分支根目录发布。34 个真实 URL 的 HTML 已包含完整正文，JavaScript 只增强页内切换和旧链接兼容。
+AI、人机交互与传统文化。原生 HTML、CSS、JavaScript 静态站点，继续通过 GitHub Pages 从 main 分支根目录发布。35 个真实 URL 的 HTML 已包含完整正文，JavaScript 只增强页内切换和旧链接兼容。
 
 ## 本地维护与发布
 
@@ -17,7 +17,8 @@ npm run dev
 
 先修改真源，再执行构建、检查、浏览器验收；提交真源及生成物，仍由现有 main/root Pages 发布。`npm run check` 只检查，不修复缺失或过期生成物；失败时先确认真源，再运行 build。内容变更涉及名录或研究数量时，应同步核对验收中的内容计数。
 
-- `research.js`：三项精选研究；`team.js`：成员名录；`publications.js`：论文与成员关联。事实只在这里维护。
+- `research.js`：三项精选研究；`team.js`：成员名录；`publications.js`：论文与成员关联。
+- `projects.js`：四项项目与作品的简介、参与署名、媒体和来源链接，以及合作方向与合作单位。首页精选和项目页共用这份数据。
 - `renderer.js`：共享正文、展示开关、真实 URL 和元信息规则；`templates/shell.html`：页头、页脚及页面壳。
 - `styles.css`：现有视觉和响应式样式；`app.js`：渐进增强、旧 hash/query 兼容、历史位置恢复。
 - `site.config.json`：部署 URL 的唯一配置。域名与部署路径从 `url` 派生。
@@ -39,6 +40,16 @@ npm run dev
 
 主视觉是原创概念图，不是古画、修复结果或实验数据。新增 WebP 与原 PNG 解码像素一致：1,031,086 bytes 对比 1,976,338 bytes，缩小约 47.8%；浏览器优先 WebP，PNG 保留回退与分享图。原始内部材料不进入公开仓库。
 
+## 项目与作品维护
+
+`/projects/` 包含 MoWorld、运河·生长·万象、墨染、人工智能发展简史图谱四项完整条目；稳定锚点依次为 `moworld`、`canal-growth`、`moran`、`ai-history-atlas`。首页三张精选卡片直接进入对应条目，不另造薄详情页。新增或修改项目时更新 `projects.js`，保留准确参与角色，不将联合项目改写为团队独立研发。
+
+原始项目/报道链接与署名在数据和公开条目中保留。MoWorld 配图来自论文 [Figure 1](https://arxiv.org/html/2607.06216v2/teaser.png)，压缩为 2008×1503 JPEG（约 1.18 MB），未裁图；其他作品图片在 `assets/projects/`，不包含全展海报、网页归档或内部证据文件。每张图片保留宽高、alt 和图注，非首屏图片延迟加载。
+
+AI 图谱保留原始 JPEG，CSS 旋转为年代从左至右，独立图像区支持横向触控与键盘滚动，并提供完整原图链接。只让图区横滚，不能使整页超出屏幕。更换域名后的图片、完整原图入口和项目锚点同样由统一 basePath 生成，根目录和子目录迁移都有回归检查。
+
+项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作单位仅列名称，不自行附加项目对应关系、战略伙伴或联合实验室称谓。
+
 ## 更换浙江大学域名时
 
 当前配置仍为 `https://xiaosen3333.github.io/gan-lab-site/`。新的 edu 域名尚未确定，本轮不修改域名、DNS 或证书。
@@ -58,7 +69,7 @@ npm run dev
 
 ## 搜索平台边界
 
-当前 sitemap 为 `https://xiaosen3333.github.io/gan-lab-site/sitemap.xml`，仅包含 34 个规范页面；查询参数、404、管理页、无资料成员与并不存在的论文详情不进入 sitemap。没有可靠修改日期时不虚造 lastmod。公开页已移除 noindex；404 保持 noindex，不输出首页 canonical。
+当前 sitemap 为 `https://xiaosen3333.github.io/gan-lab-site/sitemap.xml`，仅包含 35 个规范页面；查询参数、404、管理页、无资料成员与并不存在的论文详情不进入 sitemap。没有可靠修改日期时不虚造 lastmod。公开页已移除 noindex；404 保持 noindex，不输出首页 canonical。
 
 robots.txt 只在主机根生效。项目中的 `/gan-lab-site/robots.txt` 不能控制 `xiaosen3333.github.io`，所以本仓库不放一个冒充根规则的文件。未来 edu 主机的管理者须在其根目录确认抓取规则与 sitemap 声明。
 
