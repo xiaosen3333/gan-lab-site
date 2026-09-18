@@ -121,15 +121,17 @@
 .capability-grid h3{font-size:22px;font-weight:500}
 .capability-grid p{font-size:14px;line-height:1.9;color:var(--muted);margin-block:13px}
 .capability-grid article>div{display:flex;flex-direction:column;align-items:flex-start}
-.project-partners{padding-block:40px 50px}
-.project-partners ul{padding:0;list-style:none;display:flex;gap:20px 48px;flex-wrap:wrap;margin-block:28px 24px}
-.project-partners li{font-size:21px}
+.project-partners{padding-block:48px 64px}
+.partner-logos{padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:36px}
+.partner-logos li{min-height:116px;display:flex;align-items:center;justify-content:center}
+.partner-logo{display:block;height:auto;max-width:100%;object-fit:contain}
+.partner-logo-bytedance{width:184px;filter:brightness(0)}.partner-logo-geely{width:196px}.partner-logo-alibaba{width:180px}.partner-logo-dji{width:70px}
 @media(max-width:1000px){.project-cards{gap:20px}.project-card h3{font-size:22px}.portfolio-body{gap:28px}.capability-grid{gap:25px}.portfolio-heading{align-items:flex-start}}
 @media(max-width:760px){
  .featured-projects{padding-block:35px 42px}.project-cards{grid-template-columns:1fr;gap:34px}.project-card-image{aspect-ratio:4/3}.project-card h3{margin-top:16px;font-size:25px}
  .project-index{gap:4px 21px;margin-bottom:30px}.project-index a{font-size:12px}
  .portfolio-entry{padding-bottom:32px;margin-bottom:32px}.portfolio-heading{display:block;margin-bottom:21px}.portfolio-heading h2{font-size:27px}.portfolio-period{text-align:left;margin-top:12px;max-width:none}
  .portfolio-body{grid-template-columns:1fr;gap:23px}.portfolio-copy>p{font-size:15px}.project-credits{margin-top:21px}.atlas-scroll{--atlas-height:320px}
- .capability-grid{grid-template-columns:1fr;gap:28px}.capability-grid h3{font-size:22px}.project-capabilities{padding-bottom:33px}.project-partners{padding-block:32px 39px}.project-partners ul{gap:18px 32px}.project-partners li{font-size:19px}
+ .capability-grid{grid-template-columns:1fr;gap:28px}.capability-grid h3{font-size:22px}.project-capabilities{padding-bottom:33px}.project-partners{padding-block:32px 44px}.partner-logos{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;margin-top:22px}.partner-logos li{min-height:88px}.partner-logo-bytedance{width:140px}.partner-logo-geely{width:146px}.partner-logo-alibaba{width:140px}.partner-logo-dji{width:58px}
  .header-inner nav{gap:12px}
 }

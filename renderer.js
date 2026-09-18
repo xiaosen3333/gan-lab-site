@@ -274,6 +274,9 @@ function projectsPage() {
     <section class="project-capabilities" aria-labelledby="capabilities-title"><h2 class="section-title" id="capabilities-title">合作方向</h2>
       <div class="capability-grid">${projectCapabilities.map(capability => `<article><h3>${escapeHTML(capability.title)}</h3><p>${escapeHTML(capability.description)}</p><div>${capability.links.map(link => inline('#' + link.route, escapeHTML(link.label))).join('')}</div></article>`).join('')}</div>
     </section>
-    <section class="project-partners" aria-labelledby="partners-title"><h2 class="section-title" id="partners-title">合作经历</h2><ul aria-label="合作单位">${projectPartners.map(partner => `<li>${escapeHTML(partner)}</li>`).join('')}</ul>${inline('#/contact', '交流与合作')}</section>
+    <section class="project-partners" aria-labelledby="partners-title">
+      <h2 class="section-title" id="partners-title">合作伙伴</h2>
+      <ul class="partner-logos" aria-label="合作单位">${projectPartners.map(partner => `<li><img class="partner-logo partner-logo-${partner.id}" src="${escapeHTML(partner.logo)}" alt="${escapeHTML(partner.name)}" width="${partner.width}" height="${partner.height}" loading="lazy" decoding="async"></li>`).join('')}</ul>
+    </section>
   </div>`;
 }

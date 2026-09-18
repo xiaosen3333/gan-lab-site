@@ -53,6 +53,7 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
       assert.ok(projectHTML.includes(`rel="canonical" href="${url}projects/"`));
       assert.ok(projectHTML.includes(`href="${prefix}projects/#canal-growth"`));
       assert.ok(projectHTML.includes(`src="${prefix}assets/projects/moworld-teaser.jpg"`));
+      for (const logo of ['bytedance.svg', 'geely.svg', 'alibaba.png', 'dji.svg']) assert.ok(projectHTML.includes(`src="${prefix}assets/partners/${logo}"`));
       assert.ok(projectHTML.includes(`href="${prefix}assets/projects/ai-history-atlas.jpg"`));
       assert.ok(projectHTML.includes(`href="${prefix}assets/favicon-32.png"`));
       assert.ok(!projectHTML.includes('xiaosen3333.github.io') && !projectHTML.includes('/gan-lab-site/'));
@@ -115,8 +116,11 @@ test('raw HTTP returns every static page and resource, real unknown-path 404, an
     const redirect = await fetch(base + prefix + 'research?test=1', { redirect: 'manual' });
     assert.equal(redirect.status, 301);
     assert.equal(redirect.headers.get('location'), prefix + 'research/?test=1');
-    for (const file of ['assets/culture-computation-concept.webp', 'assets/contact-channel.png', 'assets/projects/moworld-teaser.jpg', 'assets/projects/canal-growth.jpg', 'assets/projects/moran.jpg', 'assets/projects/ai-history-atlas.jpg', 'assets/favicon-16.png', 'assets/favicon-32.png', 'sitemap.xml', '404.html', ...sourceScripts, 'styles.css']) {
-      assert.equal((await fetch(base + prefix + file)).status, 200);
+    for (const file of ['assets/culture-computation-concept.webp', 'assets/contact-channel.png', 'assets/partners/bytedance.svg', 'assets/partners/geely.svg', 'assets/partners/alibaba.png', 'assets/partners/dji.svg', 'assets/projects/moworld-teaser.jpg', 'assets/projects/canal-growth.jpg', 'assets/projects/moran.jpg', 'assets/projects/ai-history-atlas.jpg', 'assets/favicon-16.png', 'assets/favicon-32.png', 'sitemap.xml', '404.html', ...sourceScripts, 'styles.css']) {
+      const asset = await fetch(base + prefix + file);
+      assert.equal(asset.status, 200);
+      if (file.endsWith('.svg')) assert.equal(asset.headers.get('content-type'), 'image/svg+xml');
+      if (file.endsWith('.jpg')) assert.equal(asset.headers.get('content-type'), 'image/jpeg');
     }
   } finally { await new Promise(resolve => server.close(resolve)); }
 });

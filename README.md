@@ -48,7 +48,7 @@ npm run dev
 
 AI 图谱保留原始 JPEG，CSS 旋转为年代从左至右，独立图像区支持横向触控与键盘滚动，并提供完整原图链接。只让图区横滚，不能使整页超出屏幕。更换域名后的图片、完整原图入口和项目锚点同样由统一 basePath 生成，根目录和子目录迁移都有回归检查。
 
-项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作单位仅列名称，不自行附加项目对应关系、战略伙伴或联合实验室称谓。
+项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作伙伴使用四家公司官方品牌标识，保留完整名称 alt 和本地资源路径，不自行附加项目对应关系、战略伙伴或联合实验室称谓。
 
 ## 更换浙江大学域名时
 

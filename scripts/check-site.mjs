@@ -74,7 +74,7 @@ export async function checkSite() {
   assert.equal(projects.filter(project => project.featured).length, 3);
   assert.equal((home.match(/class="project-card"/g) || []).length, 3);
   assert.equal((projectHTML.match(/class="portfolio-entry"/g) || []).length, 4);
-  assert.deepEqual(Array.from(projectPartners), ['字节跳动', '吉利', '阿里巴巴', '大疆']);
+  assert.deepEqual(Array.from(projectPartners, partner => partner.name), ['字节跳动', '吉利', '阿里巴巴', '大疆']);
   for (const project of projects) {
     assert.ok(projectHTML.includes(`id="${project.id}"`), 'Stable project anchor: ' + project.id);
     assert.ok(projectHTML.includes(project.title));
@@ -94,7 +94,11 @@ export async function checkSite() {
       assert.ok(projectHTML.includes(`href="${link.url}"`));
     }
   }
-  for (const partner of projectPartners) assert.ok(projectHTML.includes(`<li>${partner}</li>`));
+  for (const partner of projectPartners) {
+    assert.ok(projectHTML.includes(`alt="${partner.name}"`), 'Accessible partner name');
+    assert.ok(projectHTML.includes(`src="${site.basePath}${partner.logo}"`), 'Local partner logo follows deployment path');
+    assert.ok((await stat(resolve(root, partner.logo))).size > 0, 'Partner logo exists');
+  }
   assert.ok(projectHTML.includes('class="atlas-scroll" role="region" tabindex="0"'));
   assert.ok(projectHTML.includes(`href="${site.basePath}assets/projects/ai-history-atlas.jpg"`));
   assert.doesNotMatch(projectHTML, /战略合作|独立研发|已开源部署|Coming Soon|canal-30|ai-history-1\.jpg/);

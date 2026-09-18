@@ -150,4 +150,9 @@ const projectCapabilities = [
     ],
   },
 ];
-const projectPartners = ['字节跳动', '吉利', '阿里巴巴', '大疆'];
+const projectPartners = [
+  { id: 'bytedance', name: '字节跳动', logo: 'assets/partners/bytedance.svg', width: 256, height: 44 },
+  { id: 'geely', name: '吉利', logo: 'assets/partners/geely.svg', width: 1339, height: 125 },
+  { id: 'alibaba', name: '阿里巴巴', logo: 'assets/partners/alibaba.png', width: 902, height: 116 },
+  { id: 'dji', name: '大疆', logo: 'assets/partners/dji.svg', width: 42, height: 24 },
+];
