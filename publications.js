@@ -27,6 +27,253 @@ const publicationMembers={
 };
 const additionalPublications=[
 {
+  "id": "thinkpersona",
+  "name": "ThinkPersona",
+  "title": "ThinkPersona: Thinking with Persona Graphs for Faithful Individualized Role-Playing",
+  "venue": "ACL",
+  "year": "2026",
+  "url": "https://aclanthology.org/2026.acl-long.449/",
+  "memberIds": [
+    "chen-pei",
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://aclanthology.org/2026.acl-long.449/"
+},
+{
+  "id": "objctrl",
+  "name": "ObjCtrl",
+  "title": "ObjCtrl: Object-based Control Relaxation for Conditional Text-to-Image Generation",
+  "venue": "ACM MM",
+  "year": "2025",
+  "url": "https://doi.org/10.1145/3746027.3755367",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1145/3746027.3755367"
+},
+{
+  "id": "img2cad",
+  "name": "Img2CAD",
+  "title": "Img2CAD: Conditioned 3-D CAD Model Generation From Single Image With Structured Visual Geometry",
+  "venue": "IEEE TII",
+  "year": "2025",
+  "url": "https://doi.org/10.1109/TII.2025.3584476",
+  "memberIds": [
+    "chen-tianrun",
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1109/TII.2025.3584476"
+},
+{
+  "id": "human-sketches",
+  "name": "Let Human Sketches Help",
+  "title": "Let Human Sketches Help: Empowering Challenging Image Segmentation Task with Freehand Sketches",
+  "venue": "arXiv",
+  "year": "2025",
+  "url": "https://arxiv.org/abs/2501.19329",
+  "memberIds": [
+    "chen-tianrun",
+    "li-zejian"
+  ],
+  "kind": "preprint",
+  "source": "https://arxiv.org/abs/2501.19329",
+  "format": "预印本"
+},
+{
+  "id": "syllables-scenes",
+  "name": "Syllables to Scenes",
+  "title": "Syllables to Scenes: Literary-Guided Free-Viewpoint 3D Scene Synthesis from Japanese Haiku",
+  "venue": "arXiv",
+  "year": "2025",
+  "url": "https://arxiv.org/abs/2502.11586",
+  "memberIds": [
+    "chen-tianrun",
+    "li-zejian"
+  ],
+  "kind": "preprint",
+  "source": "https://arxiv.org/abs/2502.11586",
+  "format": "预印本"
+},
+{
+  "id": "charactercritique",
+  "name": "CharacterCritique",
+  "title": "CharacterCritique: Supporting Children’s Development of Critical Thinking through Multi-Agent Interaction in Story Reading",
+  "venue": "CHI",
+  "year": "2025",
+  "url": "https://doi.org/10.1145/3706598.3713602",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1145/3706598.3713602"
+},
+{
+  "id": "deep3dsketch-im",
+  "name": "Deep3DSketch-im",
+  "title": "Deep3DSketch-im: rapid high-fidelity AI 3D model generation by single freehand sketches",
+  "venue": "FITEE",
+  "year": "2024",
+  "url": "https://doi.org/10.1631/FITEE.2300314",
+  "memberIds": [
+    "chen-tianrun",
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1631/FITEE.2300314"
+},
+{
+  "id": "reality3dsketch",
+  "name": "Reality3DSketch",
+  "title": "Reality3DSketch: Rapid 3D Modeling of Objects From Single Freehand Sketches",
+  "venue": "IEEE TMM",
+  "year": "2024",
+  "url": "https://doi.org/10.1109/TMM.2023.3327533",
+  "memberIds": [
+    "chen-tianrun",
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1109/TMM.2023.3327533"
+},
+{
+  "id": "loci",
+  "name": "Learning Object Consistency and Interaction in Image Generation from Scene Graphs",
+  "title": "Learning Object Consistency and Interaction in Image Generation from Scene Graphs",
+  "venue": "IJCAI",
+  "year": "2023",
+  "url": "https://www.ijcai.org/proceedings/2023/192",
+  "memberIds": [
+    "meng-chenye",
+    "li-zejian",
+    "chen-pei"
+  ],
+  "kind": "paper",
+  "source": "https://www.ijcai.org/proceedings/2023/192"
+},
+{
+  "id": "ui-layers-merger",
+  "name": "UI layers merger",
+  "title": "UI layers merger: merging UI layers via visual learning and boundary prior",
+  "venue": "FITEE",
+  "year": "2023",
+  "url": "https://doi.org/10.1631/FITEE.2200099",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1631/FITEE.2200099"
+},
+{
+  "id": "structural-style",
+  "name": "Preserving Structural Consistency in Arbitrary Artist and Artwork Style Transfer",
+  "title": "Preserving Structural Consistency in Arbitrary Artist and Artwork Style Transfer",
+  "venue": "AAAI",
+  "year": "2023",
+  "url": "https://ojs.aaai.org/index.php/AAAI/article/view/25384",
+  "memberIds": [
+    "hou-lefan",
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://ojs.aaai.org/index.php/AAAI/article/view/25384"
+},
+{
+  "id": "cognitive-load",
+  "name": "Recognizing Cognitive Load by a Hybrid Spatio-Temporal Causal Model from Multivariate Physiological Data",
+  "title": "Recognizing Cognitive Load by a Hybrid Spatio-Temporal Causal Model from Multivariate Physiological Data",
+  "venue": "ECML PKDD 2022",
+  "year": "2023",
+  "url": "https://doi.org/10.1007/978-3-031-26422-1_20",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1007/978-3-031-26422-1_20",
+  "format": "论文集发表于 2023"
+},
+{
+  "id": "usis",
+  "name": "USIS",
+  "title": "USIS: A unified semantic image synthesis model trained on a single or multiple samples",
+  "venue": "Neurocomputing",
+  "year": "2022",
+  "url": "https://doi.org/10.1016/j.neucom.2022.09.092",
+  "memberIds": [
+    "chen-pei",
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1016/j.neucom.2022.09.092"
+},
+{
+  "id": "lama",
+  "name": "Image Synthesis From Layout With Locality-Aware Mask Adaption",
+  "title": "Image Synthesis From Layout With Locality-Aware Mask Adaption",
+  "venue": "ICCV",
+  "year": "2021",
+  "url": "https://openaccess.thecvf.com/content/ICCV2021/html/Li_Image_Synthesis_From_Layout_With_Locality-Aware_Mask_Adaption_ICCV_2021_paper.html",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://openaccess.thecvf.com/content/ICCV2021/html/Li_Image_Synthesis_From_Layout_With_Locality-Aware_Mask_Adaption_ICCV_2021_paper.html"
+},
+{
+  "id": "fet-gan",
+  "name": "FET-GAN",
+  "title": "FET-GAN: Font and Effect Transfer via K-shot Adaptive Instance Normalization",
+  "venue": "AAAI",
+  "year": "2020",
+  "url": "https://ojs.aaai.org/index.php/AAAI/article/view/5535",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://ojs.aaai.org/index.php/AAAI/article/view/5535"
+},
+{
+  "id": "design-intelligence-review",
+  "name": "A review of design intelligence",
+  "title": "A review of design intelligence: progress, problems, and challenges",
+  "venue": "FITEE",
+  "year": "2019",
+  "url": "https://doi.org/10.1631/FITEE.1900398",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://doi.org/10.1631/FITEE.1900398"
+},
+{
+  "id": "pairwise-independence",
+  "name": "Learning Disentangled Representation with Pairwise Independence",
+  "title": "Learning Disentangled Representation with Pairwise Independence",
+  "venue": "AAAI",
+  "year": "2019",
+  "url": "https://ojs.aaai.org/index.php/AAAI/article/view/4331",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://ojs.aaai.org/index.php/AAAI/article/view/4331"
+},
+{
+  "id": "analogical-relations",
+  "name": "Unsupervised Disentangled Representation Learning with Analogical Relations",
+  "title": "Unsupervised Disentangled Representation Learning with Analogical Relations",
+  "venue": "IJCAI",
+  "year": "2018",
+  "url": "https://www.ijcai.org/proceedings/2018/335",
+  "memberIds": [
+    "li-zejian"
+  ],
+  "kind": "paper",
+  "source": "https://www.ijcai.org/proceedings/2018/335"
+},
+{
   "id": "sferd",
   "name": "SFERD",
   "title": "Reducing Spatial Fitting Error in Distillation of Denoising Diffusion Models",

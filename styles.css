@@ -81,7 +81,7 @@ main:focus { outline: none; }
 .more-research .inline-link { gap: 8px; }
 .collection-links { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: 16px; }
 .research-interface { max-width: 900px; margin-bottom: 32px; }
-.work-row { display: grid; grid-template-columns: 170px minmax(0, 1fr) 108px; align-items: center; gap: 30px; padding: 32px 0; border-top: 1px solid var(--line); }
+.work-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: center; gap: 30px; padding: 32px 0; border-top: 1px solid var(--line); }
 .work-year { font-size: 14px; }
 .work-year span { display: block; margin-top: 8px; color: var(--muted); font-size: 12px; }
 .work-row h2, .work-row h3 { font-size: 28px; font-weight: 500; letter-spacing: -.025em; margin-bottom: 9px; }
@@ -337,3 +337,6 @@ main:focus { outline: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+.about-grid p + p { margin-top: 18px; }
+.bibliography-page .paper-content h3 a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 4px; }

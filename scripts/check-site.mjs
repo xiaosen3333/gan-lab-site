@@ -39,7 +39,9 @@ export async function checkSite() {
   const routes = Array.from(allRoutes());
   assert.equal(routes.length, 35);
   assert.equal(members.length, 31);
-  assert.equal(publications.length, 28);
+  assert.equal(publications.length, 46);
+  assert.equal(new Set(publications.map(p => p.id)).size, 46);
+  assert.equal(new Set(publications.map(p => p.title.toLowerCase().replace(/[^a-z0-9]/g, ""))).size, 46);
   assert.equal(works.length, 3);
   assert.equal(members.filter(hasMemberDetails).length, 25);
   assert.ok(Object.values(presentation).every(value => value === false));
@@ -114,8 +116,14 @@ export async function checkSite() {
     if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.media.path}"`), 'Selected media follows deployment path');
   }
   assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
-  assert.match(home, /id="perspective-panel-1"[^>]*>更多研究：[\s\S]*?>PoemPalette（诗画交互）/);
-  assert.ok(home.includes(`href="${pathFor('/research/poempalette')}"`));
+  assert.doesNotMatch(home, /更多研究：|全部研究/);
+  const collections = home.match(/<nav class="collection-links"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+  assert.equal((collections.match(/<a /g) || []).length, 2);
+  assert.ok(collections.includes(`href="${pathFor('/outputs')}"`));
+  for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);
+  const researchHTML = pages.get(pathFor('/research'));
+  assert.equal((researchHTML.match(/<h2><a /g) || []).length, 3);
+  assert.doesNotMatch(researchHTML, />研究详情</);
   assert.doesNotMatch(home, /id="project-card-moran"|class="hero-project"|class="featured-projects"/);
   const ink = works.find(work => work.id === 'ink-restorer');
   for (const html of [home, pages.get(pathFor('/research/ink-restorer'))]) {
@@ -166,16 +174,20 @@ export async function checkSite() {
   assert.ok(projectSchema['@graph'].some(node => node['@type'] === 'CollectionPage'));
   assert.ok(!projectSchema['@graph'].some(node => node.creator || node.sponsor));
   const bibliography = pages.get(pathFor('/outputs'));
-  assert.equal((bibliography.match(/class="paper-row"/g) || []).length, 28);
-  for (const [year, count] of [[2026, 12], [2025, 9], [2024, 5], [2023, 1], [2022, 1]]) {
+  assert.equal((bibliography.match(/class="paper-row"/g) || []).length, 46);
+  for (const [year, count] of [[2026, 13], [2025, 14], [2024, 7], [2023, 5], [2022, 2], [2021, 1], [2020, 1], [2019, 2], [2018, 1]]) {
     assert.ok(bibliography.includes(`href="#year-${year}"`));
     const section = bibliography.match(new RegExp(`<section class="publication-year" aria-labelledby="year-${year}">([\\s\\S]*?)<\\/section>`))?.[1];
     assert.ok(section, 'Year section: ' + year);
     assert.equal((section.match(/class="paper-row"/g) || []).length, count);
     assert.equal((section.match(/<h3>/g) || []).length, count);
   }
+  for (const paper of publications) {
+    assert.ok(bibliography.includes(`<a href="${paper.url}" target="_blank" rel="noopener" title="${paper.sourceLabel || '论文原文'}">${paper.title}</a>`), 'Bibliography title opens original source: ' + paper.id);
+  }
   for (const member of members.filter(hasMemberDetails)) {
     const html = pages.get(pathFor('/people/' + member.id));
+    assert.doesNotMatch(html, /<h3><a href="https?:/, 'Member bibliography remains plain titles');
     const contributions = projects.filter(project => project.credits.some(credit => credit.people.some(person => person.memberId === member.id)));
     assert.equal(html.includes('id="member-projects"'), contributions.length > 0, 'Derived member projects: ' + member.id);
     for (const project of contributions) assert.ok(html.includes(`href="${pathFor('/projects')}#${project.id}"`));
@@ -186,7 +198,8 @@ export async function checkSite() {
   }
   assert.ok((await stat(resolve(root, 'assets/projects/moworld-960.webp'))).size <= 350000);
   assert.ok(home.includes('loading="eager" fetchpriority="high"'));
-  assert.ok(projectHTML.includes('id="capabilities-title"') && projectHTML.includes('id="partners-title"'));
+  assert.ok(contact.includes('id="capabilities-title"') && projectHTML.includes('id="partners-title"'));
+  assert.doesNotMatch(projectHTML, /id="capabilities-title"/);
   assert.doesNotMatch(projectHTML, /class="project-index"/, 'Project content starts without the removed name index');
   assert.ok(pages.get(pathFor('/about')).includes('href="http://www.cst.zju.edu.cn/"'));
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card"/g) || []).length, 31);

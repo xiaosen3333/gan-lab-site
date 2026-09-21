@@ -15,7 +15,6 @@ function workRows({ level = 3 } = {}) {
   return works.map(work => `<article class="work-row" id="research-entry-${work.id}" tabindex="-1">
     <div class="work-year">${work.venue} / ${work.year}<span>${work.overview.category}</span></div>
     <div><h${level}><a href="#/research/${work.id}">${work.name}</a></h${level}><p>${work.overview.summary}</p></div>
-    ${inline('#/research/' + work.id, '研究详情')}
   </article>`).join('');
 }
 function selectedWork(selection) {
@@ -36,7 +35,6 @@ function selectedWork(selection) {
   </article>`;
 }
 function home() {
-  const additional = works.find(work => work.id === 'poempalette');
   return `<div class="shell">
     <section class="home-introduction" aria-labelledby="home-title">
       <div class="home-introduction-copy"><div class="home-identity"><h1 id="home-title">GAN lab</h1><span class="home-affiliation">浙江大学</span></div>
@@ -46,18 +44,17 @@ function home() {
     <section class="selected-section" aria-labelledby="selected-title">
       <h2 class="section-title" id="selected-title">项目与研究</h2>
       <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
-      <p class="more-research" id="perspective-panel-1" tabindex="-1">更多研究：${inline('#/research/' + additional.id, `${additional.name}（${additional.overview.category}）`)}</p>
-      <nav class="collection-links" aria-label="更多内容">${inline('#/projects', '全部项目与作品')}${inline('#/research', '全部研究')}${inline('#/outputs', '论文')}</nav>
+      <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="更多内容">${inline('#/projects', '全部项目与作品')}${inline('#/outputs', '论文目录')}</nav>
     </section>
     ${partnersSection({ compact: true })}
   </div>`;
 }
 function research() {
-  return `<div class="shell research-page">${heading('研究', '生成模型、人机交互与传统文化。', '研究')}<div class="work-list">${workRows({ level: 2 })}</div></div>`;
+  return `<div class="shell research-page">${heading('精选研究', '生成模型、人机交互与传统文化。', '精选研究')}<div class="work-list">${workRows({ level: 2 })}</div></div>`;
 }
 function workDetail(work) {
   return `<article class="shell research-detail">
-    <div class="page-heading"><div class="breadcrumbs"><a href="#/research">研究</a><span>/</span>${work.name}</div>
+    <div class="page-heading"><div class="breadcrumbs"><a href="#/research">精选研究</a><span>/</span>${work.name}</div>
       <p class="hero-kicker">${work.theme} / ${work.venue} ${work.year}</p><h1>${work.name}</h1><p id="work-question">${work.summary}</p>
     </div>
     ${work.media ? `<figure class="project-figure research-interface">${projectImage(work.media)}<figcaption>${escapeHTML(work.media.caption)}</figcaption></figure>` : ''}
@@ -102,10 +99,10 @@ function researchOverview(papers){
  const noun=papers.some(p=>p.kind==='preprint')?'论文与预印本':'论文';
  return `以下收录其参与的${papers.length}篇${noun}，研究涉及${labels}。`;
 }
-function publicationRows(papers,{level=2,type='all'}={}){
+function publicationRows(papers,{level=2,type='all',linkTitles=false}={}){
  return papers.map(p=>`<article class="paper-row">
  <div class="paper-reference"><span>${p.year}</span><span>${p.venue}${p.format?' · '+p.format:''}</span>${p.award?`<span class="paper-award">${p.award}</span>`:''}</div>
- <div class="paper-content"><h${level}>${presentation.publicationTitleLinks?`<a href="${p.detail?'#/research/'+p.id:p.url}"${p.detail?'':' target="_blank" rel="noopener"'}>${p.title}</a>`:p.title}</h${level}>
+ <div class="paper-content"><h${level}>${linkTitles || presentation.publicationTitleLinks?`<a href="${linkTitles?p.url:(p.detail?'#/research/'+p.id:p.url)}"${!linkTitles && p.detail?'':' target="_blank" rel="noopener"'} title="${escapeHTML(p.sourceLabel || '论文原文')}">${p.title}</a>`:p.title}</h${level}>
  ${presentation.publicationDescriptions?`<p>${p.summary}</p>`:''}
  ${presentation.publicationParticipants?`<div class="publication-people"><span>团队参与</span><div class="participant-links">${memberLinks(p.memberIds)}</div></div>`:''}
  ${presentation.publicationActions?`<div class="paper-actions">${p.detail?inline('#/research/'+p.id,'研究介绍'):''}<a class="inline-link" href="${type==='tools'?p.code:type==='data'?p.resource:p.url}" target="_blank" rel="noopener">${type==='tools'?'项目代码':type==='data'?'访问数据集':p.sourceLabel||'论文原文'} ${iconArrow}</a>${p.acceptanceSource?`<a class="inline-link" href="${p.acceptanceSource}" target="_blank" rel="noopener">收录信息 ${iconArrow}</a>`:''}</div>`:''}
@@ -118,7 +115,7 @@ function outputs(params=new URLSearchParams()){
  return `<div class="shell bibliography-page">${heading('论文','团队参与的'+publications.length+'篇论文与预印本。','论文')}
  ${presentation.publicationFilters?`<div class="chip-group" aria-label="成果类型">${filterTypes.map(([id,label])=>`<button class="chip" aria-pressed="${id===outputFilter}" data-output-filter="${id}">${label}</button>`).join('')}</div>`:''}
  <nav class="year-index" aria-label="论文年份">${[...new Set(shown.map(paper => paper.year))].sort((a, b) => b - a).map(year => `<a href="#year-${year}">${year}</a>`).join('')}</nav>
- ${[...new Set(shown.map(paper => paper.year))].sort((a, b) => b - a).map(year => `<section class="publication-year" aria-labelledby="year-${year}"><h2 id="year-${year}">${year}</h2><div class="paper-list">${publicationRows(shown.filter(paper => paper.year === year), { level: 3, type: outputFilter })}</div></section>`).join('')}</div>`;
+ ${[...new Set(shown.map(paper => paper.year))].sort((a, b) => b - a).map(year => `<section class="publication-year" aria-labelledby="year-${year}"><h2 id="year-${year}">${year}</h2><div class="paper-list">${publicationRows(shown.filter(paper => paper.year === year), { level: 3, type: outputFilter, linkTitles: true })}</div></section>`).join('')}</div>`;
 }
 function hasMemberDetails(m){return Boolean(m.introduction||m.background||m.biography?.length||m.researchSummary||m.profile||m.honor||memberPapers(m.id).length);}
 function personCard(m){const detailed=hasMemberDetails(m);return `<article class="person-card" id="member-${m.id}" tabindex="-1"><${detailed?'a':'div'} class="person-card-link"${detailed?` href="#/people/${m.id}"`:''}><div class="person-card-heading"><h3>${m.name}</h3><span class="person-title">${m.title||'团队成员'}</span></div>${presentation.memberEnglish&&m.english?`<p class="person-english">${m.english}</p>`:''}${detailed?`<span class="person-navigation" aria-hidden="true">${iconArrow}</span>`:''}</${detailed?'a':'div'}></article>`;}
@@ -173,12 +170,16 @@ function about() {
   ];
   const resources = institutions.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener">${name}</a>`);
   return `<div class="shell">${heading('关于 GAN lab', '', '关于')}
-    <section class="page-section about-grid"><h2>团队与研究</h2><div><p>GAN lab 的研究涵盖生成模型蒸馏、人机交互，以及传统文化的数字创作与体验。</p><div class="profile-links">${inline('#/people/li-zejian', '导师 · 李泽健')}${inline('#/people', '团队成员')}</div></div></section>
+    <section class="page-section about-grid"><h2>团队与研究</h2><div><p>GAN lab 是浙江大学的研究团队。李泽健任职于浙江大学软件学院，是浙江大学人工智能学院孙凌云教授团队成员，研究生成模型与智能设计。</p><p>工作从生成模型的蒸馏、后训练与评价，延伸到人机交互系统及文化艺术创作。成果包括学术论文、可交互的创作工具，以及面向公众展出的文化作品。</p><div class="profile-links">${inline('#/people/li-zejian', '导师 · 李泽健')}${inline('#/people', '团队成员')}</div></div></section>
+    <section class="page-section about-grid"><h2>文化艺术实践</h2><div><p>团队成员参与“墨染”国画创作系统、《运河·生长·万象》系列作品及人工智能发展简史图谱，将生成技术用于绘画创作、文化内容表达与展览。</p>${inline('#/projects', '项目与作品')}</div></section>
     <section class="page-section about-grid"><h2>研究资源</h2><p>团队依托${resources[0]}、${resources[1]}与${resources[2]}的研究资源。</p></section>
   </div>`;
 }
 
-function contact(){return `<div class="shell">${heading('交流与合作','','交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">电子邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健的电子邮箱" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">个人主页 ${iconArrow}</a></section></div>`;}
+function capabilitiesSection() {
+ return `<section class="project-capabilities" aria-labelledby="capabilities-title"><h2 class="section-title" id="capabilities-title">合作方向</h2><div class="capability-grid">${projectCapabilities.map(capability => `<article><h3>${escapeHTML(capability.title)}</h3><p>${escapeHTML(capability.description)}</p></article>`).join('')}</div></section>`;
+}
+function contact(){return `<div class="shell">${heading('交流与合作','','交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">电子邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健的电子邮箱" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">个人主页 ${iconArrow}</a></section>${capabilitiesSection()}</div>`;}
 
 // Shared route and metadata rules. Content remains in the three data files above.
 const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({
@@ -226,11 +227,11 @@ function pageFor(route) {
     html = projectsPage(); title = '项目与作品｜GAN lab'; nav = 'projects'; kind = 'CollectionPage';
     description = 'GAN lab 团队成员参与的系统研发与文化创作，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
   } else if (route === '/research') {
-    html = research(); title = '研究｜GAN lab'; nav = 'research'; kind = 'CollectionPage';
+    html = research(); title = '精选研究｜GAN lab'; nav = 'outputs'; kind = 'CollectionPage';
     description = 'GAN lab 的生成模型、人机协作与文化创作研究，包括 DisBack、Ink Restorer 和 PoemPalette。';
   } else if (works.some(work => route === '/research/' + work.id)) {
     const work = works.find(work => route === '/research/' + work.id);
-    html = workDetail(work); title = `${work.name}｜${work.theme}｜GAN lab`; nav = 'research';
+    html = workDetail(work); title = `${work.name}｜${work.theme}｜GAN lab`; nav = 'outputs';
     description = `${work.name}：${work.summary}${work.stage}。`;
   } else if (route === '/outputs') {
     html = outputs(); title = '论文｜GAN lab'; nav = 'outputs'; kind = 'CollectionPage';
@@ -356,9 +357,6 @@ function projectsPage() {
         </div></div>
       </article>`;
     }).join('')}</div>
-    <section class="project-capabilities" aria-labelledby="capabilities-title"><h2 class="section-title" id="capabilities-title">合作方向</h2>
-      <div class="capability-grid">${projectCapabilities.map(capability => `<article><h3>${escapeHTML(capability.title)}</h3><p>${escapeHTML(capability.description)}</p><div>${capability.links.map(link => inline('#' + link.route, escapeHTML(link.label))).join('')}</div></article>`).join('')}</div>
-    </section>
     ${partnersSection()}
   </div>`;
 }
