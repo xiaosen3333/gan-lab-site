@@ -96,8 +96,33 @@ export async function checkSite() {
   const projectHTML = pages.get(pathFor('/projects'));
   assert.equal(projects.length, 4);
   assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas']);
-  assert.equal(projects.filter(project => project.featured).length, 3);
-  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 3);
+  const selected = [...home.matchAll(/<article class="project-card selected-work(?:[^"]*)" id="([^"]+)" tabindex="-1">([\s\S]*?)<\/article>/g)];
+  const expectedSelections = [
+    ['perspective-panel-0', works.find(work => work.id === 'disback'), pathFor('/research/disback')],
+    ['project-card-moworld', projects.find(project => project.id === 'moworld'), pathFor('/projects') + '#moworld'],
+    ['perspective-panel-2', works.find(work => work.id === 'ink-restorer'), pathFor('/research/ink-restorer')],
+    ['project-card-canal-growth', projects.find(project => project.id === 'canal-growth'), pathFor('/projects') + '#canal-growth'],
+  ];
+  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Four selected works in the approved reading order');
+  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 4);
+  for (const [index, [, work, href]] of expectedSelections.entries()) {
+    const entry = selected[index][2];
+    assert.ok(entry.includes(`href="${href}"`) && entry.includes(`<h3>${work.name || work.title}</h3>`), 'Selected work title and real destination');
+    assert.ok(entry.includes(work.homepage.summary), 'Selected summary comes from its work source');
+    assert.equal(entry.includes('<figure'), Boolean(work.media), 'No empty media placeholder');
+    if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.media.path}"`), 'Selected media follows deployment path');
+  }
+  assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
+  assert.match(home, /id="perspective-panel-1"[^>]*>更多研究：[\s\S]*?>PoemPalette（诗画交互）/);
+  assert.ok(home.includes(`href="${pathFor('/research/poempalette')}"`));
+  assert.doesNotMatch(home, /id="project-card-moran"|class="hero-project"|class="featured-projects"/);
+  const ink = works.find(work => work.id === 'ink-restorer');
+  for (const html of [home, pages.get(pathFor('/research/ink-restorer'))]) {
+    assert.ok(html.includes(`src="${site.basePath}${ink.media.path}"`));
+    assert.ok(html.includes(`width="${ink.media.width}" height="${ink.media.height}"`));
+    assert.ok(html.includes(ink.media.alt) && html.includes(ink.media.caption));
+  }
+  assert.ok((await stat(resolve(root, ink.media.path))).size < 350 * 1024, 'Ink interface stays a small full-frame image');
   assert.equal((projectHTML.match(/class="portfolio-entry(?:\s[^"]*)?"/g) || []).length, 4);
   assert.deepEqual(Array.from(projectPartners, partner => partner.name), ['字节跳动', '吉利', '阿里巴巴', '大疆']);
   for (const project of projects) {
@@ -106,7 +131,7 @@ export async function checkSite() {
     assert.ok(projectHTML.includes(`src="${site.basePath}${project.media.path}"`));
     assert.ok(projectHTML.includes(`width="${project.media.width}" height="${project.media.height}"`));
     assert.ok((await stat(resolve(root, project.media.path))).size < 4 * 1024 * 1024, 'Project images stay below 4 MB');
-    if (project.featured) {
+    if (['moworld', 'canal-growth'].includes(project.id)) {
       assert.ok(home.includes(`href="${pathFor('/projects')}#${project.id}"`));
       assert.ok(home.includes(`id="project-card-${project.id}" tabindex="-1"`));
     }

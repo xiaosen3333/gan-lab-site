@@ -4,38 +4,49 @@ const arrow=(href,label)=>`<a class="link-arrow" href="${href}">${label}${iconAr
 const inline=(href,label)=>`<a class="inline-link" href="${href}">${label}${iconArrow}</a>`;
 const heading=(title,description='',crumb='')=>`<div class="page-heading">${crumb?`<div class="breadcrumbs"><a href="#/">首页</a><span>/</span>${crumb}</div>`:''}<h1>${title}</h1>${description?`<p>${description}</p>`:''}</div>`;
 
-// One reading summary for both the homepage and research index.
-const workIntroductions = {
-  disback: { category: '生成模型', summary: '研究扩散模型蒸馏，让学生生成器的训练更快收敛。', legacy: 0 },
-  'ink-restorer': { category: '文化遗产修复', summary: '把传统古画修复的洗、揭、补、全四个环节转为虚拟操作。', legacy: 2 },
-  poempalette: { category: '诗画交互', summary: '用可操作的场景图连接诗意符号与画面，支持诗画探索。', legacy: 1 },
-};
-function workRows({ home = false, level = 3 } = {}) {
-  return works.map(work => {
-    const introduction = workIntroductions[work.id];
-    return `<article class="work-row" id="${home ? 'perspective-panel-' + introduction.legacy : 'research-entry-' + work.id}" tabindex="-1">
-      <div class="work-year">${work.venue} / ${work.year}<span>${introduction.category}</span></div>
-      <div><h${level}><a href="#/research/${work.id}">${work.name}</a></h${level}><p>${introduction.summary}</p></div>
-      ${inline('#/research/' + work.id, '阅读研究')}
-    </article>`;
-  }).join('');
+// Selection is a relation; copy and media stay in the research/project data.
+const homepageWorks = [
+  { kind: 'research', id: 'disback', anchor: 'perspective-panel-0' },
+  { kind: 'project', id: 'moworld', anchor: 'project-card-moworld' },
+  { kind: 'research', id: 'ink-restorer', anchor: 'perspective-panel-2' },
+  { kind: 'project', id: 'canal-growth', anchor: 'project-card-canal-growth' },
+];
+function workRows({ level = 3 } = {}) {
+  return works.map(work => `<article class="work-row" id="research-entry-${work.id}" tabindex="-1">
+    <div class="work-year">${work.venue} / ${work.year}<span>${work.overview.category}</span></div>
+    <div><h${level}><a href="#/research/${work.id}">${work.name}</a></h${level}><p>${work.overview.summary}</p></div>
+    ${inline('#/research/' + work.id, '阅读研究')}
+  </article>`).join('');
+}
+function selectedWork(selection) {
+  const research = selection.kind === 'research';
+  const work = (research ? works : projects).find(work => work.id === selection.id);
+  const href = research ? '#/research/' + work.id : '#/projects#' + work.id;
+  const label = research ? '阅读研究' : work.action;
+  const context = research ? `${work.venue} ${work.year}` : [work.period, work.homepage.venue || work.venue].filter(Boolean).join(' · ');
+  return `<article class="project-card selected-work${work.media ? ' selected-work-with-media' : ''}" id="${selection.anchor}" tabindex="-1">
+    <a class="selected-work-link" href="${href}">
+      <div class="selected-work-copy"><div class="selected-work-heading"><p class="project-card-category">${escapeHTML(work.homepage.category || work.category)} · ${escapeHTML(context)}</p>
+        <h3>${escapeHTML(research ? work.name : work.title)}</h3></div>
+        <p class="project-card-summary">${escapeHTML(work.homepage.summary)}</p>
+        <span class="project-card-action">${escapeHTML(label)} ${iconArrow}</span>
+      </div>
+      ${work.media ? `<figure class="project-figure">${projectImage(work.media, { priority: work.id === 'moworld' })}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : ''}
+    </a>
+  </article>`;
 }
 function home() {
-  const featured = projects.find(project => project.id === 'moworld');
+  const additional = works.find(work => work.id === 'poempalette');
   return `<div class="shell">
-    <section class="hero" aria-labelledby="home-title">
-      <div class="hero-copy"><p class="hero-kicker">GAN lab / 浙江大学团队</p>
-        <h1 id="home-title"><span>生成模型、</span><span>人机交互</span><span>与传统文化。</span></h1>
-        <p class="hero-description">开展生成模型蒸馏、交互系统研发与文化作品创作。</p>
-        <p class="hero-mentor">导师 <a href="#/people/li-zejian">李泽健 ${iconArrow}</a></p>
-        <div class="hero-actions">${arrow('#/projects', '项目与作品')}<a class="quiet-link" href="#/people">认识团队 ${iconArrow}</a></div>
-      </div>
-      <div class="hero-project"><p class="hero-kicker">代表项目</p>${projectCard(featured, { hero: true })}</div>
+    <section class="home-introduction" aria-labelledby="home-title">
+      <h1 id="home-title">GAN lab</h1>
+      <p>GAN lab 是浙江大学团队，导师为<a href="#/people/li-zejian">李泽健</a>。我们研究生成模型蒸馏，研发人机交互系统，并开展传统文化的数字创作。</p>
     </section>
-    ${featuredProjects()}
-    <section class="featured-section" aria-labelledby="featured-title">
-      <div class="section-topline"><h2 class="section-title" id="featured-title">研究</h2>${inline('#/outputs', '查看论文')}</div>
-      <div class="work-list">${workRows({ home: true })}</div>
+    <section class="selected-section" aria-labelledby="selected-title">
+      <h2 class="section-title" id="selected-title">项目与研究</h2>
+      <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
+      <p class="more-research" id="perspective-panel-1" tabindex="-1">更多研究：${inline('#/research/' + additional.id, `${additional.name}（${additional.overview.category}）`)}</p>
+      <nav class="collection-links" aria-label="更多内容">${inline('#/projects', '全部项目与作品')}${inline('#/research', '全部研究')}${inline('#/outputs', '论文')}</nav>
     </section>
     ${partnersSection({ compact: true })}
   </div>`;
@@ -48,6 +59,7 @@ function workDetail(work) {
     <div class="page-heading"><div class="breadcrumbs"><a href="#/research">研究</a><span>/</span>${work.name}</div>
       <p class="hero-kicker">${work.theme} / ${work.venue} ${work.year}</p><h1>${work.name}</h1><p id="work-question">${work.summary}</p>
     </div>
+    ${work.media ? `<figure class="project-figure research-interface">${projectImage(work.media)}<figcaption>${escapeHTML(work.media.caption)}</figcaption></figure>` : ''}
     <div class="project-body">
       <section id="work-method"><h2>研究方法</h2><p>${work.method}</p></section>
       <section id="work-paper"><h2>论文</h2><div class="paper-citation"><span>${work.venue} · ${work.year}</span><h3>${work.title}</h3>
@@ -294,30 +306,11 @@ function legacyDestination({ pathname, search = '', hash = '' }) {
   return hrefFor(path + route.search + route.hash);
 }
 
-function projectImage(media, { hero = false } = {}) {
+function projectImage(media, { priority = false } = {}) {
   const responsive = media.path === 'assets/projects/moworld-teaser.jpg';
   const candidates = responsive ? ` srcset="assets/projects/moworld-640.webp 640w, assets/projects/moworld-960.webp 960w, assets/projects/moworld-1440.webp 1440w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1000px) 48vw, 550px"` : '';
-  return `<img src="${escapeHTML(media.path)}"${candidates} alt="${escapeHTML(media.alt)}" width="${media.width}" height="${media.height}" loading="${hero ? 'eager' : 'lazy'}"${hero ? ' fetchpriority="high"' : ''} decoding="async">`;
+  return `<img src="${escapeHTML(media.path)}"${candidates} alt="${escapeHTML(media.alt)}" width="${media.width}" height="${media.height}" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="async">`;
 }
-function projectCard(project, { hero = false } = {}) {
-  return `<article class="project-card${hero ? ' project-card-hero' : ' project-card-wide project-card-' + project.id}" id="project-card-${project.id}" tabindex="-1">
-    <a href="#/projects#${project.id}" class="project-card-link">
-      <figure>${projectImage(project.media, { hero })}</figure>
-      <div class="project-card-copy"><p class="project-card-category">${escapeHTML(project.category)}</p>
-        <h${hero ? 2 : 3}>${escapeHTML(project.title)}</h${hero ? 2 : 3}>
-        <p class="project-card-summary">${escapeHTML(project.summary)}</p>
-        ${!hero ? `<p class="small-note">${escapeHTML([project.period, project.venue].filter(Boolean).join(' · '))}</p>` : ''}<span class="project-card-action">${escapeHTML(project.action)} ${iconArrow}</span>
-      </div>
-    </a>
-  </article>`;
-}
-function featuredProjects() {
-  return `<section class="featured-projects" aria-labelledby="projects-title">
-    <div class="section-topline"><h2 class="section-title" id="projects-title">文化作品</h2>${inline('#/projects', '全部项目与作品')}</div>
-    <div class="project-cards">${projects.filter(project => project.featured && project.id !== 'moworld').map(project => projectCard(project)).join('')}</div>
-  </section>`;
-}
-
 function projectCredits(credits) {
   return `<dl class="project-credits">${credits.map(credit => `<div><dt>${escapeHTML(credit.role)}</dt><dd>${credit.people.map(person => {
     const member = members.find(member => member.id === person.memberId);

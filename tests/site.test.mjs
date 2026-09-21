@@ -50,6 +50,12 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
       assert.equal(result.status, 0, result.stderr);
       const projectHTML = await readFile(resolve(temporary, 'projects/index.html'), 'utf8');
       const prefix = new URL(url).pathname;
+      const homeHTML = await readFile(resolve(temporary, 'index.html'), 'utf8');
+      const inkHTML = await readFile(resolve(temporary, 'research/ink-restorer/index.html'), 'utf8');
+      for (const html of [homeHTML, inkHTML]) {
+        assert.ok(html.includes(`src="${prefix}assets/research/ink-restorer-interface.webp"`));
+        assert.ok(!html.includes('xiaosen3333.github.io') && !html.includes('/gan-lab-site/'));
+      }
       assert.ok(projectHTML.includes(`rel="canonical" href="${url}projects/"`));
       assert.ok(projectHTML.includes(`href="${prefix}projects/#canal-growth"`));
       assert.ok(projectHTML.includes(`src="${prefix}assets/projects/moworld-teaser.jpg"`));
@@ -117,7 +123,7 @@ test('raw HTTP returns every static page and resource, real unknown-path 404, an
     const redirect = await fetch(base + prefix + 'research?test=1', { redirect: 'manual' });
     assert.equal(redirect.status, 301);
     assert.equal(redirect.headers.get('location'), prefix + 'research/?test=1');
-    for (const file of ['assets/culture-computation-concept.webp', 'assets/contact-channel.png', 'assets/partners/bytedance.svg', 'assets/partners/geely.svg', 'assets/partners/alibaba.png', 'assets/partners/dji.svg', 'assets/projects/moworld-teaser.jpg', 'assets/projects/canal-growth.jpg', 'assets/projects/moran.jpg', 'assets/projects/ai-history-atlas.jpg', 'assets/favicon-16.png', 'assets/favicon-32.png', 'sitemap.xml', '404.html', ...sourceScripts, 'styles.css']) {
+    for (const file of ['assets/research/ink-restorer-interface.webp', 'assets/culture-computation-concept.webp', 'assets/contact-channel.png', 'assets/partners/bytedance.svg', 'assets/partners/geely.svg', 'assets/partners/alibaba.png', 'assets/partners/dji.svg', 'assets/projects/moworld-teaser.jpg', 'assets/projects/canal-growth.jpg', 'assets/projects/moran.jpg', 'assets/projects/ai-history-atlas.jpg', 'assets/favicon-16.png', 'assets/favicon-32.png', 'sitemap.xml', '404.html', ...sourceScripts, 'styles.css']) {
       const asset = await fetch(base + prefix + file);
       assert.equal(asset.status, 200);
       if (file.endsWith('.svg')) assert.equal(asset.headers.get('content-type'), 'image/svg+xml');

@@ -7,6 +7,7 @@ const projects = [
     title: 'MoWorld',
     category: '实时交互世界模型',
     summary: '通过连续的相机控制，探索生成的视频场景。',
+    homepage: { summary: '以初始图像、文字提示和相机轨迹为输入，生成可随镜头运动探索的视频场景。' },
     description: [
       'MoWorld 以初始图像、文字提示和相机轨迹为输入，生成连续的视频场景，支持使用者通过镜头运动探索生成场景。',
     ],
@@ -31,7 +32,6 @@ const projects = [
       { label: '论文', url: 'https://arxiv.org/abs/2607.06216v2' },
     ],
     relatedResearchIds: [],
-    featured: true,
     action: '查看项目',
   },
   {
@@ -39,6 +39,7 @@ const projects = [
     title: '运河·生长·万象',
     category: '遥感影像生成国画长卷',
     summary: '将大运河遥感影像转化为国画长卷与动态影像。',
+    homepage: { category: '生成艺术作品', venue: '浙江美术馆', summary: '将京杭大运河杭州段遥感影像转化为国画长卷与动态影像。' },
     description: [
       '作品以京杭大运河杭州段的遥感影像为基础，通过图像翻译将沿线空间结构与国画的笔触、色彩结合，生成静态画作与动态影像。',
       '2022 年 8 月 11 日至 10 月 11 日，作品展于浙江美术馆“大地史诗——中国大运河主题艺术展”。',
@@ -61,7 +62,6 @@ const projects = [
     ],
     links: [{ label: '展览报道', url: 'https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g' }],
     relatedResearchIds: [],
-    featured: true,
     action: '查看作品',
   },
   {
@@ -86,7 +86,6 @@ const projects = [
     credits: [{ role: '参与', people: [{ name: '李泽健', memberId: 'li-zejian' }] }],
     links: [{ label: '项目介绍', url: 'http://www.idi.zju.edu.cn/project/2804.html' }],
     relatedResearchIds: [],
-    featured: true,
     action: '查看项目',
   },
   {
@@ -121,7 +120,6 @@ const projects = [
     ],
     links: [{ label: '展览报道', url: 'https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg' }],
     relatedResearchIds: [],
-    featured: false,
     action: '查看图谱',
   },
 ];
