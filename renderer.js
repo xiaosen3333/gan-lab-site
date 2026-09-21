@@ -61,7 +61,9 @@ function workDetail(work) {
     </div>
     ${work.media ? `<figure class="project-figure research-interface">${projectImage(work.media)}<figcaption>${escapeHTML(work.media.caption)}</figcaption></figure>` : ''}
     <div class="project-body">
-      <section id="work-method"><h2>研究方法</h2><p>${work.method}</p></section>
+      <section id="work-context"><h2>${escapeHTML(work.context.title)}</h2><p>${escapeHTML(work.context.text)}</p></section>
+      <section id="work-method"><h2>${escapeHTML(work.methodTitle || '研究方法')}</h2><p>${escapeHTML(work.method)}</p></section>
+      ${work.finding ? `<section id="work-finding"><h2>${escapeHTML(work.finding.title)}</h2><p>${escapeHTML(work.finding.text)}</p></section>` : ''}
       <section id="work-paper"><h2>论文</h2><div class="paper-citation"><span>${work.venue} · ${work.year}</span><h3>${work.title}</h3>
         ${presentation.publicationActions ? `<a class="inline-link" href="${work.url}" target="_blank" rel="noopener">阅读原文 ${iconArrow}</a>${work.code ? `<a class="inline-link" href="${work.code}" target="_blank" rel="noopener">项目代码 ${iconArrow}</a>` : ''}` : ''}
       </div>
@@ -347,7 +349,8 @@ function projectsPage() {
       return `<article class="portfolio-entry${wide ? ' portfolio-entry-wide' : ''}" id="${project.id}" aria-labelledby="${project.id}-title">
         <div class="portfolio-heading"><div><p class="hero-kicker">${escapeHTML(project.category)}</p><h2 id="${project.id}-title">${escapeHTML(project.title)}</h2></div><p class="portfolio-period">${escapeHTML(project.period)}</p></div>
         <div class="portfolio-body">${projectFigure(project)}<div class="portfolio-copy">
-          <div class="portfolio-description">${project.description.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('')}</div>
+          <div class="portfolio-narrative"><div class="portfolio-description">${project.description.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('')}</div>
+          <div class="portfolio-details">${project.sections.map(section => `<section><h3>${escapeHTML(section.title)}</h3>${section.paragraphs.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('')}</section>`).join('')}</div></div>
           <div class="portfolio-attribution">${projectCredits(project.credits)}<div class="project-source-links">${project.links.map(link => `<a class="inline-link" href="${escapeHTML(link.url)}" target="_blank" rel="noopener">${escapeHTML(link.label)} ${iconArrow}</a>`).join('')}</div></div>
         </div></div>
       </article>`;
