@@ -49,11 +49,11 @@ main:focus { outline: none; }
 .hero-actions { display: flex; gap: 24px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
 .home-introduction { position: relative; isolation: isolate; display: flex; align-items: center; min-height: 360px; margin-block: 16px 28px; }
 .home-introduction::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,.82) 55%, rgba(255,255,255,.97) 72%, #fff 100%); pointer-events: none; }
-.home-introduction-copy { min-width: 0; width: 45%; margin-left: auto; padding-block: 32px; }
+.home-introduction-copy { min-width: 0; width: 45%; margin-left: auto; padding-block: 32px; text-align: right; }
 .home-visual { position: absolute; inset: 0 auto 0 0; z-index: -2; display: block; width: 78%; height: 100%; object-fit: cover; object-position: center 54%; }
 .home-introduction h1 { font-size: 56px; font-weight: 500; line-height: 1.2; letter-spacing: -.04em; }
 .home-introduction p { text-wrap: balance; max-width: 38em; margin-top: 22px; font-size: 21px; line-height: 1.9; }
-.home-identity { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
+.home-identity { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
 .home-affiliation { font-size: 16px; font-weight: 400; letter-spacing: 0; color: var(--muted); }
 .project-card { min-width: 0; }
 .project-card:focus, .work-row:focus, .portfolio-entry:focus { outline: none; }
