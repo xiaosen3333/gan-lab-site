@@ -50,7 +50,8 @@ main:focus { outline: none; }
 .home-introduction { padding-block: 36px 32px; max-width: 920px; }
 .home-introduction h1 { font-size: 56px; font-weight: 500; line-height: 1.2; letter-spacing: -.04em; }
 .home-introduction p { max-width: 38em; margin-top: 22px; font-size: 21px; line-height: 1.9; }
-.home-introduction p a { text-decoration: underline; text-underline-offset: 5px; }
+.home-identity { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
+.home-affiliation { font-size: 16px; font-weight: 400; letter-spacing: 0; color: var(--muted); }
 .project-card { min-width: 0; }
 .project-card:focus, .work-row:focus, .portfolio-entry:focus { outline: none; }
 .project-card:focus-visible :is(h2, h3), .work-row:focus-visible :is(h2, h3) { outline: 2px solid var(--blue); outline-offset: 6px; }

@@ -39,8 +39,8 @@ function home() {
   const additional = works.find(work => work.id === 'poempalette');
   return `<div class="shell">
     <section class="home-introduction" aria-labelledby="home-title">
-      <h1 id="home-title">GAN lab</h1>
-      <p>GAN lab 是浙江大学团队，导师为<a href="#/people/li-zejian">李泽健</a>。我们研究生成模型蒸馏，研发人机交互系统，并开展传统文化的数字创作。</p>
+      <div class="home-identity"><h1 id="home-title">GAN lab</h1><span class="home-affiliation">浙江大学</span></div>
+      <p>研究生成模型与人机交互，探索文化内容的数字创作与体验。</p>
     </section>
     <section class="selected-section" aria-labelledby="selected-title">
       <h2 class="section-title" id="selected-title">项目与研究</h2>
@@ -218,7 +218,7 @@ function pageFor(route) {
   if (route === '/') {
     html = home();
     title = 'GAN lab｜浙江大学 AI、人机交互与传统文化研究团队';
-    description = 'GAN lab 是浙江大学团队，导师为李泽健。开展生成模型蒸馏、交互系统研发与文化作品创作。';
+    description = 'GAN lab · 浙江大学。研究生成模型与人机交互，探索文化内容的数字创作与体验。';
   } else if (route === '/projects') {
     html = projectsPage(); title = '项目与作品｜GAN lab'; nav = 'projects'; kind = 'CollectionPage';
     description = 'GAN lab 团队成员参与的系统研发与文化创作，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
