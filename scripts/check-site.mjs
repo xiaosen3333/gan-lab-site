@@ -94,8 +94,8 @@ export async function checkSite() {
     assert.ok(html.includes(work.method) && html.includes(work.title), 'Research method and full paper title remain visible');
   }
   const projectHTML = pages.get(pathFor('/projects'));
-  assert.equal(projects.length, 4);
-  assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas']);
+  assert.equal(projects.length, 13);
+  assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas', 'poempalette', '3dinkgen', 'inkrenew', 'ink-restorer', 'realtimegen', 'fusionprotor', 'magic-pen', 'charactercritique', 'artist-1']);
   const selected = [...home.matchAll(/<article class="project-card selected-work(?:[^"]*)" id="([^"]+)" tabindex="-1">([\s\S]*?)<\/article>/g)];
   const expectedSelections = [
     ['perspective-panel-0', works.find(work => work.id === 'disback'), pathFor('/research/disback')],
@@ -123,14 +123,18 @@ export async function checkSite() {
     assert.ok(html.includes(ink.media.alt) && html.includes(ink.media.caption));
   }
   assert.ok((await stat(resolve(root, ink.media.path))).size < 350 * 1024, 'Ink interface stays a small full-frame image');
-  assert.equal((projectHTML.match(/class="portfolio-entry(?:\s[^"]*)?"/g) || []).length, 4);
+  assert.equal((projectHTML.match(/class="portfolio-entry(?:\s[^"]*)?"/g) || []).length, 13);
   assert.deepEqual(Array.from(projectPartners, partner => partner.name), ['字节跳动', '吉利', '阿里巴巴', '大疆']);
   for (const project of projects) {
     assert.ok(projectHTML.includes(`id="${project.id}"`), 'Stable project anchor: ' + project.id);
     assert.ok(projectHTML.includes(project.title));
-    assert.ok(projectHTML.includes(`src="${site.basePath}${project.media.path}"`));
-    assert.ok(projectHTML.includes(`width="${project.media.width}" height="${project.media.height}"`));
-    assert.ok((await stat(resolve(root, project.media.path))).size < 4 * 1024 * 1024, 'Project images stay below 4 MB');
+    if (project.media) {
+      assert.ok(projectHTML.includes(`src="${site.basePath}${project.media.path}"`));
+      assert.ok(projectHTML.includes(`width="${project.media.width}" height="${project.media.height}"`));
+      assert.ok((await stat(resolve(root, project.media.path))).size < 4 * 1024 * 1024, 'Project images stay below 4 MB');
+    } else {
+      assert.ok(['realtimegen', 'artist-1'].includes(project.id), 'Only explicitly text-led projects omit media');
+    }
     if (['moworld', 'canal-growth'].includes(project.id)) {
       assert.ok(home.includes(`href="${pathFor('/projects')}#${project.id}"`));
       assert.ok(home.includes(`id="project-card-${project.id}" tabindex="-1"`));
@@ -140,6 +144,11 @@ export async function checkSite() {
       assert.ok(projectHTML.includes(person.name), 'Visible credit: ' + person.name);
     }
     for (const link of project.links) {
+      if (link.route) {
+        assert.ok(allRoutes().includes(link.route), 'Related research route exists');
+        assert.ok(projectHTML.includes(`href="${pathFor(link.route)}"`));
+        continue;
+      }
       assert.ok(['http:', 'https:'].includes(new URL(link.url).protocol));
       assert.ok(projectHTML.includes(`href="${link.url}"`));
     }

@@ -322,6 +322,7 @@ function projectCredits(credits) {
 
 function projectFigure(project) {
   const media = project.media;
+  if (!media) return '';
   if (media.rotate === -90) {
     return `<figure class="atlas-figure">
       <div class="atlas-scroll" role="region" tabindex="0" aria-label="人工智能发展简史图谱，横向滚动查看" aria-describedby="atlas-instruction">
@@ -342,16 +343,16 @@ function partnersSection({ compact = false } = {}) {
 }
 function projectsPage() {
   return `<div class="shell projects-page">
-    ${heading('项目与作品', '团队成员参与的系统研发、生成模型研究与文化创作。', '项目与作品')}
+    ${heading('项目与作品', '生成式创作、交互系统与文化艺术实践。', '项目与作品')}
     <nav class="project-index" aria-label="项目与作品目录">${projects.map(project => `<a href="#/projects#${project.id}">${escapeHTML(project.title)}</a>`).join('')}<a href="#capabilities-title">合作方向</a><a href="#partners-title">合作伙伴</a></nav>
     <div class="portfolio-list">${projects.map(project => {
-      const wide = ['canal-growth', 'ai-history-atlas'].includes(project.id);
+      const wide = !project.media || ['canal-growth', 'ai-history-atlas'].includes(project.id);
       return `<article class="portfolio-entry${wide ? ' portfolio-entry-wide' : ''}" id="${project.id}" aria-labelledby="${project.id}-title">
         <div class="portfolio-heading"><div><p class="hero-kicker">${escapeHTML(project.category)}</p><h2 id="${project.id}-title">${escapeHTML(project.title)}</h2></div><p class="portfolio-period">${escapeHTML(project.period)}</p></div>
         <div class="portfolio-body">${projectFigure(project)}<div class="portfolio-copy">
           <div class="portfolio-narrative"><div class="portfolio-description">${project.description.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('')}</div>
           <div class="portfolio-details">${project.sections.map(section => `<section><h3>${escapeHTML(section.title)}</h3>${section.paragraphs.map(paragraph => `<p>${escapeHTML(paragraph)}</p>`).join('')}</section>`).join('')}</div></div>
-          <div class="portfolio-attribution">${projectCredits(project.credits)}<div class="project-source-links">${project.links.map(link => `<a class="inline-link" href="${escapeHTML(link.url)}" target="_blank" rel="noopener">${escapeHTML(link.label)} ${iconArrow}</a>`).join('')}</div></div>
+          <div class="portfolio-attribution">${projectCredits(project.credits)}<div class="project-source-links">${project.links.map(link => `<a class="inline-link" href="${escapeHTML(link.route ? '#' + link.route : link.url)}"${link.route ? '' : ' target="_blank" rel="noopener"'}>${escapeHTML(link.label)} ${iconArrow}</a>`).join('')}</div></div>
         </div></div>
       </article>`;
     }).join('')}</div>

@@ -151,6 +151,581 @@ const projects = [
     relatedResearchIds: [],
     action: '查看图谱',
   },
+{
+  "id": "poempalette",
+  "title": "PoemPalette",
+  "category": "诗歌理解与画面创作",
+  "period": "2026",
+  "summary": "将诗歌中的意象转化为可生成、组合与编辑的画面，支持诗歌爱好者探索诗意。",
+  "description": [
+    "将诗歌中的意象转化为可生成、组合与编辑的画面，支持诗歌爱好者探索诗意。"
+  ],
+  "sections": [
+    {
+      "title": "从意象到画面",
+      "paragraphs": [
+        "系统提取诗歌核心意象并组织为场景图，生成图像供使用者自由组合与拼贴。大语言模型智能体提供辅助解读，让文字理解与视觉创作相互衔接。"
+      ]
+    },
+    {
+      "title": "交互研究",
+      "paragraphs": [
+        "项目以中国古典美学中的“诗画一律”为基础，通过用户研究考察视觉创作对诗歌探索与理解的支持。相关成果发表于 CHI 2026。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "张颖",
+          "memberId": "zhang-ying"
+        },
+        {
+          "name": "颊凯欣",
+          "memberId": "jia-kaixin"
+        },
+        {
+          "name": "张洪渐",
+          "memberId": "zhang-hongjian"
+        },
+        {
+          "name": "朱可文",
+          "memberId": "zhu-kewen"
+        },
+        {
+          "name": "孟辰烨",
+          "memberId": "meng-chenye"
+        },
+        {
+          "name": "张杰斯",
+          "memberId": "zhang-jiesi"
+        },
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        },
+        {
+          "name": "陈培",
+          "memberId": "chen-pei"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "研究详情",
+      "route": "/research/poempalette"
+    },
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/5022.html"
+    },
+    {
+      "label": "论文",
+      "url": "https://doi.org/10.1145/3772318.3791460"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/projects/poempalette.webp",
+    "width": 1600,
+    "height": 793,
+    "sourceURL": "http://www.idi.zju.edu.cn/wp-content/uploads/2026/05/49efa26c15a40ef7785106023951f361.png",
+    "alt": "PoemPalette 的诗歌、意象图谱与画面创作界面",
+    "caption": "PoemPalette 的诗歌、意象图谱与画面创作界面 · 浙江大学国际设计研究院"
+  }
+},
+{
+  "id": "3dinkgen",
+  "title": "3DInkGen",
+  "category": "生成式三维水墨创作",
+  "period": "2026",
+  "summary": "将二维水墨意象转化为可编辑的三维作品，让没有建模经验的爱好者也能进行水墨风格创作。",
+  "description": [
+    "将二维水墨意象转化为可编辑的三维作品，让没有建模经验的爱好者也能进行水墨风格创作。"
+  ],
+  "sections": [
+    {
+      "title": "水墨意象的三维表达",
+      "paragraphs": [
+        "创作流程连接元素提取、造型生成、三维重建与风格迁移，保留水墨的视觉语言，并将其用于三维形态表达。"
+      ]
+    },
+    {
+      "title": "创作体验",
+      "paragraphs": [
+        "系统围绕新手的创作过程设计交互，通过用户研究评估创作门槛与作品表现。相关成果发表于 CHI 2026。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "张杰斯",
+          "memberId": "zhang-jiesi"
+        },
+        {
+          "name": "张颖",
+          "memberId": "zhang-ying"
+        },
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        },
+        {
+          "name": "谢常乐",
+          "memberId": "xie-changle"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/5001.html"
+    },
+    {
+      "label": "论文",
+      "url": "https://doi.org/10.1145/3772318.3791234"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/projects/3dinkgen.webp",
+    "width": 1600,
+    "height": 1241,
+    "sourceURL": "http://www.idi.zju.edu.cn/wp-content/uploads/2026/05/73a2be7307feb2bb43d4451d5888b056.png",
+    "alt": "3DInkGen 用户的水墨意象与三维创作结果",
+    "caption": "3DInkGen 用户的水墨意象与三维创作结果 · 浙江大学国际设计研究院"
+  }
+},
+{
+  "id": "inkrenew",
+  "title": "InkRenew",
+  "category": "人工智能辅助古画修复",
+  "period": "2026",
+  "summary": "围绕古画修复中的全色与接笔，为修复师提供符合画作风格的虚拟修复建议。",
+  "description": [
+    "围绕古画修复中的全色与接笔，为修复师提供符合画作风格的虚拟修复建议。"
+  ],
+  "sections": [
+    {
+      "title": "结合笔墨与时代风格",
+      "paragraphs": [
+        "系统将朝代特征、艺术家风格与笔墨技法纳入模型，为画面缺损区域提供数字修复方案，支持修复师进行比较与判断。"
+      ]
+    },
+    {
+      "title": "面向修复工作流程",
+      "paragraphs": [
+        "InkRenew 关注修复师的实际操作需求；用户研究考察系统的效率与使用体验。相关成果发表于 Humanities and Social Sciences Communications。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "张颖",
+          "memberId": "zhang-ying"
+        },
+        {
+          "name": "朱可文",
+          "memberId": "zhu-kewen"
+        },
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        },
+        {
+          "name": "刘仲妮",
+          "memberId": "liu-zhongni"
+        },
+        {
+          "name": "颊凯欣",
+          "memberId": "jia-kaixin"
+        },
+        {
+          "name": "张杰斯",
+          "memberId": "zhang-jiesi"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/5023.html"
+    },
+    {
+      "label": "论文",
+      "url": "https://www.nature.com/articles/s41599-026-07117-y"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/projects/inkrenew.webp",
+    "width": 1600,
+    "height": 571,
+    "sourceURL": "http://www.idi.zju.edu.cn/wp-content/uploads/2026/05/99f19e91873856ff8b7161e9f2451acb.jpg",
+    "alt": "InkRenew 的原画、缺损区域与 AI 数字修复结果对照",
+    "caption": "InkRenew 的原画、缺损区域与 AI 数字修复结果对照 · 浙江大学国际设计研究院"
+  }
+},
+{
+  "id": "ink-restorer",
+  "title": "Ink Restorer",
+  "category": "古画虚拟修复体验",
+  "period": "2025",
+  "summary": "通过虚拟操作体验古画修复的“洗、揭、补、全”，让公众了解传统修复技艺。",
+  "description": [
+    "通过虚拟操作体验古画修复的“洗、揭、补、全”，让公众了解传统修复技艺。"
+  ],
+  "sections": [
+    {
+      "title": "传统工序与交互体验",
+      "paragraphs": [
+        "系统将图像分割与生成式修复用于交互操作，按照传统修复流程组织体验，使使用者逐步观察和处理画作中的问题。"
+      ]
+    },
+    {
+      "title": "文化技艺的数字呈现",
+      "paragraphs": [
+        "项目关注公众如何理解和体验古画修复，与面向修复师工作流程的 InkRenew 形成不同的使用场景。相关成果发表于 CHI 2025。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "张颖",
+          "memberId": "zhang-ying"
+        },
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        },
+        {
+          "name": "张杰斯",
+          "memberId": "zhang-jiesi"
+        },
+        {
+          "name": "朱可文",
+          "memberId": "zhu-kewen"
+        },
+        {
+          "name": "刘绮",
+          "memberId": "liu-qi"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "研究详情",
+      "route": "/research/ink-restorer"
+    },
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/5024.html"
+    },
+    {
+      "label": "论文",
+      "url": "https://doi.org/10.1145/3706598.3714190"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/research/ink-restorer-interface.webp",
+    "alt": "Ink Restorer 中洗、揭、补、全四个古画虚拟修复步骤的交互界面",
+    "caption": "古画虚拟修复的交互界面",
+    "width": 1600,
+    "height": 618,
+    "sourceURL": "https://ai.zju.edu.cn/_upload/article/images/9e/4d/ea0ec4454d61bea673f78f4a25a4/f6ef444d-3b56-4b19-a35c-884ddd5fca70.jpg"
+  }
+},
+{
+  "id": "realtimegen",
+  "title": "RealtimeGen",
+  "category": "可干预的图像生成系统",
+  "period": "2024—2025",
+  "summary": "面向数字艺术素材创作者，在图像生成过程中提供介入与调整的交互方式。",
+  "description": [
+    "面向数字艺术素材创作者，在图像生成过程中提供介入与调整的交互方式。"
+  ],
+  "sections": [
+    {
+      "title": "创作者参与生成过程",
+      "paragraphs": [
+        "系统研究如何让创作者在生成进行时调整结果，将人的判断融入图像创作过程，支持对生成方向的持续控制。"
+      ]
+    },
+    {
+      "title": "数字素材创作",
+      "paragraphs": [
+        "项目通过创作任务与用户研究考察这种交互方式。相关成果在线发表于 2024 年，并收录于 International Journal of Human–Computer Interaction 2025 年卷期。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        },
+        {
+          "name": "张颖",
+          "memberId": "zhang-ying"
+        },
+        {
+          "name": "刘绮",
+          "memberId": "liu-qi"
+        },
+        {
+          "name": "张杰斯",
+          "memberId": "zhang-jiesi"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "论文",
+      "url": "https://doi.org/10.1080/10447318.2024.2382508"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目"
+},
+{
+  "id": "fusionprotor",
+  "title": "FusionProtor",
+  "category": "实体与数字融合的原型设计",
+  "period": "2025",
+  "summary": "将低保真实体原型转化为部件级三维数字模型，支持产品概念设计与仿真。",
+  "description": [
+    "将低保真实体原型转化为部件级三维数字模型，支持产品概念设计与仿真。"
+  ],
+  "sections": [
+    {
+      "title": "从实体部件到数字原型",
+      "paragraphs": [
+        "工具结合生成式人工智能与扩展现实，将手工原型中的部件转化为数字表达，支持在实体操作与虚拟设计之间往返推敲。"
+      ]
+    },
+    {
+      "title": "设计探索与验证",
+      "paragraphs": [
+        "设计师可以比较不同部件方案，并在三维环境中观察组合效果。相关成果发表于 CHI 2025，陈培为通讯作者，李泽健参与研究。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "陈培",
+          "memberId": "chen-pei"
+        },
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/4519.html"
+    },
+    {
+      "label": "论文",
+      "url": "https://doi.org/10.1145/3706598.3713686"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/projects/fusionprotor.webp",
+    "width": 1024,
+    "height": 435,
+    "sourceURL": "http://www.idi.zju.edu.cn/wp-content/uploads/2025/05/d8fabd3a3374416edc6936a570599fba-1024x435.png",
+    "alt": "FusionProtor 的实体原型与扩展现实设计场景",
+    "caption": "FusionProtor 的实体原型与扩展现实设计场景 · 浙江大学国际设计研究院"
+  }
+},
+{
+  "id": "magic-pen",
+  "title": "神笔",
+  "category": "交互式动漫风景生成",
+  "period": "2018—2020",
+  "summary": "根据使用者的涂鸦生成具有艺术风格的风景画，支持人与人工智能协同绘画。",
+  "description": [
+    "根据使用者的涂鸦生成具有艺术风格的风景画，支持人与人工智能协同绘画。"
+  ],
+  "sections": [
+    {
+      "title": "涂鸦驱动的创作",
+      "paragraphs": [
+        "系统结合设计知识、图像数据与深度学习，将用户表达的图像语义转化为绘画内容。"
+      ]
+    },
+    {
+      "title": "联合研究",
+      "paragraphs": [
+        "项目在浙江大学—阿里巴巴前沿技术联合研究中心开展，项目团队包括李泽健、向为、孙凌云、陈培、黄天谱等。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        },
+        {
+          "name": "陈培",
+          "memberId": "chen-pei"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/2764.html"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/projects/magic-pen.webp",
+    "width": 1015,
+    "height": 509,
+    "sourceURL": "http://www.idi.zju.edu.cn/wp-content/uploads/2021/05/e905f12d82b73ffb9a10ad780db577e5.jpg",
+    "alt": "神笔生成的动漫风格森林画面",
+    "caption": "神笔生成的动漫风格森林画面 · 浙江大学国际设计研究院"
+  }
+},
+{
+  "id": "charactercritique",
+  "title": "CharacterCritique",
+  "category": "儿童互动绘本系统",
+  "period": "2025",
+  "summary": "让儿童在故事阅读中与持不同观点的智能角色对话，练习解释、推理和多角度分析。",
+  "description": [
+    "让儿童在故事阅读中与持不同观点的智能角色对话，练习解释、推理和多角度分析。"
+  ],
+  "sections": [
+    {
+      "title": "故事中的不同观点",
+      "paragraphs": [
+        "系统围绕《谁拥有河流》等故事设计对话角色，将立场差异融入阅读情境，支持儿童比较不同解释并形成自己的判断。"
+      ]
+    },
+    {
+      "title": "亲子阅读与思辨",
+      "paragraphs": [
+        "项目将对话式人工智能用于亲子绘本阅读场景，探索多智能体交互对儿童批判性思维发展的支持。李泽健参与研究，相关成果发表于 CHI 2025。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "团队成员",
+      "people": [
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "项目介绍",
+      "url": "http://www.idi.zju.edu.cn/project/4773.html"
+    },
+    {
+      "label": "论文",
+      "url": "https://doi.org/10.1145/3706598.3713602"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目",
+  "media": {
+    "path": "assets/projects/charactercritique.webp",
+    "width": 1600,
+    "height": 766,
+    "sourceURL": "http://www.idi.zju.edu.cn/wp-content/uploads/2025/07/ce6e2814f207c9333f10785606c57df3.png",
+    "alt": "CharacterCritique 的绘本阅读界面与不同角色观点",
+    "caption": "CharacterCritique 的绘本阅读界面与不同角色观点 · 浙江大学国际设计研究院"
+  }
+},
+{
+  "id": "artist-1",
+  "title": "Artist 1.0 · 印象江南",
+  "category": "油画辅助创作与展览",
+  "period": "2026",
+  "summary": "面向油画创作的辅助平台，支持创作者生成、编辑和推敲画面。相关作品展于“印象江南——人工智能辅助创作油画展”。",
+  "description": [
+    "面向油画创作的辅助平台，支持创作者生成、编辑和推敲画面。相关作品展于“印象江南——人工智能辅助创作油画展”。"
+  ],
+  "sections": [
+    {
+      "title": "生成与可控编辑",
+      "paragraphs": [
+        "Artist 1.0 由浙江大学国际设计研究院研发，将绘画知识用于辅助创作，提供视角调整、多图层局部重绘与构图重组等编辑方式。"
+      ]
+    },
+    {
+      "title": "印象江南",
+      "paragraphs": [
+        "展览于 2026 年 5 月 9 日在浙江大学校友企业总部经济园开幕，展出 73 幅作品，围绕江南水乡、古镇和自然景观展开。展览由浙江大学主办，浙江大学国际设计研究院、浙江大学创新创业研究院有限公司承办。"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "项目参与",
+      "people": [
+        {
+          "name": "李泽健",
+          "memberId": "li-zejian"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "项目与展览介绍",
+      "url": "https://aha.yishujia.art/aiac-museum.html"
+    },
+    {
+      "label": "浙江日报报道",
+      "url": "https://zjnews.zjol.com.cn/zjnews/202605/t20260510_31653278.shtml"
+    }
+  ],
+  "relatedResearchIds": [],
+  "action": "查看项目"
+}
 ];
 
 const projectCapabilities = [
