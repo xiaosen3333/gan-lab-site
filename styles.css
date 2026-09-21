@@ -47,7 +47,9 @@ main:focus { outline: none; }
 .small-note { font-size: 12px; color: var(--muted); margin-top: 23px; line-height: 1.8; }
 .hero-kicker { font-size: 12px; color: var(--muted); margin-bottom: 18px; letter-spacing: .02em; }
 .hero-actions { display: flex; gap: 24px; align-items: center; margin-top: 20px; flex-wrap: wrap; }
-.home-introduction { padding-block: 36px 32px; max-width: 920px; }
+.home-introduction { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; padding-block: 28px 32px; }
+.home-introduction-copy { min-width: 0; }
+.home-visual { display: block; width: 100%; height: auto; aspect-ratio: 2.4; object-fit: cover; object-position: center 54%; }
 .home-introduction h1 { font-size: 56px; font-weight: 500; line-height: 1.2; letter-spacing: -.04em; }
 .home-introduction p { max-width: 38em; margin-top: 22px; font-size: 21px; line-height: 1.9; }
 .home-identity { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
@@ -239,7 +241,7 @@ main:focus { outline: none; }
   .portfolio-body { gap: 28px; }
 }
 @media (max-width: 760px) {
-  .home-introduction { padding-block: 34px; }
+  .home-introduction { grid-template-columns: 1fr; gap: 20px; padding-block: 34px; }
   .selected-work:not(.selected-work-with-media) .selected-work-copy { display: block; }
   .selected-work:not(.selected-work-with-media) .project-card-summary { margin-top: 12px; }
   .home-introduction h1 { font-size: 44px; }

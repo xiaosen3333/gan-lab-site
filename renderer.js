@@ -39,8 +39,9 @@ function home() {
   const additional = works.find(work => work.id === 'poempalette');
   return `<div class="shell">
     <section class="home-introduction" aria-labelledby="home-title">
-      <div class="home-identity"><h1 id="home-title">GAN lab</h1><span class="home-affiliation">浙江大学</span></div>
-      <p>研究生成模型与人机交互，探索文化内容的数字创作与体验。</p>
+      <div class="home-introduction-copy"><div class="home-identity"><h1 id="home-title">GAN lab</h1><span class="home-affiliation">浙江大学</span></div>
+      <p>研究生成模型与人机交互，探索文化内容的数字创作与体验。</p></div>
+      <img class="home-visual" src="assets/culture-computation-concept.webp" width="1536" height="1024" alt="水墨山形与数字点阵交融的概念视觉" loading="eager" fetchpriority="high">
     </section>
     <section class="selected-section" aria-labelledby="selected-title">
       <h2 class="section-title" id="selected-title">项目与研究</h2>

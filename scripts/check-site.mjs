@@ -83,7 +83,7 @@ export async function checkSite() {
   await checkLocalReferences(pages, { site });
   const home = pages.get(site.basePath), contact = pages.get(pathFor('/contact'));
   for (const index of [0, 1, 2]) assert.ok(home.includes(`id="perspective-panel-${index}"`));
-  assert.doesNotMatch(home, /data-perspective|role="tab"|culture-computation-concept/);
+  assert.doesNotMatch(home, /data-perspective|role="tab"/);
   assert.match(contact, /data-nav="contact" aria-current="page"/);
   assert.doesNotMatch(contact, /contact-layout|contact-tabs|contact-panel|data-intent|下一步如何展开|交流时可以带上/);
   assert.ok(contact.includes('assets/contact-channel.png'));
@@ -96,6 +96,7 @@ export async function checkSite() {
   const projectHTML = pages.get(pathFor('/projects'));
   assert.equal(projects.length, 13);
   assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas', 'poempalette', '3dinkgen', 'inkrenew', 'ink-restorer', 'realtimegen', 'fusionprotor', 'magic-pen', 'charactercritique', 'artist-1']);
+  assert.ok(home.includes(`src="${site.basePath}assets/culture-computation-concept.webp"`), "Approved homepage visual uses deployment base path");
   const selected = [...home.matchAll(/<article class="project-card selected-work(?:[^"]*)" id="([^"]+)" tabindex="-1">([\s\S]*?)<\/article>/g)];
   const expectedSelections = [
     ['perspective-panel-0', works.find(work => work.id === 'disback'), pathFor('/research/disback')],
