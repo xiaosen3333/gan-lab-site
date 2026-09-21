@@ -98,7 +98,7 @@ export async function checkSite() {
   const projectHTML = pages.get(pathFor('/projects'));
   assert.equal(projects.length, 13);
   assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas', 'poempalette', '3dinkgen', 'inkrenew', 'ink-restorer', 'realtimegen', 'fusionprotor', 'magic-pen', 'charactercritique', 'artist-1']);
-  assert.ok(home.includes(`src="${site.basePath}assets/culture-computation-concept.webp"`), "Approved homepage visual uses deployment base path");
+  assert.ok(home.includes(`src="${site.basePath}assets/culture-computation-1536.webp"`), "Approved homepage visual uses deployment base path");
   const selected = [...home.matchAll(/<article class="project-card selected-work(?:[^"]*)" id="([^"]+)" tabindex="-1">([\s\S]*?)<\/article>/g)];
   const expectedSelections = [
     ['perspective-panel-0', works.find(work => work.id === 'disback'), pathFor('/research/disback')],
@@ -113,7 +113,7 @@ export async function checkSite() {
     assert.ok(entry.includes(`href="${href}"`) && entry.includes(`<h3>${work.name || work.title}</h3>`), 'Selected work title and real destination');
     assert.ok(entry.includes(work.homepage.summary), 'Selected summary comes from its work source');
     assert.equal(entry.includes('<figure'), Boolean(work.media), 'No empty media placeholder');
-    if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.media.path}"`), 'Selected media follows deployment path');
+    if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.id === 'moworld' ? 'assets/projects/moworld-960.webp' : work.media.path}"`), 'Selected media follows deployment path');
   }
   assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
   assert.doesNotMatch(home, /更多研究：|全部研究/);
@@ -138,7 +138,7 @@ export async function checkSite() {
     assert.ok(projectHTML.includes(`id="${project.id}"`), 'Stable project anchor: ' + project.id);
     assert.ok(projectHTML.includes(project.title));
     if (project.media) {
-      assert.ok(projectHTML.includes(`src="${site.basePath}${project.media.path}"`));
+      assert.ok(projectHTML.includes(`src="${site.basePath}${project.id === 'moworld' ? 'assets/projects/moworld-960.webp' : project.id === 'ai-history-atlas' ? 'assets/projects/ai-history-atlas.webp' : project.media.path}"`));
       assert.ok(projectHTML.includes(`width="${project.media.width}" height="${project.media.height}"`));
       assert.ok((await stat(resolve(root, project.media.path))).size < 4 * 1024 * 1024, 'Project images stay below 4 MB');
     } else {
@@ -197,7 +197,13 @@ export async function checkSite() {
     assert.ok(projectHTML.includes(`${site.basePath}assets/projects/moworld-${width}.webp ${width}w`));
   }
   assert.ok((await stat(resolve(root, 'assets/projects/moworld-960.webp'))).size <= 350000);
-  assert.ok(home.includes('loading="eager" fetchpriority="high"'));
+  assert.equal((home.match(/fetchpriority="high"/g) || []).length, 1, 'Only the hero competes for high image priority');
+  for (const width of [640, 960, 1536]) {
+    assert.ok(home.includes(`${site.basePath}assets/culture-computation-${width}.webp ${width}w`));
+    assert.ok((await stat(resolve(root, `assets/culture-computation-${width}.webp`))).size < 220000, 'Hero candidate transfer budget');
+  }
+  assert.ok(home.includes('loading="eager" fetchpriority="high" decoding="async"'));
+  assert.ok((await stat(resolve(root, 'assets/projects/ai-history-atlas.webp'))).size < 1124282);
   assert.ok(contact.includes('id="capabilities-title"') && projectHTML.includes('id="partners-title"'));
   assert.doesNotMatch(projectHTML, /id="capabilities-title"/);
   assert.doesNotMatch(projectHTML, /class="project-index"/, 'Project content starts without the removed name index');

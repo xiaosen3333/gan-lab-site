@@ -59,7 +59,7 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
       assert.ok(projectHTML.includes(`rel="canonical" href="${url}projects/"`));
       assert.ok(homeHTML.includes(`href="${prefix}projects/#canal-growth"`));
       assert.ok(projectHTML.includes('id="canal-growth"'));
-      assert.ok(projectHTML.includes(`src="${prefix}assets/projects/moworld-teaser.jpg"`));
+      assert.ok(projectHTML.includes(`src="${prefix}assets/projects/moworld-960.webp"`));
       for (const width of [640, 960, 1440]) assert.ok(projectHTML.includes(`${prefix}assets/projects/moworld-${width}.webp ${width}w`));
       for (const logo of ['bytedance.svg', 'geely.svg', 'alibaba.png', 'dji.svg']) assert.ok(projectHTML.includes(`src="${prefix}assets/partners/${logo}"`));
       assert.ok(projectHTML.includes(`href="${prefix}assets/projects/ai-history-atlas.jpg"`));

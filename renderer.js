@@ -30,7 +30,7 @@ function selectedWork(selection) {
         <p class="project-card-summary">${escapeHTML(work.homepage.summary)}</p>
         <span class="project-card-action">${escapeHTML(label)} ${iconArrow}</span>
       </div>
-      ${work.media ? `<figure class="project-figure">${projectImage(work.media, { priority: work.id === 'moworld' })}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : ''}
+      ${work.media ? `<figure class="project-figure">${projectImage(work.media)}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : ''}
     </a>
   </article>`;
 }
@@ -39,7 +39,7 @@ function home() {
     <section class="home-introduction" aria-labelledby="home-title">
       <div class="home-introduction-copy"><div class="home-identity"><h1 id="home-title">GAN lab</h1><span class="home-affiliation">浙江大学</span></div>
       <p>研究生成模型与人机交互，探索文化内容的数字创作与体验。</p></div>
-      <img class="home-visual" src="assets/culture-computation-concept.webp" width="1536" height="1024" alt="水墨山形与数字点阵交融的概念视觉" loading="eager" fetchpriority="high">
+      <img class="home-visual" src="assets/culture-computation-1536.webp" srcset="assets/culture-computation-640.webp 640w, assets/culture-computation-960.webp 960w, assets/culture-computation-1536.webp 1536w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1320px) 78vw, 968px" width="1536" height="1024" alt="水墨山形与数字点阵交融的概念视觉" loading="eager" fetchpriority="high" decoding="async">
     </section>
     <section class="selected-section" aria-labelledby="selected-title">
       <h2 class="section-title" id="selected-title">项目与研究</h2>
@@ -313,7 +313,8 @@ function legacyDestination({ pathname, search = '', hash = '' }) {
 function projectImage(media, { priority = false } = {}) {
   const responsive = media.path === 'assets/projects/moworld-teaser.jpg';
   const candidates = responsive ? ` srcset="assets/projects/moworld-640.webp 640w, assets/projects/moworld-960.webp 960w, assets/projects/moworld-1440.webp 1440w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1000px) 48vw, 550px"` : '';
-  return `<img src="${escapeHTML(media.path)}"${candidates} alt="${escapeHTML(media.alt)}" width="${media.width}" height="${media.height}" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="async">`;
+  const imagePath = responsive ? 'assets/projects/moworld-960.webp' : media.path === 'assets/projects/ai-history-atlas.jpg' ? 'assets/projects/ai-history-atlas.webp' : media.path;
+  return `<img src="${escapeHTML(imagePath)}"${candidates} alt="${escapeHTML(media.alt)}" width="${media.width}" height="${media.height}" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="async">`;
 }
 function projectCredits(credits) {
   return `<dl class="project-credits">${credits.map(credit => `<div><dt>${escapeHTML(credit.role)}</dt><dd>${credit.people.map(person => {
