@@ -163,16 +163,26 @@ function memberPage(member) {
   </article>`;
 }
 function about() {
-  const institutions = [
-    ['浙江大学国际设计研究院', 'http://idi.zju.edu.cn/'],
-    ['浙江大学软件学院', 'http://www.cst.zju.edu.cn/'],
-    ['浙江大学人工智能学院', 'https://ai.zju.edu.cn/'],
-  ];
-  const resources = institutions.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener">${name}</a>`);
   return `<div class="shell">${heading('关于 GAN lab', '', '关于')}
-    <section class="page-section about-grid"><h2>团队与研究</h2><div><p>GAN lab 是浙江大学的研究团队。李泽健任职于浙江大学软件学院，是浙江大学人工智能学院孙凌云教授团队成员，研究生成模型与智能设计。</p><p>工作从生成模型的蒸馏、后训练与评价，延伸到人机交互系统及文化艺术创作。成果包括学术论文、可交互的创作工具，以及面向公众展出的文化作品。</p><div class="profile-links">${inline('#/people/li-zejian', '导师 · 李泽健')}${inline('#/people', '团队成员')}</div></div></section>
-    <section class="page-section about-grid"><h2>文化艺术实践</h2><div><p>团队成员参与“墨染”国画创作系统、《运河·生长·万象》系列作品及人工智能发展简史图谱，将生成技术用于绘画创作、文化内容表达与展览。</p>${inline('#/projects', '项目与作品')}</div></section>
-    <section class="page-section about-grid"><h2>研究资源</h2><p>团队依托${resources[0]}、${resources[1]}与${resources[2]}的研究资源。</p></section>
+    <section class="page-section about-grid"><h2>团队与背景</h2><div>
+      <p>GAN lab 是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。团队的工作涵盖生成模型算法、交互系统与艺术作品，关注技术如何进入具体的创作和使用过程。</p>
+      <p>团队导师李泽健任职于<a href="http://www.cst.zju.edu.cn/" target="_blank" rel="noopener">浙江大学软件学院</a>，是浙江大学人工智能学院孙凌云教授团队成员。团队成员的研究涉及计算机视觉、三维内容生成、人机协同创作与文化遗产保护，从算法实验、系统设计到用户研究开展工作。</p>
+      <div class="profile-links">${inline('#/people/li-zejian', '李泽健')}${inline('#/people', '团队成员')}</div>
+    </div></section>
+    <section class="page-section about-grid"><h2>研究关注</h2><div>
+      <p>在生成模型研究中，我们关注生成效率、内容可控性与质量评价：如何用更少的计算步骤得到高质量结果，如何让模型响应人的意图，以及如何评价生成内容是否符合预期。<a href="#/research/disback">DisBack</a>研究扩散模型蒸馏的训练方法，通过分布回溯改善收敛过程；团队成员也参与了面向实时交互场景的 MoWorld 世界模型研究。</p>
+      <p>在人机交互研究中，我们关注人如何表达想法、探索方案并调整生成结果。<a href="#/projects#poempalette">PoemPalette</a>将诗歌意象组织为可供创作的视觉线索，RealtimeGen 探索生成过程中的实时干预，FusionProtor 结合实体原型与扩展现实支持设计探索。这些工作通过系统实现与用户研究，考察交互方式如何影响创作过程和使用体验。</p>
+      <div class="profile-links">${inline('#/outputs', '研究论文')}</div>
+    </div></section>
+    <section class="page-section about-grid"><h2>文化与艺术实践</h2><div>
+      <p>文化艺术是团队持续开展研究与创作的领域。团队成员参与的“墨染”国画创作系统，在浙江大学—阿里巴巴前沿技术联合研究中心开展，探索国画长卷合成、字体设计、风格与笔触迁移等方法。<a href="#/projects#canal-growth">《运河·生长·万象》</a>以京杭大运河杭州段遥感影像为基础，生成国画长卷与动态影像，展于浙江美术馆“大地史诗——中国大运河主题艺术展”。成员参与内容撰写与视觉设计的人工智能发展简史图谱，也在浙江美术馆展出。</p>
+      <p>围绕古画修复，我们面向不同使用者探索数字工具与交互体验。InkRenew 关注修复师的数字修复工作流程；<a href="#/research/ink-restorer">Ink Restorer</a>则面向公众，将“洗、揭、补、全”的传统修复工序转化为可参与的虚拟操作。前者服务于专业操作中的数字辅助，后者帮助公众在体验中理解修复技艺。</p>
+      <div class="profile-links">${inline('#/projects', '项目与作品')}</div>
+    </div></section>
+    <section class="page-section about-grid"><h2>项目合作</h2><div>
+      <p>团队的项目经验涉及生成模型研究、交互工具开发和文化展览创作，既有研究系统，也有与其他团队共同完成的作品。面向技术研发、设计与文化领域的合作，我们关注具体场景中的生成、交互和内容表达问题，将算法方法与系统原型、创作实践结合。</p>
+      <div class="profile-links">${inline('#/contact', '交流与合作')}</div>
+    </div></section>
   </div>`;
 }
 
