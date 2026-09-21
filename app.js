@@ -30,6 +30,30 @@ if (legacyTarget) {
     return target?.id ? { focusId: target.id, focusHref: target.href || null } : { focusId: null, focusHref: null };
   }
 
+  function readStoredView(entry) {
+    try {
+      const snapshot = JSON.parse(sessionStorage.getItem('gan-view:' + site.basePath + ':' + entry));
+      const view = snapshot?.view;
+      if (snapshot?.entry !== entry || snapshot.url !== location.href || !view) return null;
+      if (![view.x, view.y].every(value => typeof value === 'number' && Number.isFinite(value) && value >= 0)) return null;
+      if (view.focusId !== null && typeof view.focusId !== 'string') return null;
+      if (view.focusHref !== null && typeof view.focusHref !== 'string') return null;
+      return view;
+    } catch {
+      return null;
+    }
+  }
+
+  function storeView(view) {
+    try {
+      sessionStorage.setItem('gan-view:' + site.basePath + ':' + currentEntry, JSON.stringify({
+        entry: currentEntry, url: location.href, view,
+      }));
+    } catch {
+      // Storage can be disabled or full; history and ordinary navigation still work.
+    }
+  }
+
   function cancelPersistence() {
     if (persistTimer !== null) clearTimeout(persistTimer);
     persistTimer = null;
@@ -52,7 +76,9 @@ if (legacyTarget) {
   function persistView() {
     cancelPersistence();
     const view = views.get(currentEntry);
-    return view && writeHistory('replaceState', { ...history.state, ganEntry: currentEntry, ganView: view });
+    if (!view) return false;
+    storeView(view);
+    return writeHistory('replaceState', { ...history.state, ganEntry: currentEntry, ganView: view });
   }
 
   function rememberView(identity = focusIdentity(document.activeElement), { persist = true } = {}) {
@@ -100,7 +126,7 @@ if (legacyTarget) {
     cancelPersistence();
     departureFocus = undefined;
     currentEntry = history.state?.ganEntry || newEntryKey();
-    const view = views.get(currentEntry) || history.state?.ganView;
+    const view = views.get(currentEntry) || readStoredView(currentEntry) || history.state?.ganView;
     if (view) restoreView(view);
     else focusLocation();
     handledURL = location.href;
@@ -161,7 +187,7 @@ if (legacyTarget) {
       // Ignore a delayed initial frame if another navigation has already won.
       if (location.href !== entryURL || history.state?.ganEntry !== entryState) return;
       currentEntry = history.state?.ganEntry || newEntryKey();
-      const view = views.get(currentEntry) || history.state?.ganView;
+      const view = views.get(currentEntry) || (shouldRestore ? readStoredView(currentEntry) : null) || history.state?.ganView;
       if (shouldRestore && view) restoreView(view);
       else focusLocation();
       handledURL = location.href;

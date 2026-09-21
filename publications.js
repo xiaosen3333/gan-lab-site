@@ -48,15 +48,15 @@ const additionalPublications=[
   "summary": "把三维场景补全的评价指标转化为偏好对，用于扩散模型蒸馏。",
   "venue": "AAAI",
   "year": "2026",
-  "url": "https://arxiv.org/abs/2504.11447",
+  "url": "https://ojs.aaai.org/index.php/AAAI/article/view/38307",
   "memberIds": [
     "zhao-an",
     "zhang-shengyuan",
-    "li-zejian"
+    "li-zejian",
+    "chen-pei"
   ],
   "kind": "paper",
-  "format": "已接收",
-  "acceptanceSource": "https://zejianli.github.io/markdown/2024/06/02/About-me.html"
+  "sourceLabel": "论文原文"
 },
 {
   "id": "sepo",
@@ -379,7 +379,7 @@ const additionalPublications=[
     "summary": "通过全局注意力融合，研究可按对象布局控制的全景图像生成。",
     "venue": "ECCV",
     "year": "2026",
-    "url": "https://zejianli.github.io/markdown/2024/06/02/About-me.html",
+    "url": "https://link.springer.com/chapter/10.1007/978-3-032-37324-3_18",
     "memberIds": [
       "li-zejian",
       "huang-rui",
@@ -389,8 +389,7 @@ const additionalPublications=[
       "zhu-kewen"
     ],
     "kind": "paper",
-    "format": "已接收",
-    "sourceLabel": "导师成果目录"
+    "sourceLabel": "论文原文"
   },
   {
     "id": "mean-flow",

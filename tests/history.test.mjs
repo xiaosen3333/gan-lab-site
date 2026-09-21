@@ -10,7 +10,7 @@ const enhancement = await readFile(resolve(root, 'app.js'), 'utf8');
 
 // An event surface runs the actual delivered scripts. CUA independently covers layout,
 // native focus/scroll, BFCache and interaction at real viewport sizes.
-function createPage({ path = 'projects/#moran', state = null, navigation = 'navigate', persisted = false, deferFrames = false } = {}) {
+function createPage({ path = 'projects/#moran', state = null, navigation = 'navigate', persisted = false, deferFrames = false, storage = new Map(), storageUnavailable = false } = {}) {
   const location = new URL('http://127.0.0.1/gan-lab-site/' + path);
   const events = { document: {}, window: {} };
   const timers = new Map(), frames = [], writes = [], failures = new Set();
@@ -101,6 +101,10 @@ function createPage({ path = 'projects/#moran', state = null, navigation = 'navi
   };
   const context = vm.createContext({
     URL, URLSearchParams, location, document, window, history,
+    sessionStorage: {
+      getItem: key => { if (storageUnavailable) throw new Error('Storage denied'); return storage.get(key) ?? null; },
+      setItem: (key, value) => { if (storageUnavailable) throw new Error('Storage denied'); storage.set(key, value); },
+    },
     requestAnimationFrame: callback => deferFrames ? frames.push(callback) : callback(),
     setTimeout: (callback, delay) => { const id = ++timerId; timers.set(id, { callback, time: now + delay }); return id; },
     clearTimeout: id => timers.delete(id),
@@ -275,4 +279,56 @@ test('a delayed pageshow frame cannot override a newer fragment navigation', () 
   assert.equal(page.window.scrollY, 1300.5);
   page.events.window.pagehide();
   assert.equal(page.history.state.ganView.y, 1300.5);
+});
+
+
+test('immediate reload reads the final pagehide snapshot even when its history state was selected earlier', () => {
+  const storage = new Map();
+  const path = 'projects/#canal-growth';
+  const page = createPage({ path, storage, state: { ganEntry: 'fast-reload', ganView: { x: 0, y: 982, focusId: null, focusHref: null } }, navigation: 'reload' });
+  page.scroll(1270);
+  // This browser-observed order is intentionally opposite to a pagehide-first reload test.
+  const destinationState = JSON.parse(JSON.stringify(page.history.state));
+  assert.equal(destinationState.ganView.y, 982);
+  page.events.window.pagehide();
+  assert.equal(page.history.state.ganView.y, 1270);
+  const reloaded = createPage({ path, state: destinationState, navigation: 'reload', storage });
+  assert.equal(reloaded.window.scrollY, 1270);
+});
+
+test('session snapshots require matching entry, exact URL and finite positions, and never override fresh navigation', () => {
+  const path = 'projects/#canal-growth';
+  const state = { ganEntry: 'snapshot-validation', ganView: { x: 0, y: 982, focusId: null, focusHref: null } };
+  const valid = { entry: state.ganEntry, url: 'http://127.0.0.1/gan-lab-site/' + path, view: { x: 0, y: 1270, focusId: null, focusHref: null } };
+  const key = 'gan-view:/gan-lab-site/:' + state.ganEntry;
+  for (const snapshot of [
+    { ...valid, entry: 'another-entry' },
+    { ...valid, url: valid.url.replace('#canal-growth', '#moran') },
+    { ...valid, url: valid.url.replace('projects/', 'projects/?view=another') },
+    { ...valid, view: { ...valid.view, y: null } },
+    { ...valid, view: { ...valid.view, y: -1 } },
+    { ...valid, view: { ...valid.view, focusId: {} } },
+  ]) {
+    const storage = new Map([[key, JSON.stringify(snapshot)]]);
+    const reloaded = createPage({ path, state, storage, navigation: 'reload' });
+    assert.equal(reloaded.window.scrollY, 982);
+  }
+  const fresh = createPage({ path, state, storage: new Map([[key, JSON.stringify(valid)]]) });
+  assert.equal(fresh.window.scrollY, 1053.5, 'fresh navigate follows its fragment');
+});
+
+test('unavailable or malformed session storage keeps history fallback and native links usable', () => {
+  const path = 'projects/#canal-growth';
+  const state = { ganEntry: 'storage-fallback', ganView: { x: 0, y: 982, focusId: null, focusHref: null } };
+  for (const options of [
+    { storageUnavailable: true },
+    { storage: new Map([['gan-view:/gan-lab-site/:storage-fallback', '{malformed']]) },
+  ]) {
+    const page = createPage({ path, state, navigation: 'reload', ...options });
+    assert.equal(page.window.scrollY, 982);
+    assert.doesNotThrow(() => { page.scroll(1270); page.advance(750); page.events.window.pagehide(); });
+    assert.equal(page.click(page.aboutLink), false, 'ordinary link stays native');
+    page.failNext('replaceState');
+    assert.equal(page.click(page.canalLink), false, 'history failure still falls back to native anchor');
+  }
 });

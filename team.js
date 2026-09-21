@@ -198,7 +198,7 @@ const members=[
     "english": "Rui Huang",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与InstaPano研究，通过全局注意力融合，让全景图像生成接受对象布局控制，已获ECCV 2026接收。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。也参与SEPO的扩散模型偏好对齐研究。"
+    "researchSummary": "参与InstaPano研究，通过全局注意力融合，让全景图像生成接受对象布局控制，发表于ECCV 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。也参与SEPO的扩散模型偏好对齐研究。"
   },
   {
     "id": "feng-linya",
