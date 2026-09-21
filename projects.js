@@ -7,7 +7,7 @@ const projects = [
     title: 'MoWorld',
     category: '实时交互世界模型',
     summary: '通过连续的相机控制，探索生成的视频场景。',
-    homepage: { summary: '以初始图像、文字提示和相机轨迹为输入，生成可随镜头运动探索的视频场景。' },
+    homepage: { summary: '用图像与文字生成连续的视频场景，并通过镜头运动探索场景。' },
     description: [
       'MoWorld 以初始图像、文字提示和相机轨迹为输入，生成连续的视频场景，支持使用者通过镜头运动探索生成场景。',
     ],
@@ -70,9 +70,9 @@ const projects = [
     category: '智能国画创作系统',
     summary: '支持国画长卷合成、字体设计、风格与笔触迁移。',
     description: [
-      '“墨染”面向中国传统国画的 AI 创作，支持长卷合成、字体设计、风格与笔触迁移等创作环节。',
-      '系统可以在两幅国画之间生成衔接内容，探索不同风格的图像生成，并以画作动画模块呈现动态内容。',
-      '项目于 2018—2020 年开展，来自浙江大学—阿里巴巴前沿技术联合研究中心。',
+      '“墨染”是一套国画创作系统，支持长卷合成、字体设计、风格与笔触迁移。',
+      '系统可在两幅国画之间生成衔接画面，并将画作转化为动态影像。',
+      '项目于 2018—2020 年在浙江大学—阿里巴巴前沿技术联合研究中心开展。',
     ],
     period: '2018—2020',
     venue: '浙江大学—阿里巴巴前沿技术联合研究中心',
@@ -127,12 +127,12 @@ const projects = [
 const projectCapabilities = [
   {
     title: '生成模型蒸馏',
-    description: '围绕扩散与流匹配模型，开展模型蒸馏、少步生成与推理加速研究。',
+    description: '研究扩散与流匹配模型的蒸馏方法，减少生成步数、加快推理。',
     links: [{ label: 'DisBack 研究', route: '/research/disback' }],
   },
   {
     title: '文化内容生成',
-    description: '结合文化图像与生成模型，创作国画图像、长卷和动态影像。',
+    description: '利用生成模型创作国画、长卷与动态影像。',
     links: [
       { label: '运河·生长·万象', route: '/projects#canal-growth' },
       { label: '墨染', route: '/projects#moran' },
@@ -140,7 +140,7 @@ const projectCapabilities = [
   },
   {
     title: '交互系统',
-    description: '围绕古画虚拟修复与诗画探索，设计可操作的交互系统与文化体验。',
+    description: '开发古画虚拟修复与诗画创作工具，让使用者通过交互体验传统艺术。',
     links: [
       { label: 'Ink Restorer 研究', route: '/research/ink-restorer' },
       { label: 'PoemPalette 研究', route: '/research/poempalette' },

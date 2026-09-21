@@ -15,14 +15,14 @@ function workRows({ level = 3 } = {}) {
   return works.map(work => `<article class="work-row" id="research-entry-${work.id}" tabindex="-1">
     <div class="work-year">${work.venue} / ${work.year}<span>${work.overview.category}</span></div>
     <div><h${level}><a href="#/research/${work.id}">${work.name}</a></h${level}><p>${work.overview.summary}</p></div>
-    ${inline('#/research/' + work.id, '阅读研究')}
+    ${inline('#/research/' + work.id, '研究详情')}
   </article>`).join('');
 }
 function selectedWork(selection) {
   const research = selection.kind === 'research';
   const work = (research ? works : projects).find(work => work.id === selection.id);
   const href = research ? '#/research/' + work.id : '#/projects#' + work.id;
-  const label = research ? '阅读研究' : work.action;
+  const label = research ? '研究详情' : work.action;
   const context = research ? `${work.venue} ${work.year}` : [work.period, work.homepage.venue || work.venue].filter(Boolean).join(' · ');
   return `<article class="project-card selected-work${work.media ? ' selected-work-with-media' : ''}" id="${selection.anchor}" tabindex="-1">
     <a class="selected-work-link" href="${href}">
@@ -170,12 +170,12 @@ function about() {
   ];
   const resources = institutions.map(([name, url]) => `<a href="${url}" target="_blank" rel="noopener">${name}</a>`);
   return `<div class="shell">${heading('关于 GAN lab', '', '关于')}
-    <section class="page-section about-grid"><h2>团队与研究</h2><div><p>GAN lab 是浙江大学团队，导师为李泽健。研究涵盖生成模型、人机交互与传统文化，开展生成模型蒸馏、交互系统研发与文化作品创作。</p><div class="profile-links">${inline('#/people/li-zejian', '李泽健')}${inline('#/people', '团队成员')}</div></div></section>
-    <section class="page-section about-grid"><h2>研究资源</h2><p>团队依托${resources[0]}、${resources[1]}与${resources[2]}的相关研究资源，开展交叉研究。</p></section>
+    <section class="page-section about-grid"><h2>团队与研究</h2><div><p>GAN lab 的研究涵盖生成模型蒸馏、人机交互，以及传统文化的数字创作与体验。</p><div class="profile-links">${inline('#/people/li-zejian', '导师 · 李泽健')}${inline('#/people', '团队成员')}</div></div></section>
+    <section class="page-section about-grid"><h2>研究资源</h2><p>团队依托${resources[0]}、${resources[1]}与${resources[2]}的研究资源。</p></section>
   </div>`;
 }
 
-function contact(){return `<div class="shell">${heading('交流与合作','','交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">导师公开学术邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健老师的学术邮箱，地址见图片" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">导师个人主页 ${iconArrow}</a></section></div>`;}
+function contact(){return `<div class="shell">${heading('交流与合作','','交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">电子邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健的电子邮箱" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">个人主页 ${iconArrow}</a></section></div>`;}
 
 // Shared route and metadata rules. Content remains in the three data files above.
 const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({
@@ -231,7 +231,7 @@ function pageFor(route) {
     description = `${work.name}：${work.summary}${work.stage}。`;
   } else if (route === '/outputs') {
     html = outputs(); title = '论文｜GAN lab'; nav = 'outputs'; kind = 'CollectionPage';
-    description = `围绕生成模型、人机协作与文化创作，这里收录了 GAN lab 团队参与的${publications.length}篇论文与预印本。`;
+    description = `GAN lab 团队参与的${publications.length}篇论文与预印本，涵盖生成模型、人机协作与文化创作。`;
   } else if (route === '/people') {
     html = people(); title = '团队｜GAN lab'; nav = 'people'; kind = 'CollectionPage';
     description = '认识 GAN lab 的教师与研究成员，共同研究生成模型、人机协作与文化创作。';
@@ -242,10 +242,10 @@ function pageFor(route) {
     description = `${person.name}：${plainText(text)}`;
   } else if (route === '/about') {
     html = about(); title = '关于｜GAN lab'; nav = 'about';
-    description = 'GAN lab 是浙江大学团队，导师为李泽健。研究涵盖生成模型、人机交互与传统文化，开展生成模型蒸馏、交互系统研发与文化作品创作。';
+    description = 'GAN lab 的研究涵盖生成模型蒸馏、人机交互，以及传统文化的数字创作与体验。';
   } else if (route === '/contact') {
     html = contact(); title = '交流与合作｜GAN lab'; nav = 'contact';
-    description = 'GAN lab 联系方式：李泽健老师的公开学术邮箱与导师个人主页。';
+    description = 'GAN lab 联系方式：李泽健的电子邮箱与个人主页。';
   } else {
     html = `<div class="shell not-found">${heading('页面未找到', '地址可能有误，或页面已移除。')}<div class="hero-actions">${arrow('#/', '返回首页')}${inline('#/projects', '项目与作品')}</div></div>`;
     title = '页面未找到｜GAN lab'; description = '地址可能有误，或页面已移除。返回 GAN lab 首页或浏览项目与作品。';
@@ -325,7 +325,7 @@ function projectFigure(project) {
       <div class="atlas-scroll" role="region" tabindex="0" aria-label="人工智能发展简史图谱，横向滚动查看" aria-describedby="atlas-instruction">
         <div class="atlas-track">${projectImage(media)}</div>
       </div>
-      <figcaption>${escapeHTML(media.caption)}<span id="atlas-instruction">左右滑动查看图谱；键盘可用左右方向键。</span></figcaption>
+      <figcaption>${escapeHTML(media.caption)}<span id="atlas-instruction">横向滚动查看完整图谱，或使用键盘左右方向键。</span></figcaption>
       <a class="inline-link" href="${escapeHTML(media.path)}" target="_blank" rel="noopener">查看完整原图 ${iconArrow}</a>
     </figure>`;
   }

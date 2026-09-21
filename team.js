@@ -8,11 +8,11 @@ const members=[
     "group": "faculty",
     "title": "平台“百人计划”研究员 · 博士生导师",
     "titleSource": "https://zejianli.github.io/markdown/2024/06/02/About-me.html",
-    "introduction": "从事智能设计交叉学科研究，探索图像生成技术如何支持人机协同创作。",
-    "background": "浙江大学软件学院。2019年获浙江大学计算机科学与技术博士学位。",
+    "introduction": "研究智能设计，关注图像生成技术在人机协同创作中的应用。",
+    "background": "任职于浙江大学软件学院，2019年获浙江大学计算机科学与技术博士学位。",
     "biography": [
       "研究方向包括生成模型、智能设计及人工智能辅助文化遗产保护，学术成果发表于CHI、ICLR、CVPR、AAAI、ICCV等国际会议。",
-      "相关成果曾获世界人工智能大会最高奖SAIL奖、中国“好设计”创意奖，并参展“双创”周、中国国际工业博览会等。代表性科艺融合作品包括“墨染”系列国画创作系统、《运河·生长·万象》系列作品及人工智能发展简史图谱。",
+      "相关成果曾获世界人工智能大会最高奖SAIL奖、中国“好设计”创意奖，并参展“双创”周、中国国际工业博览会等。代表作品包括“墨染”系列国画创作系统、《运河·生长·万象》系列作品及人工智能发展简史图谱。",
       "曾主持国家自然科学基金青年项目，并作为核心骨干参与科技部“新一代人工智能”重大项目、教育部人工智能算法规划研究项目和浙江省重点研发计划等。"
     ],
     "biographySources": [
@@ -38,7 +38,7 @@ const members=[
     "biographySources": [
       "https://person.zju.edu.cn/chenpei#0"
     ],
-    "researchSummary": "在设计空间探索与混合原型方面，相关工作包括CoExploreDS、ProtoDreamer与FusionProtor，发表于CHI、UIST和TOCHI；也研究少样本增量图像生成，相关成果发表于CVPR。"
+    "researchSummary": "参与CoExploreDS、ProtoDreamer与FusionProtor研究，支持设计方案探索与原型创作，成果发表于CHI、UIST和TOCHI；另有少样本增量图像生成研究发表于CVPR。"
   },
   {
     "id": "zhang-shengyuan",
@@ -46,7 +46,7 @@ const members=[
     "english": "Shengyuan Zhang",
     "title": "电子信息博士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与扩散模型与流匹配模型的高效生成研究，包括DisBack、Inversion-DPO与Mean Flow Distillation，分别探索蒸馏收敛、偏好优化和稳定的单步生成；在ScoreLiDAR中，将模型蒸馏用于三维激光雷达场景补全。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
+    "researchSummary": "参与扩散模型与流匹配模型的高效生成研究，包括DisBack、Inversion-DPO与Mean Flow Distillation，分别研究如何加快蒸馏训练收敛、优化生成偏好，以及稳定地完成单步生成；在ScoreLiDAR中，将模型蒸馏用于三维激光雷达场景补全。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。"
   },
   {
     "id": "chen-tianrun",
@@ -73,13 +73,13 @@ const members=[
     "english": "Lefan Hou",
     "title": "电子信息博士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与图像生成评价与可控生成研究，合著FITEE图像生成评价综述，梳理人工评价与自动评价的方法；在InstaPano中，探索以对象布局控制全景图像生成。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。在AAAI 2024的SFERD工作中，研究扩散模型蒸馏中的空间拟合误差。"
+    "researchSummary": "参与图像生成评价与可控生成研究，合著FITEE图像生成评价综述，梳理人工评价与自动评价的方法；InstaPano研究如何按对象布局生成全景图像。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。在AAAI 2024的SFERD工作中，研究扩散模型蒸馏中的空间拟合误差。"
   },
   {
     "id": "meng-chenye",
     "name": "孟辰烨",
     "english": "Chenye Meng",
-    "background": "浙江大学博士生（2024年起）；江南大学本科（2019—2023）",
+    "background": "2024年起在浙江大学攻读博士学位。",
     "profile": "https://openreview.net/profile?id=~Chenye_Meng1",
     "profileLabel": "学术档案",
     "honor": "江南大学2023届至善荣誉生“特别荣誉奖”",
@@ -88,7 +88,7 @@ const members=[
     "titleSource": "团队确认专业，公开来源核验博士在读；2026-09-08",
     "researchSummary": "参与生成模型的评价、对齐与高效采样研究。相关工作包括LAION-SG场景图数据集、DisBack扩散蒸馏和Inversion-DPO偏好优化；Beyond Binary Preference进一步探索以细粒度属性表达生成内容的评价标准。",
     "biography": [
-      "本科就读于江南大学数字媒体技术专业，曾连续两年获国家奖学金。"
+      "2019—2023年就读于江南大学数字媒体技术专业，曾连续两年获国家奖学金。"
     ],
     "biographySources": [
       "https://honorschool.jiangnan.edu.cn/info/1174/5202.htm"
@@ -100,7 +100,7 @@ const members=[
     "english": "Ying Zhang",
     "title": "电子信息博士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与传统艺术与生成式AI交叉研究，将古画修复流程、水墨创作和诗画理解转化为人机协作工具。相关工作包括Ink Restorer、PoemPalette与3DInkGen，发表于CHI；也参与图像生成评价综述及失语症叙事支持研究。参与的RealtimeGen支持人在AI图像生成过程中介入，面向数字美术资产创作。"
+    "researchSummary": "参与传统艺术与生成式AI交叉研究，将古画修复流程、水墨创作和诗画理解转化为人机协作工具。相关工作包括Ink Restorer、PoemPalette与3DInkGen，发表于CHI；也参与图像生成评价综述及失语症叙事支持研究。参与RealtimeGen研究，支持使用者介入AI图像生成过程，用于数字美术资产创作。"
   },
   {
     "id": "zhang-jiahui",
@@ -115,7 +115,7 @@ const members=[
     "english": "Qi Liu",
     "title": "电子信息博士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与生成内容评价与人机协作研究，合著图像生成评价综述，并研究语言模型的迎合式回答如何影响人的决策。相关工作也涉及古画虚拟修复，以及借助生成式视觉场景支持失语症人群表达。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。参与的RealtimeGen支持人在AI图像生成过程中介入，面向数字美术资产创作。"
+    "researchSummary": "参与生成内容评价与人机协作研究，合著图像生成评价综述，并研究语言模型的迎合式回答如何影响人的决策。相关工作也涉及古画虚拟修复，以及借助生成式视觉场景支持失语症人群表达。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。参与RealtimeGen研究，支持使用者介入AI图像生成过程，用于数字美术资产创作。"
   },
   {
     "id": "zhang-jiesi",
@@ -123,7 +123,7 @@ const members=[
     "english": "Jiesi Zhang",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与生成式AI与传统艺术创作研究，围绕古画修复、诗画理解和水墨三维创作开展工作。参与的Ink Restorer、PoemPalette与3DInkGen发表于CHI，探索将传统艺术知识融入交互工具。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。参与的RealtimeGen支持人在AI图像生成过程中介入，面向数字美术资产创作。"
+    "researchSummary": "参与古画修复、诗画理解和三维水墨创作研究，将传统艺术知识融入交互工具。相关成果包括Ink Restorer、PoemPalette与3DInkGen，发表于CHI。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。参与RealtimeGen研究，支持使用者介入AI图像生成过程，用于数字美术资产创作。"
   },
   {
     "id": "hu-xiangfei",
@@ -131,7 +131,7 @@ const members=[
     "english": "Xiangfei Hu",
     "title": "电子信息博士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与NarrAid研究，探索用生成式视觉场景辅助失语症人群组织和讲述故事，成果发表于CHI EA 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
+    "researchSummary": "参与NarrAid研究，探索如何借助生成的视觉场景，帮助失语症人群组织和讲述故事，成果发表于CHI EA 2026。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。"
   },
   {
     "id": "pan-jiaman",
@@ -139,7 +139,7 @@ const members=[
     "english": "Jiaman Pan",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与AI辅助决策研究，关注语言模型的迎合式回答如何影响人的判断，相关论文发表于CHI 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
+    "researchSummary": "参与AI辅助决策研究，关注语言模型的迎合式回答如何影响人的判断，相关论文发表于CHI 2026。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。"
   },
   {
     "id": "ma-jiarui",
@@ -147,8 +147,8 @@ const members=[
     "english": "Jiarui Ma",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与可控图像与三维生成研究。在LAION-SG中，以场景图结构标注支持复杂图文关系；在Circular-DPO中，通过偏好反馈连接三维形状与纹理生成阶段，相关成果发表于CVPR 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。",
-    "background": "具有江南大学数字媒体技术学习背景。",
+    "researchSummary": "参与可控图像与三维生成研究。在LAION-SG中，用场景图标注图像中的对象及其关系；在Circular-DPO中，通过偏好反馈连接三维形状与纹理生成阶段，相关成果发表于CVPR 2026。参与SCoRE研究（IJCV 2026），通过标准化人工评价，检验生成图像与文字描述是否一致。",
+    "background": "曾在江南大学学习数字媒体技术。",
     "biographySources": [
       "https://ai.jiangnan.edu.cn/info/1054/3392.htm"
     ]
@@ -159,7 +159,7 @@ const members=[
     "english": "Yize Li",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与生成模型偏好优化与空间生成研究，相关工作包括Inversion-DPO、LAION-SG及建筑空间布局建模。共同署名的图神经网络三维建筑布局论文获CAAD Futures 2025最佳论文奖。在SEPO中，研究以动态规则优化支持扩散模型对齐，该工作已获ACM MM 2026接收。",
+    "researchSummary": "参与生成模型偏好优化与空间生成研究，相关工作包括Inversion-DPO、LAION-SG及建筑空间布局建模。参与的图神经网络三维建筑布局研究获CAAD Futures 2025最佳论文奖。在SEPO中，研究以动态规则优化支持扩散模型对齐，该工作已获ACM MM 2026接收。",
     "background": "本科就读于江南大学数字媒体技术专业。",
     "honor": "江南大学2024—2025学年校长特别奖",
     "honorUrl": "https://jdxgc.jiangnan.edu.cn/info/1051/2162.htm",
@@ -182,7 +182,7 @@ const members=[
     "english": "Xiuqi Zheng",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与NarrAid研究，探索生成式视觉场景如何支持失语症人群组织故事与表达，成果发表于CHI EA 2026。"
+    "researchSummary": "参与NarrAid研究，探索如何借助生成的视觉场景，帮助失语症人群组织和讲述故事，成果发表于CHI EA 2026。"
   },
   {
     "id": "sun-zhongjian",
@@ -198,7 +198,7 @@ const members=[
     "english": "Rui Huang",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与InstaPano研究，通过全局注意力融合，让全景图像生成接受对象布局控制，发表于ECCV 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。也参与SEPO的扩散模型偏好对齐研究。"
+    "researchSummary": "研究可控图像生成与生成质量评价，参与InstaPano（ECCV 2026）、SCoRE（IJCV 2026）与SEPO。相关工作涉及全景图像的布局控制、生成图像与文字描述的一致性评价，以及扩散模型的偏好对齐。"
   },
   {
     "id": "feng-linya",
@@ -213,7 +213,7 @@ const members=[
     "english": "Changle Xie",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与3DInkGen研究，探索让新手通过生成式三维创作体验传统水墨艺术，成果发表于CHI 2026；也参与扩散模型的细粒度偏好对齐研究。"
+    "researchSummary": "参与3DInkGen研究，探索如何让初学者通过三维生成工具体验水墨创作，成果发表于CHI 2026；也参与扩散模型的细粒度偏好对齐研究。"
   },
   {
     "id": "zhao-an",
@@ -229,7 +229,7 @@ const members=[
     "english": "Kewen Zhu",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与古画数字修复与诗画交互研究，相关成果包括Ink Restorer、PoemPalette及HSSC古画修复论文，探索传统艺术知识与生成式AI的结合；也参与布局可控的全景图像生成研究。在InkRenew研究中，探索传统修复流程与AI辅助建议的结合。",
+    "researchSummary": "参与古画数字修复与诗画交互研究，相关成果包括Ink Restorer、PoemPalette及HSSC古画修复论文；也参与按对象布局生成全景图像的研究。在InkRenew研究中，探索传统修复流程与AI辅助建议的结合。",
     "biographySources": [
       "https://ai.zju.edu.cn/2026/0528/c90228a3167491/page.htm"
     ]
@@ -240,7 +240,7 @@ const members=[
     "english": "HongJian Zhang",
     "title": "工业设计工程硕士",
     "titleSource": "本人确认，2026-09-08",
-    "researchSummary": "参与PoemPalette研究，通过诗画意境对齐支持诗歌的创意探索与基础理解，成果发表于CHI 2026。"
+    "researchSummary": "参与PoemPalette研究，通过诗画意境关联支持诗歌理解与创作探索，成果发表于CHI 2026。"
   },
   {
     "id": "zheng-weiting",

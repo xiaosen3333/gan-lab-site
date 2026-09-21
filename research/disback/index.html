@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
 <title>DisBack｜生成模型｜GAN lab</title>
-<meta name="description" content="DisBack：研究扩散模型蒸馏，让学生生成器的训练更快收敛。发表于 ICLR 2025。">
+<meta name="description" content="DisBack：改进扩散模型的蒸馏方法，使模型训练更快收敛。发表于 ICLR 2025。">
 <link rel="canonical" href="https://xiaosen3333.github.io/gan-lab-site/research/disback/">
 <meta property="og:site_name" content="GAN lab">
 <meta property="og:type" content="website">
 <meta property="og:title" content="DisBack｜生成模型｜GAN lab">
-<meta property="og:description" content="DisBack：研究扩散模型蒸馏，让学生生成器的训练更快收敛。发表于 ICLR 2025。">
+<meta property="og:description" content="DisBack：改进扩散模型的蒸馏方法，使模型训练更快收敛。发表于 ICLR 2025。">
 <meta property="og:url" content="https://xiaosen3333.github.io/gan-lab-site/research/disback/">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiaosen3333.github.io/gan-lab-site/assets/gan-mark.png">
@@ -17,10 +17,10 @@
 <meta property="og:image:height" content="1254">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DisBack｜生成模型｜GAN lab">
-<meta name="twitter:description" content="DisBack：研究扩散模型蒸馏，让学生生成器的训练更快收敛。发表于 ICLR 2025。">
+<meta name="twitter:description" content="DisBack：改进扩散模型的蒸馏方法，使模型训练更快收敛。发表于 ICLR 2025。">
 <meta name="twitter:image" content="https://xiaosen3333.github.io/gan-lab-site/assets/gan-mark.png">
 <meta name="twitter:image:alt" content="GAN lab 墨圈与蓝色像素标识">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://xiaosen3333.github.io/gan-lab-site/#organization","name":"GAN lab","url":"https://xiaosen3333.github.io/gan-lab-site/"},{"@type":"WebSite","@id":"https://xiaosen3333.github.io/gan-lab-site/#website","name":"GAN lab","url":"https://xiaosen3333.github.io/gan-lab-site/","inLanguage":"zh-CN","publisher":{"@id":"https://xiaosen3333.github.io/gan-lab-site/#organization"}},{"@type":"WebPage","@id":"https://xiaosen3333.github.io/gan-lab-site/research/disback/#webpage","url":"https://xiaosen3333.github.io/gan-lab-site/research/disback/","name":"DisBack｜生成模型｜GAN lab","description":"DisBack：研究扩散模型蒸馏，让学生生成器的训练更快收敛。发表于 ICLR 2025。","inLanguage":"zh-CN","isPartOf":{"@id":"https://xiaosen3333.github.io/gan-lab-site/#website"},"breadcrumb":{"@id":"https://xiaosen3333.github.io/gan-lab-site/research/disback/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://xiaosen3333.github.io/gan-lab-site/research/disback/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"研究","item":"https://xiaosen3333.github.io/gan-lab-site/research/"},{"@type":"ListItem","position":2,"name":"DisBack","item":"https://xiaosen3333.github.io/gan-lab-site/research/disback/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://xiaosen3333.github.io/gan-lab-site/#organization","name":"GAN lab","url":"https://xiaosen3333.github.io/gan-lab-site/"},{"@type":"WebSite","@id":"https://xiaosen3333.github.io/gan-lab-site/#website","name":"GAN lab","url":"https://xiaosen3333.github.io/gan-lab-site/","inLanguage":"zh-CN","publisher":{"@id":"https://xiaosen3333.github.io/gan-lab-site/#organization"}},{"@type":"WebPage","@id":"https://xiaosen3333.github.io/gan-lab-site/research/disback/#webpage","url":"https://xiaosen3333.github.io/gan-lab-site/research/disback/","name":"DisBack｜生成模型｜GAN lab","description":"DisBack：改进扩散模型的蒸馏方法，使模型训练更快收敛。发表于 ICLR 2025。","inLanguage":"zh-CN","isPartOf":{"@id":"https://xiaosen3333.github.io/gan-lab-site/#website"},"breadcrumb":{"@id":"https://xiaosen3333.github.io/gan-lab-site/research/disback/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://xiaosen3333.github.io/gan-lab-site/research/disback/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"研究","item":"https://xiaosen3333.github.io/gan-lab-site/research/"},{"@type":"ListItem","position":2,"name":"DisBack","item":"https://xiaosen3333.github.io/gan-lab-site/research/disback/"}]}]}</script>
 <link rel="icon" type="image/png" sizes="32x32" href="/gan-lab-site/assets/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/gan-lab-site/assets/favicon-16.png"><link rel="stylesheet" href="/gan-lab-site/styles.css?v=5258a0461cd1">
 </head>
 <body>
@@ -28,11 +28,11 @@
 <header class="site-header"><div class="shell header-inner"><a href="/gan-lab-site/" class="logo" aria-label="GAN lab 首页">GAN <span>lab</span></a><nav aria-label="主导航"><a href="/gan-lab-site/projects/" data-nav="projects">项目</a><a href="/gan-lab-site/research/" data-nav="research" aria-current="page">研究</a><a href="/gan-lab-site/outputs/" data-nav="outputs">论文</a><a href="/gan-lab-site/people/" data-nav="people">团队</a><a href="/gan-lab-site/about/" data-nav="about">关于</a></nav><a class="contact-link" data-nav="contact" href="/gan-lab-site/contact/">交流与合作 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M7 7h10v10"/></svg></a></div></header>
 <main id="main" tabindex="-1"><article class="shell research-detail">
     <div class="page-heading"><div class="breadcrumbs"><a href="/gan-lab-site/research/">研究</a><span>/</span>DisBack</div>
-      <p class="hero-kicker">生成模型 / ICLR 2025</p><h1>DisBack</h1><p id="work-question">研究扩散模型蒸馏，让学生生成器的训练更快收敛。</p>
+      <p class="hero-kicker">生成模型 / ICLR 2025</p><h1>DisBack</h1><p id="work-question">改进扩散模型的蒸馏方法，使模型训练更快收敛。</p>
     </div>
 
     <div class="project-body">
-      <section id="work-method"><h2>研究方法</h2><p>DisBack 从教师模型到学生生成器的退化过程中记录中间分布，再训练学生沿反向路径回溯。研究把完整收敛轨迹纳入蒸馏过程。</p></section>
+      <section id="work-method"><h2>研究方法</h2><p>DisBack 从教师模型到学生生成器的退化过程中记录中间分布，再训练学生沿反向路径回溯。将这一回溯路径用于蒸馏训练，帮助学生生成器更快收敛。</p></section>
       <section id="work-paper"><h2>论文</h2><div class="paper-citation"><span>ICLR · 2025</span><h3>Distribution Backtracking Builds A Faster Convergence Trajectory for Diffusion Distillation</h3>
 
       </div>
