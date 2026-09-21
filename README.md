@@ -1,6 +1,6 @@
 # GAN lab 网站
 
-AI、人机交互与传统文化。原生 HTML、CSS、JavaScript 静态站点，继续通过 GitHub Pages 从 main 分支根目录发布。35 个真实 URL 的 HTML 已包含完整正文，JavaScript 只增强页内切换和旧链接兼容。
+AI、人机交互与传统文化。原生 HTML、CSS、JavaScript 静态站点，继续通过 GitHub Pages 从 main 分支根目录发布。35 个真实 URL 的 HTML 已包含完整正文，JavaScript 只增强锚点定位、历史位置恢复和旧链接兼容。
 
 ## 本地维护与发布
 
@@ -36,19 +36,21 @@ npm run dev
 
 `renderer.js` 的六个 `presentation` 开关当前都为 `false`：英文姓名、分类、论文摘要、参与者、附属按钮和标题链接继续隐藏。原文链接及扩展数据仍保留在数据真源；关闭分类时旧 `type` 参数不限制 28 条书目。结构化数据只使用可见事实，不生成完整作者名单、虚构职务、机构背书或隐藏字段。
 
-首页研究视角的完整内容在原始 HTML 中；联系页只显示邮箱图片和导师主页。无 JavaScript 时按顺序阅读，真实锚点可以定位；JavaScript 就绪后增强为原来的 tab。联系邮箱仍为图片，不将地址写回正文、alt、JSON-LD 或 mailto。
+首页与研究页共用三项具体研究的摘要；所有内容直接可读，不使用 tab。旧 `#perspective-panel-0/1/2` 分别定位 DisBack、PoemPalette、Ink Restorer。论文页按年份分组并提供真实年份锚点，全部28篇同时保留；成员页的项目与作品只从项目署名中的 memberId 派生。联系页只显示邮箱图片和导师主页，不将地址写回正文、alt、JSON-LD 或 mailto。
 
-主视觉是原创概念图，不是古画、修复结果或实验数据。新增 WebP 与原 PNG 解码像素一致：1,031,086 bytes 对比 1,976,338 bytes，缩小约 47.8%；浏览器优先 WebP，PNG 保留回退与分享图。原始内部材料不进入公开仓库。
+首页以团队身份和 MoWorld 实际项目图并列，下接运河长卷、墨染、研究与合作伙伴。原概念 PNG/WebP 保留在资源目录，但首页和分享元信息不再引用；首页与项目页的分享图使用 MoWorld，其余页面使用 GAN lab 品牌原图。原始内部材料不进入公开仓库。
+
+历史状态按实际页面条目保存阅读位置和触发控件，滚动即时记录在内存、每750毫秒最多持久化一次，离开时立即保存；浏览器拒绝历史写入时保留原生导航。同页锚点及跨页的前进、后退，以及已有状态的刷新均恢复当时位置。新打开的 fragment 定位对应内容；历史遍历后的 hashchange 不重复定位。项目卡、成员卡、研究行和普通链接均可恢复焦点；修改键、新标签、外链和下载保留原生行为。
 
 ## 项目与作品维护
 
-`/projects/` 包含 MoWorld、运河·生长·万象、墨染、人工智能发展简史图谱四项完整条目；稳定锚点依次为 `moworld`、`canal-growth`、`moran`、`ai-history-atlas`。首页三张精选卡片直接进入对应条目，不另造薄详情页。新增或修改项目时更新 `projects.js`，保留准确参与角色，不将联合项目改写为团队独立研发。
+`/projects/` 包含 MoWorld、运河·生长·万象、墨染、人工智能发展简史图谱四项完整条目；稳定锚点依次为 `moworld`、`canal-growth`、`moran`、`ai-history-atlas`。首页保留三个稳定项目卡片入口：MoWorld 位于首屏，运河和墨染以自然图片比例的宽行呈现；直接进入对应条目，不另造薄详情页。新增或修改项目时更新 `projects.js`，保留准确参与角色，不将联合项目改写为团队独立研发。
 
-原始项目/报道链接与署名在数据和公开条目中保留。MoWorld 配图来自论文 [Figure 1](https://arxiv.org/html/2607.06216v2/teaser.png)，压缩为 2008×1503 JPEG（约 1.18 MB），未裁图；其他作品图片在 `assets/projects/`，不包含全展海报、网页归档或内部证据文件。每张图片保留宽高、alt 和图注，非首屏图片延迟加载。
+原始项目/报道链接与署名在数据和公开条目中保留。MoWorld 配图来自论文 [Figure 1](https://arxiv.org/html/2607.06216v2/teaser.png)，原 JPEG 为 2008×1503（约1.18 MB），另有640/960/1440宽 WebP候选，分别约96/184/346 KB，均保持完整内容和长宽比。浏览器按 srcset/sizes 选择，首屏 MoWorld eager/high priority，其余图 lazy；原 JPEG 保留兼容回退和分享用途。多候选资源与原图入口全部经过统一 basePath 和文件存在性检查。其他作品图片在 `assets/projects/`，不包含全展海报、网页归档或内部证据文件。图片保留宽高、alt，项目页保留必要图注。
 
 AI 图谱保留原始 JPEG，CSS 旋转为年代从左至右，独立图像区支持横向触控与键盘滚动，并提供完整原图链接。只让图区横滚，不能使整页超出屏幕。更换域名后的图片、完整原图入口和项目锚点同样由统一 basePath 生成，根目录和子目录迁移都有回归检查。
 
-项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作伙伴使用四家公司官方品牌标识，保留完整名称 alt 和本地资源路径，不自行附加项目对应关系、战略伙伴或联合实验室称谓。
+项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作伙伴使用四家公司官方品牌标识，首页与项目页共用同一数据；保留完整名称 alt 和本地资源路径，不自行附加项目对应关系、战略伙伴或联合实验室称谓。字节跳动官方素材为白标，白底展示须保留 brightness(0) 样式。
 
 ## 更换浙江大学域名时
 

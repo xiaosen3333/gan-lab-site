@@ -8,8 +8,7 @@ const projects = [
     category: '实时交互世界模型',
     summary: '通过连续的相机控制，探索生成的视频场景。',
     description: [
-      'MoWorld 支持连续控制的视频世界生成，让使用者通过镜头运动探索生成场景。',
-      '模型以初始图像、文字提示和相机轨迹作为输入，生成连续的视频场景。',
+      'MoWorld 以初始图像、文字提示和相机轨迹为输入，生成连续的视频场景，支持使用者通过镜头运动探索生成场景。',
     ],
     period: '2026',
     venue: '',
@@ -41,7 +40,7 @@ const projects = [
     category: '遥感影像生成国画长卷',
     summary: '将大运河遥感影像转化为国画长卷与动态影像。',
     description: [
-      '作品以京杭大运河杭州段的遥感影像为基础，学习空间结构与国画的笔触、色彩，通过图像翻译生成静态画作，并形成动态影像。',
+      '作品以京杭大运河杭州段的遥感影像为基础，通过图像翻译将沿线空间结构与国画的笔触、色彩结合，生成静态画作与动态影像。',
       '2022 年 8 月 11 日至 10 月 11 日，作品展于浙江美术馆“大地史诗——中国大运河主题艺术展”。',
     ],
     period: '2022',
@@ -88,7 +87,7 @@ const projects = [
     links: [{ label: '项目介绍', url: 'http://www.idi.zju.edu.cn/project/2804.html' }],
     relatedResearchIds: [],
     featured: true,
-    action: '查看系统',
+    action: '查看项目',
   },
   {
     id: 'ai-history-atlas',

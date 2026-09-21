@@ -33,19 +33,22 @@ export async function generate() {
   const versions = { 'site-runtime.js': hash(runtime).slice(0, 12) };
   for (const file of ['app.js', 'styles.css']) versions[file] = hash(await readFile(resolve(root, file))).slice(0, 12);
   const scripts = browserScripts.map(file => `<script src="${site.basePath}${file}?v=${versions[file]}" defer></script>`).join('\n');
-  const image = site.origin + site.basePath + 'assets/culture-computation-concept.png';
-  const imageAlt = '水墨山形与同形采样点云的黑白概念视觉';
   const output = new Map([['site-runtime.js', runtime]]);
   for (const route of [...allRoutes(), '/404']) {
     const page = pageFor(route);
     const canonical = site.origin + pathFor(route);
+    const projectImage = route === '/' || route === '/projects';
+    const image = site.origin + site.basePath + (projectImage ? 'assets/projects/moworld-teaser.jpg' : 'assets/gan-mark.png');
+    const imageAlt = projectImage ? 'MoWorld 论文中不同场景的生成画面与应用示意总图' : 'GAN lab 墨圈与蓝色像素标识';
+    const imageWidth = projectImage ? '2008' : '1254';
+    const imageHeight = projectImage ? '1503' : '1254';
     let head = `<title>${escape(page.title)}</title>\n<meta name="description" content="${escape(page.description)}">\n`;
     if (page.exists) {
       head += `<link rel="canonical" href="${canonical}">\n`;
       const metadata = {
         'og:site_name': site.name, 'og:type': 'website', 'og:title': page.title,
         'og:description': page.description, 'og:url': canonical, 'og:locale': 'zh_CN',
-        'og:image': image, 'og:image:alt': imageAlt, 'og:image:width': '1536', 'og:image:height': '1024',
+        'og:image': image, 'og:image:alt': imageAlt, 'og:image:width': imageWidth, 'og:image:height': imageHeight,
       };
       for (const [property, value] of Object.entries(metadata)) head += `<meta property="${property}" content="${escape(value)}">\n`;
       for (const [name, value] of Object.entries({ 'twitter:card': 'summary_large_image', 'twitter:title': page.title, 'twitter:description': page.description, 'twitter:image': image, 'twitter:image:alt': imageAlt })) head += `<meta name="${name}" content="${escape(value)}">\n`;
@@ -56,7 +59,7 @@ export async function generate() {
     let html = template.replace('{{HEAD}}', head).replace('{{MAIN}}', page.html).replace('{{SCRIPTS}}', scripts);
     html = publicHTML(html, route).replace(/data-nav="([^"]+)"/g, (attribute, nav) => attribute + (nav === page.nav ? ' aria-current="page"' : ''));
     const file = route === '/404' ? '404.html' : route === '/' ? 'index.html' : route.slice(1) + '/index.html';
-    output.set(file, html);
+    output.set(file, html.replace(/[ \t]+$/gm, ''));
   }
   output.set('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allRoutes().map(route => `  <url><loc>${escape(site.origin + pathFor(route))}</loc></url>`).join('\n') + '\n</urlset>\n');
   const manifest = { version: 1, files: Object.fromEntries([...output].map(([file, content]) => [file, hash(content)])) };

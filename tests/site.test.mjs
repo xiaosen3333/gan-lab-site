@@ -6,7 +6,7 @@ import { resolve, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import vm from 'node:vm';
 import { generate, root, loadSite, sourceScripts } from '../scripts/build-site.mjs';
-import { checkSite } from '../scripts/check-site.mjs';
+import { checkSite, resourceURLs, checkLocalReferences } from '../scripts/check-site.mjs';
 import { createSiteServer } from '../scripts/serve.mjs';
 
 test('complete public HTML, public facts, metadata and links pass the static contract', checkSite);
@@ -53,6 +53,7 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
       assert.ok(projectHTML.includes(`rel="canonical" href="${url}projects/"`));
       assert.ok(projectHTML.includes(`href="${prefix}projects/#canal-growth"`));
       assert.ok(projectHTML.includes(`src="${prefix}assets/projects/moworld-teaser.jpg"`));
+      for (const width of [640, 960, 1440]) assert.ok(projectHTML.includes(`${prefix}assets/projects/moworld-${width}.webp ${width}w`));
       for (const logo of ['bytedance.svg', 'geely.svg', 'alibaba.png', 'dji.svg']) assert.ok(projectHTML.includes(`src="${prefix}assets/partners/${logo}"`));
       assert.ok(projectHTML.includes(`href="${prefix}assets/projects/ai-history-atlas.jpg"`));
       assert.ok(projectHTML.includes(`href="${prefix}assets/favicon-32.png"`));
@@ -181,4 +182,22 @@ test('Back restores the clicked project or member card and the history entry scr
     assert.equal(restored.document.activeElement.id, item.id);
     assert.equal(restored.window.scrollY, 1014);
   }
+});
+
+
+test('all responsive candidates are checked, including missing files and wrong second-candidate base paths', async () => {
+  const directory = await mkdtemp(resolve(tmpdir(), 'gan-responsive-check-'));
+  const site = { origin: 'https://gan.example.edu', basePath: '/design/gan/' };
+  const path = site.basePath;
+  try {
+    await mkdir(resolve(directory, 'assets'));
+    await writeFile(resolve(directory, 'assets/first.webp'), 'fixture');
+    await writeFile(resolve(directory, 'assets/second.webp'), 'fixture');
+    const html = '<img src="/design/gan/assets/first.webp" srcset="/design/gan/assets/first.webp 640w, /design/gan/assets/second.webp 960w">';
+    assert.equal(resourceURLs(html).length, 3);
+    await checkLocalReferences(new Map([[path, html]]), { directory, site });
+    await assert.rejects(checkLocalReferences(new Map([[path, html.replaceAll('second.webp', 'missing.webp')]]), { directory, site }), /ENOENT/);
+    await assert.rejects(checkLocalReferences(new Map([[path, html.replace('/design/gan/assets/second.webp', '/assets/second.webp')]]), { directory, site }), /base path/);
+    assert.throws(() => resourceURLs(html.replace('960w', 'invalid')), /responsive candidate/);
+  } finally { await rm(directory, { recursive: true, force: true }); }
 });

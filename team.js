@@ -131,7 +131,7 @@ const members=[
     "english": "Xiangfei Hu",
     "title": "电子信息博士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与NarrAid研究，探索用生成式视觉场景辅助失语症人群组织和讲述故事。这项工作关注表达中的实际困难，以及生成式AI如何支持人的沟通，成果发表于CHI EA 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
+    "researchSummary": "参与NarrAid研究，探索用生成式视觉场景辅助失语症人群组织和讲述故事，成果发表于CHI EA 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
   },
   {
     "id": "pan-jiaman",
@@ -139,7 +139,7 @@ const members=[
     "english": "Jiaman Pan",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与AI辅助决策研究，关注语言模型顺着使用者观点作答时，人的判断如何受到影响。相关论文发表于CHI 2026，研究AI的迎合式回答与决策行为之间的关系。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
+    "researchSummary": "参与AI辅助决策研究，关注语言模型的迎合式回答如何影响人的判断，相关论文发表于CHI 2026。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。"
   },
   {
     "id": "ma-jiarui",
@@ -182,7 +182,7 @@ const members=[
     "english": "Xiuqi Zheng",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与面向失语症人群的NarrAid研究，探索生成式视觉场景如何支持故事讲述与表达。成果发表于CHI EA 2026，将生成式AI与具体的沟通辅助场景结合。"
+    "researchSummary": "参与NarrAid研究，探索生成式视觉场景如何支持失语症人群组织故事与表达，成果发表于CHI EA 2026。"
   },
   {
     "id": "sun-zhongjian",
@@ -190,7 +190,7 @@ const members=[
     "english": "Zhongjian Sun",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与Mean Flow Distillation研究，针对流匹配模型蒸馏中的稳定性问题，探索支持单步生成的方法。该工作关注生成效率与训练稳定性的结合。"
+    "researchSummary": "参与Mean Flow Distillation研究，针对流匹配模型蒸馏中的稳定性问题，探索支持单步生成的方法。"
   },
   {
     "id": "huang-rui",
@@ -198,7 +198,7 @@ const members=[
     "english": "Rui Huang",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与InstaPano研究，通过全局注意力融合，让全景图像生成接受对象布局控制。相关工作面向复杂场景中的空间安排与可控生成，已获ECCV 2026接收。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。也参与SEPO的扩散模型偏好对齐研究。"
+    "researchSummary": "参与InstaPano研究，通过全局注意力融合，让全景图像生成接受对象布局控制，已获ECCV 2026接收。参与IJCV 2026的SCoRE研究，以标准化人工评价衡量文生图的语义一致性。也参与SEPO的扩散模型偏好对齐研究。"
   },
   {
     "id": "feng-linya",
@@ -240,7 +240,7 @@ const members=[
     "english": "HongJian Zhang",
     "title": "工业设计工程硕士",
     "titleSource": "本人确认，2026-09-08",
-    "researchSummary": "参与PoemPalette研究，通过诗画意境对齐支持诗歌的创意探索与基础理解。该工作发表于CHI 2026，探索生成式AI如何连接文学理解、视觉表达与人的创作过程。"
+    "researchSummary": "参与PoemPalette研究，通过诗画意境对齐支持诗歌的创意探索与基础理解，成果发表于CHI 2026。"
   },
   {
     "id": "zheng-weiting",
@@ -248,7 +248,7 @@ const members=[
     "english": "Weiting Zheng",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与Circular-DPO研究，以偏好反馈连接三维生成的多个阶段，协调形状与纹理的优化。相关成果发表于CVPR 2026，关注生成结果与人的偏好如何对齐。"
+    "researchSummary": "参与Circular-DPO研究，以偏好反馈连接三维生成的多个阶段，协调形状与纹理的优化，成果发表于CVPR 2026。"
   },
   {
     "id": "liu-zhongni",
@@ -267,7 +267,7 @@ const members=[
     "english": "Rongjie Mao",
     "title": "工业设计工程硕士",
     "titleSource": "团队确认，2026-09-08",
-    "researchSummary": "参与AI辅助决策研究，关注语言模型的迎合式回答是否改变使用者的决定。相关论文发表于CHI 2026，从人的判断行为出发检验AI交互中的影响。"
+    "researchSummary": "参与AI辅助决策研究，关注语言模型的迎合式回答是否改变使用者的决定，相关论文发表于CHI 2026。"
   },
   {
     "id": "tian-shujun",

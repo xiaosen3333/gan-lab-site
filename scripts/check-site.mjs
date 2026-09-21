@@ -6,6 +6,34 @@ import { root, loadSite } from './build-site.mjs';
 
 const values = (html, expression) => [...html.matchAll(expression)].map(match => match[1]);
 const decode = value => value.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+// Each srcset URL has its own deployment prefix and existence requirement.
+export function resourceURLs(html) {
+  const urls = values(html, /(?:href|src)="([^"]+)"/g);
+  for (const candidates of values(html, /srcset="([^"]+)"/g)) {
+    for (const candidate of candidates.split(',')) {
+      const match = candidate.trim().match(/^(\S+)(?:\s+(?:[1-9]\d*w|(?:\d+\.)?\d+x))?$/);
+      assert.ok(match, 'Valid responsive candidate: ' + candidate);
+      urls.push(match[1]);
+    }
+  }
+  return urls;
+}
+export async function checkLocalReferences(pages, { directory = root, site }) {
+  for (const [path, html] of pages) {
+    for (const raw of resourceURLs(html)) {
+      const url = new URL(decode(raw), site.origin + path);
+      if (url.origin !== site.origin) continue;
+      assert.ok(url.pathname.startsWith(site.basePath), `${path}: base path for ${raw}`);
+      const relative = url.pathname.slice(site.basePath.length);
+      const file = relative.endsWith('/') || relative === '' ? relative + 'index.html' : relative;
+      await access(resolve(directory, file));
+      if (url.hash) {
+        const targetHTML = pages.get(url.pathname);
+        assert.ok(targetHTML?.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${path}: valid anchor ${raw}`);
+      }
+    }
+  }
+}
 export async function checkSite() {
   const { site, allRoutes, members, publications, works, projects, projectPartners, hasMemberDetails, pathFor, presentation } = await loadSite();
   const routes = Array.from(allRoutes());
@@ -33,6 +61,10 @@ export async function checkSite() {
     titles.add(title[0]); descriptions.add(description[0]); canonicals.add(canonical[0]);
     const ogURL = values(html, /<meta property="og:url" content="([^"]+)"/g);
     assert.deepEqual(ogURL, canonical);
+    const projectShare = ['/', '/projects'].includes(route);
+    assert.deepEqual(values(html, /<meta property="og:image" content="([^"]+)"/g), [site.origin + site.basePath + (projectShare ? 'assets/projects/moworld-teaser.jpg' : 'assets/gan-mark.png')]);
+    assert.deepEqual(values(html, /<meta property="og:image:width" content="([^"]+)"/g), [projectShare ? '2008' : '1254']);
+    assert.deepEqual(values(html, /<meta property="og:image:height" content="([^"]+)"/g), [projectShare ? '1503' : '1254']);
     const schemas = values(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);
     assert.equal(schemas.length, 1);
     const schema = JSON.parse(schemas[0]);
@@ -48,32 +80,25 @@ export async function checkSite() {
     }
   }
   assert.equal(titles.size, 35); assert.equal(descriptions.size, 35); assert.equal(canonicals.size, 35);
-  for (const [path, html] of pages) {
-    const links = values(html, /(?:href|src|srcset)="([^"]+)"/g);
-    for (const raw of links) {
-      const url = new URL(decode(raw), site.origin + path);
-      if (url.origin !== site.origin) continue;
-      assert.ok(url.pathname.startsWith(site.basePath), `${path}: base path for ${raw}`);
-      const relative = url.pathname.slice(site.basePath.length);
-      const file = relative.endsWith('/') || relative === '' ? relative + 'index.html' : relative;
-      await access(resolve(root, file));
-      if (url.hash) {
-        const targetHTML = pages.get(url.pathname);
-        assert.ok(targetHTML?.includes(`id="${url.hash.slice(1)}"`), `${path}: valid anchor ${raw}`);
-      }
-    }
-  }
+  await checkLocalReferences(pages, { site });
   const home = pages.get(site.basePath), contact = pages.get(pathFor('/contact'));
   for (const index of [0, 1, 2]) assert.ok(home.includes(`id="perspective-panel-${index}"`));
+  assert.doesNotMatch(home, /data-perspective|role="tab"|culture-computation-concept/);
+  assert.match(contact, /data-nav="contact" aria-current="page"/);
   assert.doesNotMatch(contact, /contact-layout|contact-tabs|contact-panel|data-intent|下一步如何展开|交流时可以带上/);
   assert.ok(contact.includes('assets/contact-channel.png'));
   assert.ok(!/\shidden(?:[\s=>])/.test(home + contact), 'Initial panels are visible without JavaScript');
+  for (const work of works) {
+    const html = pages.get(pathFor('/research/' + work.id));
+    for (const id of ['work-question', 'work-method', 'work-paper']) assert.ok(html.includes(`id="${id}"`), 'Legacy research anchor: ' + id);
+    assert.ok(html.includes(work.method) && html.includes(work.title), 'Research method and full paper title remain visible');
+  }
   const projectHTML = pages.get(pathFor('/projects'));
   assert.equal(projects.length, 4);
   assert.deepEqual(Array.from(projects, project => project.id), ['moworld', 'canal-growth', 'moran', 'ai-history-atlas']);
   assert.equal(projects.filter(project => project.featured).length, 3);
-  assert.equal((home.match(/class="project-card"/g) || []).length, 3);
-  assert.equal((projectHTML.match(/class="portfolio-entry"/g) || []).length, 4);
+  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 3);
+  assert.equal((projectHTML.match(/class="portfolio-entry(?:\s[^"]*)?"/g) || []).length, 4);
   assert.deepEqual(Array.from(projectPartners, partner => partner.name), ['字节跳动', '吉利', '阿里巴巴', '大疆']);
   for (const project of projects) {
     assert.ok(projectHTML.includes(`id="${project.id}"`), 'Stable project anchor: ' + project.id);
@@ -105,13 +130,39 @@ export async function checkSite() {
   const projectSchema = JSON.parse(values(projectHTML, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)[0]);
   assert.ok(projectSchema['@graph'].some(node => node['@type'] === 'CollectionPage'));
   assert.ok(!projectSchema['@graph'].some(node => node.creator || node.sponsor));
-  assert.equal((pages.get(pathFor('/outputs')).match(/class="paper-row"/g) || []).length, 28);
+  const bibliography = pages.get(pathFor('/outputs'));
+  assert.equal((bibliography.match(/class="paper-row"/g) || []).length, 28);
+  for (const [year, count] of [[2026, 12], [2025, 9], [2024, 5], [2023, 1], [2022, 1]]) {
+    assert.ok(bibliography.includes(`href="#year-${year}"`));
+    const section = bibliography.match(new RegExp(`<section class="publication-year" aria-labelledby="year-${year}">([\\s\\S]*?)<\\/section>`))?.[1];
+    assert.ok(section, 'Year section: ' + year);
+    assert.equal((section.match(/class="paper-row"/g) || []).length, count);
+    assert.equal((section.match(/<h3>/g) || []).length, count);
+  }
+  for (const member of members.filter(hasMemberDetails)) {
+    const html = pages.get(pathFor('/people/' + member.id));
+    const contributions = projects.filter(project => project.credits.some(credit => credit.people.some(person => person.memberId === member.id)));
+    assert.equal(html.includes('id="member-projects"'), contributions.length > 0, 'Derived member projects: ' + member.id);
+    for (const project of contributions) assert.ok(html.includes(`href="${pathFor('/projects')}#${project.id}"`));
+  }
+  for (const width of [640, 960, 1440]) {
+    assert.ok(home.includes(`${site.basePath}assets/projects/moworld-${width}.webp ${width}w`));
+    assert.ok(projectHTML.includes(`${site.basePath}assets/projects/moworld-${width}.webp ${width}w`));
+  }
+  assert.ok((await stat(resolve(root, 'assets/projects/moworld-960.webp'))).size <= 350000);
+  assert.ok(home.includes('loading="eager" fetchpriority="high"'));
+  assert.ok(projectHTML.includes('href="#capabilities-title"') && projectHTML.includes('href="#partners-title"'));
+  assert.ok(pages.get(pathFor('/about')).includes('href="http://www.cst.zju.edu.cn/"'));
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card"/g) || []).length, 31);
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card-link" href=/g) || []).length, 25);
   const sitemap = await readFile(resolve(root, 'sitemap.xml'), 'utf8');
   assert.deepEqual(new Set(values(sitemap, /<loc>([^<]+)<\/loc>/g)), canonicals);
   const notFound = await readFile(resolve(root, '404.html'), 'utf8');
   assert.ok(notFound.includes('noindex,follow'));
+  assert.ok(notFound.includes('<h1>页面未找到</h1>'));
+  assert.ok(notFound.includes('返回首页'));
+  const css = await readFile(resolve(root, 'styles.css'), 'utf8');
+  assert.match(css, /\.partner-logo-bytedance\s*\{[^}]*filter:\s*brightness\(0\)/, 'White official mark remains visible on white background');
   assert.ok(!notFound.includes('rel="canonical"'));
   return { pages: routes.length, members: members.length, publications: publications.length };
 }
