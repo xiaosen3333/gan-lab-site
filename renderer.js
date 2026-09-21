@@ -344,7 +344,6 @@ function partnersSection({ compact = false } = {}) {
 function projectsPage() {
   return `<div class="shell projects-page">
     ${heading('项目与作品', '生成式创作、交互系统与文化艺术实践。', '项目与作品')}
-    <nav class="project-index" aria-label="项目与作品目录">${projects.map(project => `<a href="#/projects#${project.id}">${escapeHTML(project.title)}</a>`).join('')}<a href="#capabilities-title">合作方向</a><a href="#partners-title">合作伙伴</a></nav>
     <div class="portfolio-list">${projects.map(project => {
       const wide = !project.media || ['canal-growth', 'ai-history-atlas'].includes(project.id);
       return `<article class="portfolio-entry${wide ? ' portfolio-entry-wide' : ''}" id="${project.id}" aria-labelledby="${project.id}-title">

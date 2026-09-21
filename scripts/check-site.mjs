@@ -185,7 +185,8 @@ export async function checkSite() {
   }
   assert.ok((await stat(resolve(root, 'assets/projects/moworld-960.webp'))).size <= 350000);
   assert.ok(home.includes('loading="eager" fetchpriority="high"'));
-  assert.ok(projectHTML.includes('href="#capabilities-title"') && projectHTML.includes('href="#partners-title"'));
+  assert.ok(projectHTML.includes('id="capabilities-title"') && projectHTML.includes('id="partners-title"'));
+  assert.doesNotMatch(projectHTML, /class="project-index"/, 'Project content starts without the removed name index');
   assert.ok(pages.get(pathFor('/about')).includes('href="http://www.cst.zju.edu.cn/"'));
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card"/g) || []).length, 31);
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card-link" href=/g) || []).length, 25);
