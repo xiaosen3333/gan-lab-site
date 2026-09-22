@@ -71,7 +71,7 @@ function workDetail(work) {
       <section id="work-context"><h2>${escapeHTML(work.context.title)}</h2><p>${escapeHTML(work.context.text)}</p></section>
       <section id="work-method"><h2>${escapeHTML(work.methodTitle || '研究方法')}</h2><p>${escapeHTML(work.method)}</p></section>
       ${work.finding ? `<section id="work-finding"><h2>${escapeHTML(work.finding.title)}</h2><p>${escapeHTML(work.finding.text)}</p></section>` : ''}
-      <section id="work-paper"><h2>论文</h2><div class="paper-citation"><span>${work.venue} · ${work.year}</span><h3>${work.title}</h3>
+      <section id="work-paper"><h2>论文</h2><div class="paper-citation"><span>${work.venue} · ${work.year}</span><h3><a href="${escapeHTML(work.url)}" target="_blank" rel="noopener">${escapeHTML(work.title)}</a></h3>
         ${presentation.publicationActions ? `<a class="inline-link" href="${work.url}" target="_blank" rel="noopener">阅读原文 ${iconArrow}</a>${work.code ? `<a class="inline-link" href="${work.code}" target="_blank" rel="noopener">项目代码 ${iconArrow}</a>` : ''}` : ''}
       </div>
       ${presentation.publicationParticipants ? `<div class="research-participants"><h3>参与这项研究的成员</h3><div class="participant-links">${memberLinks(publicationMembers[work.id])}</div></div>` : ''}
@@ -177,14 +177,14 @@ function about() {
       <p>团队导师李泽健任职于<a href="http://www.cst.zju.edu.cn/" target="_blank" rel="noopener">浙江大学软件学院</a>，是浙江大学人工智能学院孙凌云教授团队成员。团队成员的研究涉及计算机视觉、三维内容生成、人机协同创作与文化遗产保护，从算法实验、系统设计到用户研究开展工作。</p>
       <div class="profile-links">${inline('#/people/li-zejian', '李泽健')}${inline('#/people', '团队成员')}</div>
     </div></section>
-    <section class="page-section about-grid"><h2>研究关注</h2><div>
-      <p>在生成模型研究中，我们关注生成效率、内容可控性与质量评价：如何用更少的计算步骤得到高质量结果，如何让模型响应人的意图，以及如何评价生成内容是否符合预期。<a href="#/research/disback">DisBack</a>研究扩散模型蒸馏的训练方法，通过分布回溯改善收敛过程；团队成员也参与了面向实时交互场景的 MoWorld 世界模型研究。</p>
-      <p>在人机交互研究中，我们关注人如何表达想法、探索方案并调整生成结果。<a href="#/projects#poempalette">PoemPalette</a>将诗歌意象组织为可供创作的视觉线索，RealtimeGen 探索生成过程中的实时干预，FusionProtor 结合实体原型与扩展现实支持设计探索。这些工作通过系统实现与用户研究，考察交互方式如何影响创作过程和使用体验。</p>
+    <section class="page-section about-grid" id="generative-ai-hci"><h2>生成模型与人机交互</h2><div>
+      <p>在生成模型研究中，我们关注生成效率、内容可控性与质量评价：如何用更少的计算步骤得到高质量结果，如何让模型响应人的意图，以及如何评价生成内容是否符合预期。<a href="#/research/disback">DisBack</a>研究扩散模型蒸馏的训练方法，通过分布回溯改善收敛过程；团队成员也参与了面向实时交互场景的 <a href="#/projects#moworld">MoWorld</a> 世界模型研究。</p>
+      <p>在人机交互研究中，我们关注人如何表达想法、探索方案并调整生成结果。<a href="#/projects#poempalette">PoemPalette</a>将诗歌意象组织为可供创作的视觉线索，<a href="#/projects#realtimegen">RealtimeGen</a> 探索生成过程中的实时干预，<a href="#/projects#fusionprotor">FusionProtor</a> 结合实体原型与扩展现实支持设计探索。这些工作通过系统实现与用户研究，考察交互方式如何影响创作过程和使用体验。</p>
       <div class="profile-links">${inline('#/outputs', '论文目录')}</div>
     </div></section>
-    <section class="page-section about-grid"><h2>文化与艺术实践</h2><div>
+    <section class="page-section about-grid" id="digital-heritage"><h2>文化遗产与艺术实践</h2><div>
       <p>文化艺术是团队持续开展研究与创作的领域。团队成员参与的“墨染”国画创作系统，在浙江大学—阿里巴巴前沿技术联合研究中心开展，探索国画长卷合成、字体设计、风格与笔触迁移等方法。<a href="#/projects#canal-growth">《运河·生长·万象》</a>以京杭大运河杭州段遥感影像为基础，生成国画长卷与动态影像，展于浙江美术馆“大地史诗——中国大运河主题艺术展”。成员参与内容撰写与视觉设计的人工智能发展简史图谱，也在浙江美术馆展出。</p>
-      <p>围绕古画修复，我们面向不同使用者探索数字工具与交互体验。InkRenew 关注修复师的数字修复工作流程；<a href="#/research/ink-restorer">Ink Restorer</a>则面向公众，将“洗、揭、补、全”的传统修复工序转化为可参与的虚拟操作。前者服务于专业操作中的数字辅助，后者帮助公众在体验中理解修复技艺。</p>
+      <p>围绕古画修复，我们面向不同使用者探索数字工具与交互体验。<a href="#/projects#inkrenew">InkRenew</a> 关注修复师的数字修复工作流程；<a href="#/research/ink-restorer">Ink Restorer</a>则面向公众，将“洗、揭、补、全”的传统修复工序转化为可参与的虚拟操作。前者服务于专业操作中的数字辅助，后者帮助公众在体验中理解修复技艺。</p>
       <div class="profile-links">${inline('#/projects', '项目与作品')}</div>
     </div></section>
     <section class="page-section about-grid"><h2>项目合作</h2><div>
@@ -239,23 +239,23 @@ function pageFor(route) {
   let html, title, description, nav = '', kind = 'WebPage', person = null;
   if (route === '/') {
     html = home();
-    title = 'GAN lab｜浙江大学 AI、人机交互与传统文化研究团队';
-    description = 'GAN lab · 浙江大学。研究生成模型与人机交互，探索文化内容的数字创作与体验。';
+    title = 'GAN lab｜浙江大学生成式人工智能与人机交互研究团队';
+    description = 'GAN lab 是浙江大学研究团队，研究生成模型蒸馏、人机交互与智能设计，开展文化遗产数字化与艺术创作。了解团队的研究论文、交互系统和展览作品。';
   } else if (route === '/projects') {
-    html = projectsPage(); title = '项目与作品｜GAN lab'; nav = 'projects'; kind = 'CollectionPage';
+    html = projectsPage(); title = '项目与作品｜GAN lab 浙江大学'; nav = 'projects'; kind = 'CollectionPage';
     description = 'GAN lab 的系统研发与文化创作项目，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
   } else if (route === '/research') {
-    html = research(); title = '精选研究｜GAN lab'; nav = 'outputs'; kind = 'CollectionPage';
+    html = research(); title = '生成模型与人机交互研究｜GAN lab 浙江大学'; nav = 'outputs'; kind = 'CollectionPage';
     description = 'GAN lab 的生成模型、人机协作与文化创作研究，包括 DisBack、Ink Restorer 和 PoemPalette。';
   } else if (works.some(work => route === '/research/' + work.id)) {
     const work = works.find(work => route === '/research/' + work.id);
     html = workDetail(work); title = `${work.name}｜${work.theme}｜GAN lab`; nav = 'outputs';
     description = `${work.name}：${work.summary}${work.stage}。`;
   } else if (route === '/outputs') {
-    html = outputs(); title = '论文｜GAN lab'; nav = 'outputs'; kind = 'CollectionPage';
+    html = outputs(); title = '研究论文｜GAN lab 浙江大学'; nav = 'outputs'; kind = 'CollectionPage';
     description = `GAN lab 团队参与的${publications.length}篇论文与预印本，涵盖生成模型、人机协作与文化创作。`;
   } else if (route === '/people') {
-    html = people(); title = '团队｜GAN lab'; nav = 'people'; kind = 'CollectionPage';
+    html = people(); title = '团队成员｜GAN lab 浙江大学'; nav = 'people'; kind = 'CollectionPage';
     description = '认识 GAN lab 的教师与研究成员，共同研究生成模型、人机协作与文化创作。';
   } else if (members.some(member => route === '/people/' + member.id && hasMemberDetails(member))) {
     person = members.find(member => route === '/people/' + member.id);
@@ -263,10 +263,10 @@ function pageFor(route) {
     const text = person.introduction || person.background || person.researchSummary || person.biography?.[0] || researchOverview(memberPapers(person.id)) || person.honor || '个人介绍与学术主页。';
     description = `${person.name}：${plainText(text)}`;
   } else if (route === '/about') {
-    html = about(); title = '关于｜GAN lab'; nav = 'about';
-    description = 'GAN lab 的研究涵盖生成模型蒸馏、人机交互，以及传统文化的数字创作与体验。';
+    html = about(); title = '关于 GAN lab｜浙江大学研究团队'; nav = 'about';
+    description = '了解浙江大学 GAN lab 的团队背景与研究方向：生成模型与扩散模型蒸馏、人机协同创作、文化遗产数字化，以及交互系统和文化展览实践。';
   } else if (route === '/contact') {
-    html = contact(); title = '交流与合作｜GAN lab'; nav = 'contact';
+    html = contact(); title = '交流与合作｜GAN lab 浙江大学'; nav = 'contact';
     description = 'GAN lab 联系方式：李泽健的电子邮箱与个人主页。';
   } else {
     html = `<div class="shell not-found">${heading('页面未找到', '地址可能有误，或页面已移除。')}<div class="hero-actions">${arrow('#/', '返回首页')}${inline('#/projects', '项目与作品')}</div></div>`;
@@ -278,10 +278,27 @@ function structuredData(page) {
   const root = site.origin + site.basePath;
   const url = site.origin + pathFor(page.route);
   const graph = [
-    { '@type': 'Organization', '@id': root + '#organization', name: site.name, url: root },
+    { '@type': 'Organization', '@id': root + '#organization', name: site.name, url: root, description: 'GAN lab 是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。', logo: root + 'assets/gan-mark.png' },
     { '@type': 'WebSite', '@id': root + '#website', name: site.name, url: root, inLanguage: 'zh-CN', publisher: { '@id': root + '#organization' } },
-    { '@type': page.kind, '@id': url + '#webpage', url, name: page.title, description: page.description, inLanguage: 'zh-CN', isPartOf: { '@id': root + '#website' } },
+    { '@type': page.kind, '@id': url + '#webpage', url, name: page.title, description: page.description, inLanguage: 'zh-CN', isPartOf: { '@id': root + '#website' }, publisher: { '@id': root + '#organization' } },
   ];
+  if (page.route === '/' || page.route === '/about') graph[2].about = { '@id': root + '#organization' };
+  // Collection markup mirrors visible entries; no inferred authorship or sponsorship.
+  const entries = page.route === '/projects' ? projects.map(project => ({
+    name: project.title, url: root + 'projects/#' + project.id,
+  })) : page.route === '/research' ? works.map(work => ({
+    name: work.name, url: root + 'research/' + work.id + '/',
+  })) : page.route === '/outputs' ? publications.map(paper => ({
+    name: paper.title, url: paper.url,
+  })) : [];
+  if (entries.length) {
+    const listId = url + '#entries';
+    graph[2].mainEntity = { '@id': listId };
+    graph.push({ '@type': 'ItemList', '@id': listId, numberOfItems: entries.length,
+      itemListElement: entries.map((entry, index) => ({ '@type': 'ListItem', position: index + 1, ...entry })) });
+  }
+  const work = works.find(work => page.route === '/research/' + work.id);
+  if (work) graph[2].citation = { '@type': 'ScholarlyArticle', name: work.title, url: work.url };
   if (page.person) {
     const person = { '@type': 'Person', '@id': url + '#person', name: page.person.name, description: page.description, url };
     const links = page.person.id === 'li-zejian' ? [universityHome, mentorHome] : page.person.profile ? [page.person.profile] : [];

@@ -44,7 +44,7 @@ export async function generate() {
     const imageHeight = projectImage ? '1503' : '1254';
     let head = `<title>${escape(page.title)}</title>\n<meta name="description" content="${escape(page.description)}">\n`;
     if (page.exists) {
-      head += `<link rel="canonical" href="${canonical}">\n`;
+      head += `<meta name="robots" content="index,follow,max-image-preview:large">\n<link rel="sitemap" type="application/xml" href="${site.origin + site.basePath}sitemap.xml">\n<link rel="canonical" href="${canonical}">\n`;
       const metadata = {
         'og:site_name': site.name, 'og:type': 'website', 'og:title': page.title,
         'og:description': page.description, 'og:url': canonical, 'og:locale': 'zh_CN',
@@ -62,6 +62,7 @@ export async function generate() {
     output.set(file, html.replace(/[ \t]+$/gm, ''));
   }
   output.set('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + allRoutes().map(route => `  <url><loc>${escape(site.origin + pathFor(route))}</loc></url>`).join('\n') + '\n</urlset>\n');
+  output.set('robots.txt', '# Effective only when served at the origin root. For subdirectory hosting, merge with the host robots.txt.\nUser-agent: *\nAllow: /\n\nSitemap: ' + site.origin + site.basePath + 'sitemap.xml\n');
   const manifest = { version: 1, files: Object.fromEntries([...output].map(([file, content]) => [file, hash(content)])) };
   output.set('generated-manifest.json', JSON.stringify(manifest, null, 2) + '\n');
   return output;

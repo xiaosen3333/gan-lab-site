@@ -209,3 +209,39 @@ test('all responsive candidates are checked, including missing files and wrong s
     assert.throws(() => resourceURLs(html.replace('960w', 'invalid')), /responsive candidate/);
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
+
+test('search entities match visible collections, research citations remain readable, and every page is reachable', async () => {
+  const shared = await loadSite();
+  const output = await generate();
+  const pages = new Map(Array.from(shared.allRoutes(), route => [shared.pathFor(route), output.get(route === '/' ? 'index.html' : route.slice(1) + '/index.html')]));
+  const visited = new Set(), queue = [shared.pathFor('/')];
+  while (queue.length) {
+    const path = queue.shift();
+    if (visited.has(path)) continue;
+    visited.add(path);
+    for (const match of pages.get(path).matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
+      const url = new URL(match[1].replaceAll('&amp;', '&'), shared.site.origin + path);
+      if (url.origin === shared.site.origin && pages.has(url.pathname) && !visited.has(url.pathname)) queue.push(url.pathname);
+    }
+  }
+  assert.equal(visited.size, pages.size, 'Every canonical page must be reachable through HTML links');
+  for (const [route, items] of [['/projects', shared.projects], ['/research', shared.works], ['/outputs', shared.publications]]) {
+    const page = shared.pageFor(route);
+    const graph = shared.structuredData(page)['@graph'];
+    const list = graph.find(node => node['@type'] === 'ItemList');
+    assert.equal(list.numberOfItems, items.length);
+    for (const entry of list.itemListElement) {
+      assert.ok(page.html.includes(shared.escapeHTML(entry.name)), entry.name + ' must be visible');
+      const url = new URL(entry.url);
+      const href = url.origin === shared.site.origin ? url.pathname + url.hash : entry.url;
+      assert.ok(page.html.includes(shared.escapeHTML(href)) || (url.hash && page.html.includes(`id="${url.hash.slice(1)}"`)), entry.url);
+    }
+  }
+  for (const work of shared.works) {
+    const page = shared.pageFor('/research/' + work.id);
+    assert.ok(page.html.includes(`href="${shared.escapeHTML(work.url)}"`));
+    assert.equal(shared.structuredData(page)['@graph'][2].citation.url, work.url);
+  }
+  assert.ok(output.get('robots.txt').includes('Sitemap: ' + shared.site.origin + shared.site.basePath + 'sitemap.xml'));
+  for (const html of pages.values()) assert.match(html, /max-image-preview:large/);
+});

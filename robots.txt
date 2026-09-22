@@ -1,0 +1,5 @@
+# Effective only when served at the origin root. For subdirectory hosting, merge with the host robots.txt.
+User-agent: *
+Allow: /
+
+Sitemap: https://xiaosen3333.github.io/gan-lab-site/sitemap.xml
