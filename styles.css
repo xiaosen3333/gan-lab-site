@@ -76,6 +76,10 @@ main:focus { outline: none; }
 .selected-work .project-figure img { max-height: 220px; object-fit: contain; object-position: top left; }
 .selected-work .selected-atlas { position: relative; aspect-ratio: 12799 / 1080; overflow: hidden; }
 .selected-work .selected-atlas img { position: absolute; width: 8.438%; max-width: none; max-height: none; height: auto; transform-origin: top left; transform: rotate(-90deg) translateX(-100%); }
+.selected-work-panorama .selected-work-link { row-gap: 24px; }
+.selected-work-panorama .project-figure { grid-column: 1 / -1; }
+.selected-work-panorama .project-figure img { max-height: none; }
+.selected-work-panorama .selected-work-copy { grid-column: 2 / -1; max-width: 40em; }
 .selected-work-link:hover h3 { color: var(--blue); }
 .more-research { padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; }
 .more-research .inline-link { gap: 8px; }
@@ -255,7 +259,7 @@ html:has(.bibliography-page) { scrollbar-gutter: stable; }
   .home-introduction::after { background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,.96) 32%, rgba(255,255,255,.15) 66%, transparent 100%); }
   .home-visual { width: 100%; height: 260px; top: auto; bottom: 0; }
   .selected-work-link { grid-template-columns: 1fr; gap: 14px; }
-  .selected-work:not(.selected-work-with-media) .selected-work-copy { grid-column: auto; }
+  .selected-work:not(.selected-work-with-media) .selected-work-copy, .selected-work-panorama .selected-work-copy { grid-column: auto; }
 
   .home-introduction h1 { font-size: 44px; }
   .home-introduction p { font-size: 18px; }

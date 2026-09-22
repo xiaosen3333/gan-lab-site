@@ -25,15 +25,18 @@ function selectedWork(selection) {
   const work = (research ? works : projects).find(work => work.id === selection.id);
   const href = research ? '#/research/' + work.id : '#/projects#' + work.id;
   const label = research ? '研究详情' : work.action;
+  const panoramic = ['canal-growth', 'ai-history-atlas'].includes(work.id);
+  const media = work.media ? `<figure class="project-figure${work.media.rotate === -90 ? ' selected-atlas' : ''}">${projectImage(work.media)}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : '';
   const context = research ? `${work.venue} ${work.year}` : [work.period, work.homepage.venue || work.venue].filter(Boolean).join(' · ');
-  return `<article class="project-card selected-work${work.media ? ' selected-work-with-media' : ''}" id="${selection.anchor}" tabindex="-1">
+  return `<article class="project-card selected-work${work.media ? ' selected-work-with-media' : ''}${panoramic ? ' selected-work-panorama' : ''}" id="${selection.anchor}" tabindex="-1">
     <a class="selected-work-link" href="${href}">
+      ${panoramic ? media : ''}
       <div class="selected-work-heading"><p class="project-card-category">${escapeHTML(work.homepage.category || work.category)} · ${escapeHTML(context)}</p>
         <h3>${escapeHTML(research ? work.name : work.title)}</h3></div>
         <div class="selected-work-copy"><p class="project-card-summary">${escapeHTML(work.homepage.summary)}</p>
         <span class="project-card-action">${escapeHTML(label)} ${iconArrow}</span>
       </div>
-      ${work.media ? `<figure class="project-figure${work.media.rotate === -90 ? ' selected-atlas' : ''}">${projectImage(work.media)}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : ''}
+      ${panoramic ? '' : media}
     </a>
   </article>`;
 }
