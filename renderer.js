@@ -9,6 +9,7 @@ const homepageWorks = [
   { kind: 'research', id: 'disback', anchor: 'perspective-panel-0' },
   { kind: 'project', id: 'moworld', anchor: 'project-card-moworld' },
   { kind: 'research', id: 'ink-restorer', anchor: 'perspective-panel-2' },
+  { kind: 'project', id: 'canal-growth', anchor: 'project-card-canal-growth' },
 ];
 function workRows({ level = 3 } = {}) {
   return works.map(work => `<article class="work-row" id="research-entry-${work.id}" tabindex="-1">
@@ -33,25 +34,6 @@ function selectedWork(selection) {
     </a>
   </article>`;
 }
-function culturalPractice() {
-  const canal = projects.find(project => project.id === 'canal-growth');
-  const atlas = projects.find(project => project.id === 'ai-history-atlas');
-  const artist = projects.find(project => project.id === 'artist-1');
-  return `<section class="culture-showcase" aria-labelledby="culture-title">
-    <div class="culture-introduction"><h2 class="section-title" id="culture-title">文化实践与展览</h2>
-      <p>团队将生成技术用于国画创作、展览叙事与文化体验，相关作品曾在浙江美术馆等场所公开展出。</p></div>
-    <a class="culture-feature" id="project-card-canal-growth" tabindex="-1" href="#/projects#${canal.id}">
-      <figure>${projectImage(canal.media)}<figcaption>${escapeHTML(canal.media.caption)}</figcaption></figure>
-      <div class="culture-feature-copy"><p class="culture-meta">${canal.period} · ${escapeHTML(canal.venue)}</p><h3>${escapeHTML(canal.title)}</h3>
-        <p>${escapeHTML(canal.homepage.summary)}</p><strong>查看作品与展览 ${iconArrow}</strong></div>
-    </a>
-    <div class="culture-records">
-      <a href="#/projects#${atlas.id}"><p class="culture-meta">${atlas.period} · ${escapeHTML(atlas.venue)}</p><h3>${escapeHTML(atlas.title)}</h3><p>以时间轴串联人工智能的重要事件、技术节点与主要流派，呈现不同研究路线的发展。</p><span>查看图谱 ${iconArrow}</span></a>
-      <a href="#/projects#${artist.id}"><p class="culture-meta">${artist.period} · 人工智能辅助创作油画展</p><h3>${escapeHTML(artist.title)}</h3><p>以人工智能辅助油画创作，描绘江南水乡、古镇与自然景观。</p><span>查看项目与展览 ${iconArrow}</span></a>
-    </div>
-    <div class="culture-collection-link">${inline('#/projects', '全部项目与作品')}</div>
-  </section>`;
-}
 function home() {
   return `<div class="shell">
     <section class="home-introduction" aria-labelledby="home-title">
@@ -60,12 +42,10 @@ function home() {
       <img class="home-visual" src="assets/culture-computation-1536.webp" srcset="assets/culture-computation-640.webp 640w, assets/culture-computation-960.webp 960w, assets/culture-computation-1536.webp 1536w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1320px) 78vw, 968px" width="1536" height="1024" alt="水墨山形与数字点阵交融的概念视觉" loading="eager" fetchpriority="high" decoding="async">
     </section>
     <section class="selected-section" aria-labelledby="selected-title">
-      <h2 class="section-title" id="selected-title">项目与研究</h2>
+      <h2 class="section-title" id="selected-title">精选成果</h2>
       <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
-      <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="更多研究">${inline('#/outputs', '论文目录')}</nav>
+      <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="全部成果">${inline('#/projects', '全部项目与作品')}${inline('#/outputs', '论文目录')}</nav>
     </section>
-    ${culturalPractice()}
-    ${partnersSection({ compact: true })}
   </div>`;
 }
 function research() {
@@ -207,7 +187,7 @@ function about() {
 function capabilitiesSection() {
  return `<section class="project-capabilities" aria-labelledby="capabilities-title"><h2 class="section-title" id="capabilities-title">合作方向</h2><div class="capability-grid">${projectCapabilities.map(capability => `<article><h3>${escapeHTML(capability.title)}</h3><p>${escapeHTML(capability.description)}</p></article>`).join('')}</div></section>`;
 }
-function contact(){return `<div class="shell">${heading('交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">电子邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健的电子邮箱" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">个人主页 ${iconArrow}</a></section>${capabilitiesSection()}</div>`;}
+function contact(){return `<div class="shell">${heading('交流与合作')}<section class="contact-channel" aria-label="联系导师"><span class="label">电子邮箱</span><div class="contact-email"><img src="assets/contact-channel.png" alt="李泽健的电子邮箱" width="732" height="89"></div><small>李泽健 · 浙江大学</small><a class="inline-link" href="${mentorHome}" target="_blank" rel="noopener">个人主页 ${iconArrow}</a></section>${capabilitiesSection()}${partnersSection()}</div>`;}
 
 // Shared route and metadata rules. Content remains in the three data files above.
 const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({
@@ -253,7 +233,7 @@ function pageFor(route) {
     description = 'GAN lab · 浙江大学。研究生成模型与人机交互，探索文化内容的数字创作与体验。';
   } else if (route === '/projects') {
     html = projectsPage(); title = '项目与作品｜GAN lab'; nav = 'projects'; kind = 'CollectionPage';
-    description = 'GAN lab 团队成员参与的系统研发与文化创作，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
+    description = 'GAN lab 的系统研发与文化创作项目，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
   } else if (route === '/research') {
     html = research(); title = '精选研究｜GAN lab'; nav = 'outputs'; kind = 'CollectionPage';
     description = 'GAN lab 的生成模型、人机协作与文化创作研究，包括 DisBack、Ink Restorer 和 PoemPalette。';
@@ -344,6 +324,8 @@ function projectImage(media, { priority = false } = {}) {
   return `<img src="${escapeHTML(imagePath)}"${candidates} alt="${escapeHTML(media.alt)}" width="${media.width}" height="${media.height}" loading="${priority ? 'eager' : 'lazy'}"${priority ? ' fetchpriority="high"' : ''} decoding="async">`;
 }
 function projectCredits(credits) {
+  credits = credits.filter(credit => !['参与', '项目参与', '团队成员'].includes(credit.role));
+  if (!credits.length) return '';
   return `<dl class="project-credits">${credits.map(credit => `<div><dt>${escapeHTML(credit.role)}</dt><dd>${credit.people.map(person => {
     const member = members.find(member => member.id === person.memberId);
     return member && hasMemberDetails(member) ? `<a href="#/people/${member.id}">${escapeHTML(person.name)}</a>` : escapeHTML(person.name);
@@ -385,6 +367,5 @@ function projectsPage() {
         </div></div>
       </article>`;
     }).join('')}</div>
-    ${partnersSection()}
   </div>`;
 }

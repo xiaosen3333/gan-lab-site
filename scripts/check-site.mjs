@@ -104,9 +104,10 @@ export async function checkSite() {
     ['perspective-panel-0', works.find(work => work.id === 'disback'), pathFor('/research/disback')],
     ['project-card-moworld', projects.find(project => project.id === 'moworld'), pathFor('/projects') + '#moworld'],
     ['perspective-panel-2', works.find(work => work.id === 'ink-restorer'), pathFor('/research/ink-restorer')],
+    ['project-card-canal-growth', projects.find(project => project.id === 'canal-growth'), pathFor('/projects') + '#canal-growth'],
   ];
-  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Three selected research and technology works in the approved reading order');
-  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 3);
+  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Four selected works in one reading order');
+  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 4);
   for (const [index, [, work, href]] of expectedSelections.entries()) {
     const entry = selected[index][2];
     assert.ok(entry.includes(`href="${href}"`) && entry.includes(`<h3>${work.name || work.title}</h3>`), 'Selected work title and real destination');
@@ -117,10 +118,9 @@ export async function checkSite() {
   assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
   assert.doesNotMatch(home, /更多研究：|全部研究/);
   const collections = home.match(/<nav class="collection-links"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
-  assert.equal((collections.match(/<a /g) || []).length, 1);
+  assert.equal((collections.match(/<a /g) || []).length, 2);
   assert.ok(collections.includes(`href="${pathFor('/outputs')}"`));
-  assert.ok(home.includes('id="culture-title"') && home.includes('文化实践与展览'));
-  for (const id of ['canal-growth', 'ai-history-atlas', 'artist-1']) assert.ok(home.includes(`href="${pathFor('/projects')}#${id}"`), 'Homepage culture project: ' + id);
+  assert.doesNotMatch(home, /culture-showcase|id="partners-title"/);
   assert.doesNotMatch(home, /参与项目|创作团队成员|团队成员参与内容撰写/);
   assert.ok(home.includes(`href="${pathFor('/projects')}"`) && home.includes('全部项目与作品'));
   for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);
@@ -153,7 +153,7 @@ export async function checkSite() {
     }
     for (const credit of project.credits) for (const person of credit.people) {
       if (person.memberId) assert.equal(members.find(member => member.id === person.memberId)?.name, person.name, 'Credit matches confirmed member');
-      assert.ok(projectHTML.includes(person.name), 'Visible credit: ' + person.name);
+      if (!['参与', '项目参与', '团队成员'].includes(credit.role)) assert.ok(projectHTML.includes(person.name), 'Visible specific credit: ' + person.name);
     }
     for (const link of project.links) {
       if (link.route) {
@@ -166,8 +166,8 @@ export async function checkSite() {
     }
   }
   for (const partner of projectPartners) {
-    assert.ok(projectHTML.includes(`alt="${partner.name}"`), 'Accessible partner name');
-    assert.ok(projectHTML.includes(`src="${site.basePath}${partner.logo}"`), 'Local partner logo follows deployment path');
+    assert.ok(contact.includes(`alt="${partner.name}"`), 'Accessible partner name');
+    assert.ok(contact.includes(`src="${site.basePath}${partner.logo}"`), 'Local partner logo follows deployment path');
     assert.ok((await stat(resolve(root, partner.logo))).size > 0, 'Partner logo exists');
   }
   assert.ok(projectHTML.includes('class="atlas-scroll" role="region" tabindex="0"'));
@@ -207,8 +207,8 @@ export async function checkSite() {
   }
   assert.ok(home.includes('loading="eager" fetchpriority="high" decoding="async"'));
   assert.ok((await stat(resolve(root, 'assets/projects/ai-history-atlas.webp'))).size < 1124282);
-  assert.ok(contact.includes('id="capabilities-title"') && projectHTML.includes('id="partners-title"'));
-  assert.doesNotMatch(projectHTML, /id="capabilities-title"/);
+  assert.ok(contact.includes('id="capabilities-title"') && contact.includes('id="partners-title"'));
+  assert.doesNotMatch(projectHTML, /id="capabilities-title"|id="partners-title"|<dt>参与<|<dt>项目参与<|<dt>团队成员<|李泽健参与研究|团队成员参与内容撰写/);
   assert.doesNotMatch(projectHTML, /class="project-index"/, 'Project content starts without the removed name index');
   assert.ok(pages.get(pathFor('/about')).includes('href="http://www.cst.zju.edu.cn/"'));
   assert.equal((pages.get(pathFor('/people')).match(/class="person-card"/g) || []).length, 31);
