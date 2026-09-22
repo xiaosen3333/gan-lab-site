@@ -6,9 +6,10 @@ const heading=(title,description='')=>`<div class="page-heading"><h1>${title}</h
 
 // Selection is a relation; copy and media stay in the research/project data.
 const homepageWorks = [
-  { kind: 'research', id: 'disback', anchor: 'perspective-panel-0' },
   { kind: 'project', id: 'moworld', anchor: 'project-card-moworld' },
   { kind: 'research', id: 'ink-restorer', anchor: 'perspective-panel-2' },
+];
+const homepageExhibitions = [
   { kind: 'project', id: 'canal-growth', anchor: 'project-card-canal-growth' },
   { kind: 'project', id: 'ai-history-atlas', anchor: 'project-card-ai-history-atlas' },
   { kind: 'project', id: 'artist-1', anchor: 'project-card-artist-1' },
@@ -43,9 +44,13 @@ function home() {
       <p>研究生成模型与人机交互，探索文化内容的数字创作与体验。</p></div>
       <img class="home-visual" src="assets/culture-computation-1536.webp" srcset="assets/culture-computation-640.webp 640w, assets/culture-computation-960.webp 960w, assets/culture-computation-1536.webp 1536w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1320px) 78vw, 968px" width="1536" height="1024" alt="水墨山形与数字点阵交融的概念视觉" loading="eager" fetchpriority="high" decoding="async">
     </section>
-    <section class="selected-section" aria-labelledby="selected-title">
-      <h2 class="section-title" id="selected-title">精选成果</h2>
+    <section class="selected-section" id="perspective-panel-0" tabindex="-1" aria-labelledby="selected-title">
+      <h2 class="section-title" id="selected-title">项目与研究</h2>
       <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
+    </section>
+    <section class="selected-section" aria-labelledby="culture-title">
+      <h2 class="section-title" id="culture-title">文化实践与展览</h2>
+      <div class="selected-list">${homepageExhibitions.map(selectedWork).join('')}</div>
       <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="全部成果">${inline('#/projects', '全部项目与作品')}${inline('#/outputs', '论文目录')}</nav>
     </section>
     ${partnersSection({ compact: true })}
