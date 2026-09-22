@@ -20,7 +20,7 @@ GitHub Pages main/root
 
 ## URL 与渐进增强
 
-每个公开页面有真实目录 URL、初始正文、唯一 H1/title/description、自指 canonical、分享元信息与可解析 JSON-LD。生成的站内链接和资源均使用部署基路径。sitemap 仅包含规范页面，不收录 query、fragment、404 或不存在的详情页。
+每个公开页面有真实目录 URL、初始正文、唯一 H1/description、自指 canonical、分享元信息与可解析 JSON-LD；浏览器标签统一为 `GAN Lab | 浙江大学`，页面级差异保留在 OG、Twitter 和 JSON-LD 标题中。生成的站内链接和资源均使用部署基路径。sitemap 仅包含规范页面，不收录 query、fragment、404 或不存在的详情页。
 
 浏览器加载预生成正文，只使用 `site-runtime.js` 与 `app.js` 增强交互。首页两项项目研究与三项文化实践均在初始 HTML 中，旧视角锚点定位到对应研究行；无 JavaScript 时内容全部可读。页面导航采用原生链接，支持新标签和复制地址；历史状态保存每个条目的阅读位置和实际触发控件，前进、后退与已有状态刷新均恢复，首开 fragment 才直接定位。
 

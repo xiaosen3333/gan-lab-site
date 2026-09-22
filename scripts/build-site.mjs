@@ -42,7 +42,8 @@ export async function generate() {
     const imageAlt = projectImage ? 'MoWorld 论文中不同场景的生成画面与应用示意总图' : 'GAN Lab 墨圈与蓝色像素标识';
     const imageWidth = projectImage ? '2008' : '1254';
     const imageHeight = projectImage ? '1503' : '1254';
-    let head = `<title>${escape(page.title)}</title>\n<meta name="description" content="${escape(page.description)}">\n`;
+    // Keep the browser tab label stable; page-specific titles remain in OG and JSON-LD metadata.
+    let head = '<title>GAN Lab | 浙江大学</title>\n<meta name="description" content="' + escape(page.description) + '">\n';
     if (page.exists) {
       head += `<meta name="robots" content="index,follow,max-image-preview:large">\n<link rel="sitemap" type="application/xml" href="${site.origin + site.basePath}sitemap.xml">\n<link rel="canonical" href="${canonical}">\n`;
       const metadata = {

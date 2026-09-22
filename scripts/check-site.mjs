@@ -83,7 +83,8 @@ export async function checkSite() {
       assert.equal(person.name, members.find(member => route.endsWith('/' + member.id)).name);
     }
   }
-  assert.equal(titles.size, 35); assert.equal(descriptions.size, 35); assert.equal(canonicals.size, 35);
+  assert.equal(titles.size, 1); assert.ok(titles.has('GAN Lab | 浙江大学'));
+  assert.equal(descriptions.size, 35); assert.equal(canonicals.size, 35);
   await checkLocalReferences(pages, { site });
   const home = pages.get(site.basePath), contact = pages.get(pathFor('/contact'));
   for (const index of [0, 1, 2]) assert.ok(home.includes(`id="perspective-panel-${index}"`));
