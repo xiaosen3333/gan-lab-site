@@ -51,10 +51,9 @@ function home() {
       <h2 class="section-title" id="selected-title">项目与研究</h2>
       <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
     </section>
-    <section class="selected-section" aria-labelledby="culture-title">
+    <section class="selected-section" id="perspective-panel-1" tabindex="-1" aria-labelledby="culture-title">
       <h2 class="section-title" id="culture-title">文化实践与展览</h2>
       <div class="selected-list">${homepageExhibitions.map(selectedWork).join('')}</div>
-      <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="全部成果">${inline('#/projects', '全部项目与作品')}${inline('#/outputs', '论文目录')}</nav>
     </section>
     ${partnersSection({ compact: true })}
   </div>`;
@@ -360,7 +359,7 @@ function projectFigure(project) {
 
 function partnersSection({ compact = false } = {}) {
   return `<section class="project-partners${compact ? ' partners-compact' : ''}" aria-labelledby="partners-title">
-    <h2 class="section-title" id="partners-title">合作伙伴</h2>
+    <h2 class="section-title" id="partners-title">合作单位</h2>
     <ul class="partner-logos" aria-label="合作单位">${projectPartners.map(partner => `<li><img class="partner-logo partner-logo-${partner.id}" src="${escapeHTML(partner.logo)}" alt="${escapeHTML(partner.name)}" width="${partner.width}" height="${partner.height}" loading="lazy" decoding="async"></li>`).join('')}</ul>
   </section>`;
 }

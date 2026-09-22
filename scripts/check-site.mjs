@@ -119,15 +119,13 @@ export async function checkSite() {
   }
   assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
   assert.doesNotMatch(home, /更多研究：|全部研究/);
-  const collections = home.match(/<nav class="collection-links"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
-  assert.equal((collections.match(/<a /g) || []).length, 2);
-  assert.ok(collections.includes(`href="${pathFor('/outputs')}"`));
+  assert.doesNotMatch(home, /collection-links|全部项目与作品|论文目录/);
   assert.ok(home.includes('id="partners-title"'));
   assert.match(home, /id="selected-title">项目与研究<\/h2>/);
   assert.match(home, /id="culture-title">文化实践与展览<\/h2>/);
   assert.doesNotMatch(home, /精选成果|DisBack/);
   assert.doesNotMatch(home, /参与项目|创作团队成员|团队成员参与内容撰写/);
-  assert.ok(home.includes(`href="${pathFor('/projects')}"`) && home.includes('全部项目与作品'));
+  assert.match(home, /id="partners-title">合作单位<\/h2>/);
   for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);
   const researchHTML = pages.get(pathFor('/research'));
   assert.equal((researchHTML.match(/<h2><a /g) || []).length, 3);

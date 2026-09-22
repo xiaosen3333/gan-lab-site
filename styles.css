@@ -73,7 +73,7 @@ main:focus { outline: none; }
 .selected-work .project-card-summary { margin-top: 0; }
 .selected-work .project-card-action { margin-top: 12px; }
 .selected-work:not(.selected-work-with-media) .selected-work-copy { grid-column: 2 / 4; max-width: 40em; }
-.selected-work .project-figure img { max-height: 220px; object-fit: contain; object-position: top left; }
+.selected-work .project-figure img { width: 100%; height: auto; }
 .selected-work .selected-atlas { position: relative; aspect-ratio: 12799 / 1080; overflow: hidden; }
 .selected-work .selected-atlas img { position: absolute; width: 8.438%; max-width: none; max-height: none; height: auto; transform-origin: top left; transform: rotate(-90deg) translateX(-100%); }
 .selected-work-panorama .selected-work-link { row-gap: 24px; }
@@ -83,7 +83,6 @@ main:focus { outline: none; }
 .selected-work-link:hover h3 { color: var(--blue); }
 .more-research { padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; }
 .more-research .inline-link { gap: 8px; }
-.collection-links { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-top: 16px; }
 .research-interface { max-width: 900px; margin-bottom: 32px; }
 .work-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: center; gap: 30px; padding: 32px 0; border-top: 1px solid var(--line); }
 .work-year { font-size: 14px; }

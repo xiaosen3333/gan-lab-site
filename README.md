@@ -36,9 +36,9 @@ npm run dev
 
 `renderer.js` 的六个 `presentation` 开关当前都为 `false`：英文姓名、分类、论文摘要、参与者、附属按钮和标题链接继续隐藏。原文链接及扩展数据仍保留在数据真源；关闭分类时旧 `type` 参数不限制 28 条书目。结构化数据只使用可见事实，不生成完整作者名单、虚构职务、机构背书或隐藏字段。
 
-首页选择关系在 `renderer.js` 的 `homepageWorks`；摘要和媒体分别保存在 `research.js`、`projects.js` 原对象中。研究目录独立列出三项研究；所有内容直接可读，不使用 tab。保留旧 `#perspective-panel-0/1/2` 锚点，其中 0 定位首页项目与研究区，2 定位 Ink Restorer，1 定位首页内容入口。论文页按年份分组并提供真实年份锚点，全部 46 篇同时保留；成员页的项目与作品只从项目署名中的 memberId 派生。联系页只显示邮箱图片和导师主页，不将地址写回正文、alt、JSON-LD 或 mailto。
+首页选择关系在 `renderer.js` 的 `homepageWorks`；摘要和媒体分别保存在 `research.js`、`projects.js` 原对象中。研究目录独立列出三项研究；所有内容直接可读，不使用 tab。保留旧 `#perspective-panel-0/1/2` 锚点，其中 0 定位首页项目与研究区，2 定位 Ink Restorer，1 定位文化实践与展览区。论文页按年份分组并提供真实年份锚点，全部 46 篇同时保留；成员页的项目与作品只从项目署名中的 memberId 派生。联系页只显示邮箱图片和导师主页，不将地址写回正文、alt、JSON-LD 或 mailto。
 
-首页“项目与研究”展示 MoWorld 和 Ink Restorer；“文化实践与展览”展示《运河·生长·万象》、人工智能发展简史图谱与 Artist 1.0。两个区块采用相同三列图文布局，末尾保留项目、论文入口及合作伙伴。DisBack 保留研究详情、研究目录和论文入口，不在首页展示。项目页不展示合作伙伴。项目正文聚焦产物与方法，署名区仅保留具体分工，底层署名数据继续用于成员关联。
+首页“项目与研究”展示 MoWorld 和 Ink Restorer；“文化实践与展览”展示《运河·生长·万象》、人工智能发展简史图谱与 Artist 1.0。两个区块采用相同三列图文布局，末尾保留合作单位，项目和论文通过主导航进入。DisBack 保留研究详情、研究目录和论文入口，不在首页展示。项目页不展示合作伙伴。项目正文聚焦产物与方法，署名区仅保留具体分工，底层署名数据继续用于成员关联。
 
 历史状态按实际页面条目保存阅读位置和触发控件，滚动即时记录在内存、每750毫秒最多持久化一次，离开时立即保存，并按历史条目与完整URL在sessionStorage保存当前标签页快照，避免立即刷新读取到提前选中的旧历史状态。快照不匹配或存储不可用时回退历史状态；浏览器拒绝历史写入时保留原生导航。同页锚点及跨页的前进、后退，以及已有状态的刷新均恢复当时位置。新打开的 fragment 定位对应内容；历史遍历后的 hashchange 不重复定位。项目卡、成员卡、研究行和普通链接均可恢复焦点；修改键、新标签、外链和下载保留原生行为。
 
@@ -52,7 +52,7 @@ AI 图谱保留原始 JPEG，CSS 旋转为年代从左至右，独立图像区�
 
 Ink Restorer 界面图来自[浙江大学人工智能学院成果介绍](https://ai.zju.edu.cn/2026/0528/c90228a3167505/page.htm)。`research.js` 保存准确原图 URL；网页使用 `assets/research/ink-restorer-interface.webp`（1600×618，约128 KB），由官方完整界面图等比缩小，保留四步骤及原图底部说明，首页与详情共用。更换媒体须核对来源、完整内容、尺寸和自然比例，不能将生成结果图写成实际修复成果。
 
-项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作伙伴使用四家公司官方品牌标识，首页与项目页共用同一数据；保留完整名称 alt 和本地资源路径，不自行附加项目对应关系、战略伙伴或联合实验室称谓。字节跳动官方素材为白标，白底展示须保留 brightness(0) 样式。
+项目来源分别为 [MoWorld 项目主页](https://moxin-tech.github.io/moworld/)、[运河展览报道](https://mp.weixin.qq.com/s/_NjjqPFc5HAMMSyikLwF8g)、[墨染项目介绍](http://www.idi.zju.edu.cn/project/2804.html)、[AI 简史图谱展览报道](https://mp.weixin.qq.com/s/pwXEE0lUFsIGirGT_IXBsg)。合作伙伴使用四家公司官方品牌标识，首页与联系页共用同一数据；保留完整名称 alt 和本地资源路径，不自行附加项目对应关系、战略伙伴或联合实验室称谓。字节跳动官方素材为白标，白底展示须保留 brightness(0) 样式。
 
 ## 更换浙江大学域名时
 
