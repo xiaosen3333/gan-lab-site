@@ -104,10 +104,9 @@ export async function checkSite() {
     ['perspective-panel-0', works.find(work => work.id === 'disback'), pathFor('/research/disback')],
     ['project-card-moworld', projects.find(project => project.id === 'moworld'), pathFor('/projects') + '#moworld'],
     ['perspective-panel-2', works.find(work => work.id === 'ink-restorer'), pathFor('/research/ink-restorer')],
-    ['project-card-canal-growth', projects.find(project => project.id === 'canal-growth'), pathFor('/projects') + '#canal-growth'],
   ];
-  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Four selected works in the approved reading order');
-  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 4);
+  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Three selected research and technology works in the approved reading order');
+  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 3);
   for (const [index, [, work, href]] of expectedSelections.entries()) {
     const entry = selected[index][2];
     assert.ok(entry.includes(`href="${href}"`) && entry.includes(`<h3>${work.name || work.title}</h3>`), 'Selected work title and real destination');
@@ -118,8 +117,12 @@ export async function checkSite() {
   assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
   assert.doesNotMatch(home, /更多研究：|全部研究/);
   const collections = home.match(/<nav class="collection-links"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
-  assert.equal((collections.match(/<a /g) || []).length, 2);
+  assert.equal((collections.match(/<a /g) || []).length, 1);
   assert.ok(collections.includes(`href="${pathFor('/outputs')}"`));
+  assert.ok(home.includes('id="culture-title"') && home.includes('文化实践与展览'));
+  for (const id of ['canal-growth', 'ai-history-atlas', 'artist-1']) assert.ok(home.includes(`href="${pathFor('/projects')}#${id}"`), 'Homepage culture project: ' + id);
+  assert.ok(home.includes('李泽健为创作团队成员') && home.includes('团队成员参与内容撰写与视觉设计') && home.includes('李泽健参与项目'));
+  assert.ok(home.includes(`href="${pathFor('/projects')}"`) && home.includes('全部项目与作品'));
   for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);
   const researchHTML = pages.get(pathFor('/research'));
   assert.equal((researchHTML.match(/<h2><a /g) || []).length, 3);

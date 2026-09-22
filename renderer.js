@@ -9,7 +9,6 @@ const homepageWorks = [
   { kind: 'research', id: 'disback', anchor: 'perspective-panel-0' },
   { kind: 'project', id: 'moworld', anchor: 'project-card-moworld' },
   { kind: 'research', id: 'ink-restorer', anchor: 'perspective-panel-2' },
-  { kind: 'project', id: 'canal-growth', anchor: 'project-card-canal-growth' },
 ];
 function workRows({ level = 3 } = {}) {
   return works.map(work => `<article class="work-row" id="research-entry-${work.id}" tabindex="-1">
@@ -34,6 +33,25 @@ function selectedWork(selection) {
     </a>
   </article>`;
 }
+function culturalPractice() {
+  const canal = projects.find(project => project.id === 'canal-growth');
+  const atlas = projects.find(project => project.id === 'ai-history-atlas');
+  const artist = projects.find(project => project.id === 'artist-1');
+  return `<section class="culture-showcase" aria-labelledby="culture-title">
+    <div class="culture-introduction"><h2 class="section-title" id="culture-title">文化实践与展览</h2>
+      <p>团队将生成技术用于国画创作、展览叙事与文化体验，相关作品曾在浙江美术馆等场所公开展出。</p></div>
+    <a class="culture-feature" id="project-card-canal-growth" tabindex="-1" href="#/projects#${canal.id}">
+      <figure>${projectImage(canal.media)}<figcaption>${escapeHTML(canal.media.caption)}</figcaption></figure>
+      <div class="culture-feature-copy"><p class="culture-meta">${canal.period} · ${escapeHTML(canal.venue)}</p><h3>${escapeHTML(canal.title)}</h3>
+        <p>${escapeHTML(canal.homepage.summary)}</p><span>李泽健为创作团队成员</span><strong>查看作品与展览 ${iconArrow}</strong></div>
+    </a>
+    <div class="culture-records">
+      <a href="#/projects#${atlas.id}"><p class="culture-meta">${atlas.period} · ${escapeHTML(atlas.venue)}</p><h3>${escapeHTML(atlas.title)}</h3><p>团队成员参与内容撰写与视觉设计，以时间轴呈现人工智能的重要事件、技术节点与流派。</p><span>查看图谱 ${iconArrow}</span></a>
+      <a href="#/projects#${artist.id}"><p class="culture-meta">${artist.period} · 人工智能辅助创作油画展</p><h3>${escapeHTML(artist.title)}</h3><p>李泽健参与项目，相关作品围绕江南水乡、古镇与自然景观展开。</p><span>查看项目与展览 ${iconArrow}</span></a>
+    </div>
+    <div class="culture-collection-link">${inline('#/projects', '全部项目与作品')}</div>
+  </section>`;
+}
 function home() {
   return `<div class="shell">
     <section class="home-introduction" aria-labelledby="home-title">
@@ -44,8 +62,9 @@ function home() {
     <section class="selected-section" aria-labelledby="selected-title">
       <h2 class="section-title" id="selected-title">项目与研究</h2>
       <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
-      <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="更多内容">${inline('#/projects', '全部项目与作品')}${inline('#/outputs', '论文目录')}</nav>
+      <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="更多研究">${inline('#/outputs', '论文目录')}</nav>
     </section>
+    ${culturalPractice()}
     ${partnersSection({ compact: true })}
   </div>`;
 }
