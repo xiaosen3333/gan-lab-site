@@ -10,6 +10,8 @@ const homepageWorks = [
   { kind: 'project', id: 'moworld', anchor: 'project-card-moworld' },
   { kind: 'research', id: 'ink-restorer', anchor: 'perspective-panel-2' },
   { kind: 'project', id: 'canal-growth', anchor: 'project-card-canal-growth' },
+  { kind: 'project', id: 'ai-history-atlas', anchor: 'project-card-ai-history-atlas' },
+  { kind: 'project', id: 'artist-1', anchor: 'project-card-artist-1' },
 ];
 function workRows({ level = 3 } = {}) {
   return works.map(work => `<article class="work-row" id="research-entry-${work.id}" tabindex="-1">
@@ -25,12 +27,12 @@ function selectedWork(selection) {
   const context = research ? `${work.venue} ${work.year}` : [work.period, work.homepage.venue || work.venue].filter(Boolean).join(' · ');
   return `<article class="project-card selected-work${work.media ? ' selected-work-with-media' : ''}" id="${selection.anchor}" tabindex="-1">
     <a class="selected-work-link" href="${href}">
-      <div class="selected-work-copy"><div class="selected-work-heading"><p class="project-card-category">${escapeHTML(work.homepage.category || work.category)} · ${escapeHTML(context)}</p>
+      <div class="selected-work-heading"><p class="project-card-category">${escapeHTML(work.homepage.category || work.category)} · ${escapeHTML(context)}</p>
         <h3>${escapeHTML(research ? work.name : work.title)}</h3></div>
-        <p class="project-card-summary">${escapeHTML(work.homepage.summary)}</p>
+        <div class="selected-work-copy"><p class="project-card-summary">${escapeHTML(work.homepage.summary)}</p>
         <span class="project-card-action">${escapeHTML(label)} ${iconArrow}</span>
       </div>
-      ${work.media ? `<figure class="project-figure">${projectImage(work.media)}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : ''}
+      ${work.media ? `<figure class="project-figure${work.media.rotate === -90 ? ' selected-atlas' : ''}">${projectImage(work.media)}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : ''}
     </a>
   </article>`;
 }
@@ -46,6 +48,7 @@ function home() {
       <div class="selected-list">${homepageWorks.map(selectedWork).join('')}</div>
       <nav class="collection-links" id="perspective-panel-1" tabindex="-1" aria-label="全部成果">${inline('#/projects', '全部项目与作品')}${inline('#/outputs', '论文目录')}</nav>
     </section>
+    ${partnersSection({ compact: true })}
   </div>`;
 }
 function research() {

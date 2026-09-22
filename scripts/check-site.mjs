@@ -105,22 +105,24 @@ export async function checkSite() {
     ['project-card-moworld', projects.find(project => project.id === 'moworld'), pathFor('/projects') + '#moworld'],
     ['perspective-panel-2', works.find(work => work.id === 'ink-restorer'), pathFor('/research/ink-restorer')],
     ['project-card-canal-growth', projects.find(project => project.id === 'canal-growth'), pathFor('/projects') + '#canal-growth'],
+    ['project-card-ai-history-atlas', projects.find(project => project.id === 'ai-history-atlas'), pathFor('/projects') + '#ai-history-atlas'],
+    ['project-card-artist-1', projects.find(project => project.id === 'artist-1'), pathFor('/projects') + '#artist-1'],
   ];
-  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Four selected works in one reading order');
-  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 4);
+  assert.deepEqual(selected.map(match => match[1]), expectedSelections.map(([id]) => id), 'Six selected works in one reading order');
+  assert.equal((home.match(/class="project-card(?:\s[^"]*)?"/g) || []).length, 6);
   for (const [index, [, work, href]] of expectedSelections.entries()) {
     const entry = selected[index][2];
     assert.ok(entry.includes(`href="${href}"`) && entry.includes(`<h3>${work.name || work.title}</h3>`), 'Selected work title and real destination');
     assert.ok(entry.includes(work.homepage.summary), 'Selected summary comes from its work source');
     assert.equal(entry.includes('<figure'), Boolean(work.media), 'No empty media placeholder');
-    if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.id === 'moworld' ? 'assets/projects/moworld-960.webp' : work.media.path}"`), 'Selected media follows deployment path');
+    if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.id === 'moworld' ? 'assets/projects/moworld-960.webp' : work.id === 'ai-history-atlas' ? 'assets/projects/ai-history-atlas.webp' : work.media.path}"`), 'Selected media follows deployment path');
   }
   assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
   assert.doesNotMatch(home, /更多研究：|全部研究/);
   const collections = home.match(/<nav class="collection-links"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
   assert.equal((collections.match(/<a /g) || []).length, 2);
   assert.ok(collections.includes(`href="${pathFor('/outputs')}"`));
-  assert.doesNotMatch(home, /culture-showcase|id="partners-title"/);
+  assert.ok(home.includes('id="partners-title"'));
   assert.doesNotMatch(home, /参与项目|创作团队成员|团队成员参与内容撰写/);
   assert.ok(home.includes(`href="${pathFor('/projects')}"`) && home.includes('全部项目与作品'));
   for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);

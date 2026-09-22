@@ -112,6 +112,7 @@ const projects = [
   },
   {
     id: 'ai-history-atlas',
+    homepage: { summary: '以时间轴串联人工智能的重要事件、技术节点与主要流派，呈现不同研究路线的发展。' },
     title: '人工智能发展简史图谱',
     category: '信息可视化与展览设计',
     summary: '以时间与技术脉络组织人工智能的发展历史。',
@@ -681,6 +682,7 @@ const projects = [
 },
 {
   "id": "artist-1",
+  "homepage": { "summary": "以人工智能辅助油画创作，描绘江南水乡、古镇与自然景观。" },
   "title": "Artist 1.0 · 印象江南",
   "category": "油画辅助创作与展览",
   "period": "2026",
