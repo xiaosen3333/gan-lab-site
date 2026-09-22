@@ -72,7 +72,9 @@ export async function checkSite() {
     const schema = JSON.parse(schemas[0]);
     assert.equal(schema['@context'], 'https://schema.org');
     assert.ok(Array.isArray(schema['@graph']));
-    assert.ok(!/"(?:email|jobTitle|affiliation|author|foundingDate|address|alternateName)"\s*:/.test(schemas[0]), `${path}: no invented or hidden schema fields`);
+    assert.deepEqual(schema['@graph'].find(node => node['@type'] === 'Organization').alternateName, ['生成式人工智能与交互实验室', 'Generative Artificial Intelligence and Interaction Lab']);
+    assert.ok(!html.includes('GAN lab'), 'Consistent GAN Lab spelling');
+    assert.ok(!/"(?:email|jobTitle|affiliation|author|foundingDate|address)"\s*:/.test(schemas[0]), `${path}: no invented or hidden schema fields`);
     assert.ok(!/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i.test(html), `${path}: image email only`);
     assert.ok(!/href="#\//.test(html), `${path}: no hash page links`);
     assert.ok(!/class="paper-actions"|class="publication-people"|class="person-english"|data-output-filter=/.test(main), `${path}: presentation switches respected`);
@@ -117,7 +119,7 @@ export async function checkSite() {
     assert.equal(entry.includes('<figure'), Boolean(work.media), 'No empty media placeholder');
     if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.id === 'moworld' ? 'assets/projects/moworld-960.webp' : work.id === 'ai-history-atlas' ? 'assets/projects/ai-history-atlas.webp' : work.media.path}"`), 'Selected media follows deployment path');
   }
-  assert.match(home, /<h1 id="home-title">GAN lab<\/h1>/);
+  assert.match(home, /<h1 id="home-title">GAN Lab<\/h1>/);
   assert.doesNotMatch(home, /更多研究：|全部研究/);
   assert.doesNotMatch(home, /collection-links|全部项目与作品|论文目录/);
   assert.ok(home.includes('id="partners-title"'));

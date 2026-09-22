@@ -39,7 +39,7 @@ export async function generate() {
     const canonical = site.origin + pathFor(route);
     const projectImage = route === '/' || route === '/projects';
     const image = site.origin + site.basePath + (projectImage ? 'assets/projects/moworld-teaser.jpg' : 'assets/gan-mark.png');
-    const imageAlt = projectImage ? 'MoWorld 论文中不同场景的生成画面与应用示意总图' : 'GAN lab 墨圈与蓝色像素标识';
+    const imageAlt = projectImage ? 'MoWorld 论文中不同场景的生成画面与应用示意总图' : 'GAN Lab 墨圈与蓝色像素标识';
     const imageWidth = projectImage ? '2008' : '1254';
     const imageHeight = projectImage ? '1503' : '1254';
     let head = `<title>${escape(page.title)}</title>\n<meta name="description" content="${escape(page.description)}">\n`;

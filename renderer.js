@@ -43,7 +43,8 @@ function selectedWork(selection) {
 function home() {
   return `<div class="shell">
     <section class="home-introduction" aria-labelledby="home-title">
-      <div class="home-introduction-copy"><div class="home-identity"><h1 id="home-title">GAN lab</h1><span class="home-affiliation">浙江大学</span></div>
+      <div class="home-introduction-copy"><div class="home-identity"><h1 id="home-title">GAN Lab</h1><span class="home-affiliation">浙江大学</span></div>
+      <p class="home-lab-name">生成式人工智能与交互实验室</p>
       <p>研究生成模型与人机交互，探索文化内容的数字创作与体验。</p></div>
       <img class="home-visual" src="assets/culture-computation-1536.webp" srcset="assets/culture-computation-640.webp 640w, assets/culture-computation-960.webp 960w, assets/culture-computation-1536.webp 1536w" sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1320px) 78vw, 968px" width="1536" height="1024" alt="水墨山形与数字点阵交融的概念视觉" loading="eager" fetchpriority="high" decoding="async">
     </section>
@@ -171,9 +172,9 @@ function memberPage(member) {
   </article>`;
 }
 function about() {
-  return `<div class="shell">${heading('关于 GAN lab')}
+  return `<div class="shell">${heading('关于 GAN Lab', '生成式人工智能与交互实验室')}
     <section class="page-section about-grid"><h2>团队与背景</h2><div>
-      <p>GAN lab 是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。团队的工作涵盖生成模型算法、交互系统与艺术作品，关注技术如何进入具体的创作和使用过程。</p>
+      <p>生成式人工智能与交互实验室（GAN Lab，Generative Artificial Intelligence and Interaction Lab）是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。团队的工作涵盖生成模型算法、交互系统与艺术作品，关注技术如何进入具体的创作和使用过程。</p>
       <p>团队导师李泽健任职于<a href="http://www.cst.zju.edu.cn/" target="_blank" rel="noopener">浙江大学软件学院</a>，是浙江大学人工智能学院孙凌云教授团队成员。团队成员的研究涉及计算机视觉、三维内容生成、人机协同创作与文化遗产保护，从算法实验、系统设计到用户研究开展工作。</p>
       <div class="profile-links">${inline('#/people/li-zejian', '李泽健')}${inline('#/people', '团队成员')}</div>
     </div></section>
@@ -239,38 +240,38 @@ function pageFor(route) {
   let html, title, description, nav = '', kind = 'WebPage', person = null;
   if (route === '/') {
     html = home();
-    title = 'GAN lab｜浙江大学生成式人工智能与人机交互研究团队';
-    description = 'GAN lab 是浙江大学研究团队，研究生成模型蒸馏、人机交互与智能设计，开展文化遗产数字化与艺术创作。了解团队的研究论文、交互系统和展览作品。';
+    title = 'GAN Lab 生成式人工智能与交互实验室｜浙江大学';
+    description = 'GAN Lab 生成式人工智能与交互实验室是浙江大学研究团队，研究生成模型蒸馏、人机交互与智能设计，开展文化遗产数字化与艺术创作。了解团队的研究论文、交互系统和展览作品。';
   } else if (route === '/projects') {
-    html = projectsPage(); title = '项目与作品｜GAN lab 浙江大学'; nav = 'projects'; kind = 'CollectionPage';
-    description = 'GAN lab 的系统研发与文化创作项目，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
+    html = projectsPage(); title = '项目与作品｜GAN Lab 浙江大学'; nav = 'projects'; kind = 'CollectionPage';
+    description = 'GAN Lab 的系统研发与文化创作项目，包括 MoWorld、运河·生长·万象、墨染和人工智能发展简史图谱。';
   } else if (route === '/research') {
-    html = research(); title = '生成模型与人机交互研究｜GAN lab 浙江大学'; nav = 'outputs'; kind = 'CollectionPage';
-    description = 'GAN lab 的生成模型、人机协作与文化创作研究，包括 DisBack、Ink Restorer 和 PoemPalette。';
+    html = research(); title = '生成模型与人机交互研究｜GAN Lab 浙江大学'; nav = 'outputs'; kind = 'CollectionPage';
+    description = 'GAN Lab 的生成模型、人机协作与文化创作研究，包括 DisBack、Ink Restorer 和 PoemPalette。';
   } else if (works.some(work => route === '/research/' + work.id)) {
     const work = works.find(work => route === '/research/' + work.id);
-    html = workDetail(work); title = `${work.name}｜${work.theme}｜GAN lab`; nav = 'outputs';
+    html = workDetail(work); title = `${work.name}｜${work.theme}｜GAN Lab`; nav = 'outputs';
     description = `${work.name}：${work.summary}${work.stage}。`;
   } else if (route === '/outputs') {
-    html = outputs(); title = '研究论文｜GAN lab 浙江大学'; nav = 'outputs'; kind = 'CollectionPage';
-    description = `GAN lab 团队参与的${publications.length}篇论文与预印本，涵盖生成模型、人机协作与文化创作。`;
+    html = outputs(); title = '研究论文｜GAN Lab 浙江大学'; nav = 'outputs'; kind = 'CollectionPage';
+    description = `GAN Lab 团队参与的${publications.length}篇论文与预印本，涵盖生成模型、人机协作与文化创作。`;
   } else if (route === '/people') {
-    html = people(); title = '团队成员｜GAN lab 浙江大学'; nav = 'people'; kind = 'CollectionPage';
-    description = '认识 GAN lab 的教师与研究成员，共同研究生成模型、人机协作与文化创作。';
+    html = people(); title = '团队成员｜GAN Lab 浙江大学'; nav = 'people'; kind = 'CollectionPage';
+    description = '认识 GAN Lab 的教师与研究成员，共同研究生成模型、人机协作与文化创作。';
   } else if (members.some(member => route === '/people/' + member.id && hasMemberDetails(member))) {
     person = members.find(member => route === '/people/' + member.id);
-    html = memberPage(person); title = `${person.name}｜GAN lab`; nav = 'people'; kind = 'ProfilePage';
+    html = memberPage(person); title = `${person.name}｜GAN Lab`; nav = 'people'; kind = 'ProfilePage';
     const text = person.introduction || person.background || person.researchSummary || person.biography?.[0] || researchOverview(memberPapers(person.id)) || person.honor || '个人介绍与学术主页。';
     description = `${person.name}：${plainText(text)}`;
   } else if (route === '/about') {
-    html = about(); title = '关于 GAN lab｜浙江大学研究团队'; nav = 'about';
-    description = '了解浙江大学 GAN lab 的团队背景与研究方向：生成模型与扩散模型蒸馏、人机协同创作、文化遗产数字化，以及交互系统和文化展览实践。';
+    html = about(); title = '关于生成式人工智能与交互实验室｜GAN Lab 浙江大学'; nav = 'about';
+    description = '了解浙江大学 GAN Lab 的团队背景与研究方向：生成模型与扩散模型蒸馏、人机协同创作、文化遗产数字化，以及交互系统和文化展览实践。';
   } else if (route === '/contact') {
-    html = contact(); title = '交流与合作｜GAN lab 浙江大学'; nav = 'contact';
-    description = 'GAN lab 联系方式：李泽健的电子邮箱与个人主页。';
+    html = contact(); title = '交流与合作｜GAN Lab 浙江大学'; nav = 'contact';
+    description = 'GAN Lab 联系方式：李泽健的电子邮箱与个人主页。';
   } else {
     html = `<div class="shell not-found">${heading('页面未找到', '地址可能有误，或页面已移除。')}<div class="hero-actions">${arrow('#/', '返回首页')}${inline('#/projects', '项目与作品')}</div></div>`;
-    title = '页面未找到｜GAN lab'; description = '地址可能有误，或页面已移除。返回 GAN lab 首页或浏览项目与作品。';
+    title = '页面未找到｜GAN Lab'; description = '地址可能有误，或页面已移除。返回 GAN Lab 首页或浏览项目与作品。';
   }
   return { route, html: publicHTML(html, route), title, description, nav, kind, person, exists: allRoutes().includes(route) };
 }
@@ -278,7 +279,7 @@ function structuredData(page) {
   const root = site.origin + site.basePath;
   const url = site.origin + pathFor(page.route);
   const graph = [
-    { '@type': 'Organization', '@id': root + '#organization', name: site.name, url: root, description: 'GAN lab 是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。', logo: root + 'assets/gan-mark.png' },
+    { '@type': 'Organization', '@id': root + '#organization', name: site.name, alternateName: ['生成式人工智能与交互实验室', 'Generative Artificial Intelligence and Interaction Lab'], url: root, description: 'GAN Lab 是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。', logo: root + 'assets/gan-mark.png' },
     { '@type': 'WebSite', '@id': root + '#website', name: site.name, url: root, inLanguage: 'zh-CN', publisher: { '@id': root + '#organization' } },
     { '@type': page.kind, '@id': url + '#webpage', url, name: page.title, description: page.description, inLanguage: 'zh-CN', isPartOf: { '@id': root + '#website' }, publisher: { '@id': root + '#organization' } },
   ];

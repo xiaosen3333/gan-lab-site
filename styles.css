@@ -53,6 +53,7 @@ main:focus { outline: none; }
 .home-visual { position: absolute; inset: 0 auto 0 0; z-index: -2; display: block; width: 78%; height: 100%; object-fit: cover; object-position: center 54%; }
 .home-introduction h1 { font-size: 56px; font-weight: 500; line-height: 1.2; letter-spacing: -.04em; }
 .home-introduction p { text-wrap: balance; max-width: 38em; margin-top: 22px; font-size: 21px; line-height: 1.9; }
+.home-introduction .home-lab-name { margin-top: 12px; font-size: clamp(18px, 1.8vw, 24px); line-height: 1.5; font-weight: 500; }
 .home-identity { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
 .home-affiliation { font-size: 16px; font-weight: 400; letter-spacing: 0; color: var(--muted); }
 .project-card { min-width: 0; }

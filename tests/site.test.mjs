@@ -31,7 +31,7 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
     assert.notEqual(stale.status, 0);
     assert.match(stale.stderr, /missing or stale/);
     assert.equal(await readFile(resolve(temporary, 'people/li-zejian/index.html'), 'utf8'), 'outdated generated page');
-    await writeFile(resolve(temporary, 'site.config.json'), JSON.stringify({ url: 'https://gan.example.edu/', name: 'GAN lab' }));
+    await writeFile(resolve(temporary, 'site.config.json'), JSON.stringify({ url: 'https://gan.example.edu/', name: 'GAN Lab' }));
     const migrated = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd: temporary, encoding: 'utf8' });
     assert.equal(migrated.status, 0, migrated.stderr);
     const migratedHome = await readFile(resolve(temporary, 'index.html'), 'utf8');
@@ -45,7 +45,7 @@ test('build is deterministic and stale HTML fails the read-only check in an isol
     for (const content of [migratedHome, migratedMember, migratedSitemap, migratedRuntime]) assert.ok(!content.includes('xiaosen3333.github.io') && !content.includes('/gan-lab-site/'));
     assert.equal(run().status, 0);
     for (const url of ['https://gan.example.edu/', 'https://gan.example.edu/design/gan/']) {
-      await writeFile(resolve(temporary, 'site.config.json'), JSON.stringify({ url, name: 'GAN lab' }));
+      await writeFile(resolve(temporary, 'site.config.json'), JSON.stringify({ url, name: 'GAN Lab' }));
       const result = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd: temporary, encoding: 'utf8' });
       assert.equal(result.status, 0, result.stderr);
       const projectHTML = await readFile(resolve(temporary, 'projects/index.html'), 'utf8');
