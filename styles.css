@@ -161,10 +161,15 @@ main:focus { outline: none; }
 .paper-content h2, .paper-content h3 { font-size: 21px; font-weight: 500; line-height: 1.6; letter-spacing: -.015em; text-wrap: pretty; overflow-wrap: anywhere; }
 .paper-content > p { font-size: 14px; color: var(--muted); margin-top: 12px; }
 .bibliography-page { padding-bottom: 64px; }
-.publication-year { margin-top: 36px; }
-.publication-year > h2 { font-size: 30px; font-weight: 500; margin-bottom: 18px; }
-.year-index, .member-index { display: flex; flex-wrap: wrap; gap: 6px 26px; border-block: 1px solid var(--line); padding-block: 12px; font-size: 13px; }
-.year-index a, .member-index a { display: inline-flex; align-items: center; min-height: 36px; }
+.publication-year { border-top: 1px solid var(--line); }
+.publication-year > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 22px; cursor: pointer; list-style: none; }
+.publication-year > summary::-webkit-details-marker { display: none; }
+.publication-year > summary::after { content: "+"; font-size: 26px; font-weight: 400; color: var(--muted); }
+.publication-year[open] > summary::after { content: "−"; }
+.publication-year[open] { padding-bottom: 24px; }
+.publication-year > summary h2 { font-size: 30px; font-weight: 500; }
+.member-index { display: flex; flex-wrap: wrap; gap: 6px 26px; border-block: 1px solid var(--line); padding-block: 12px; font-size: 13px; }
+.member-index a { display: inline-flex; align-items: center; min-height: 36px; }
 .member-index { margin-bottom: 24px; }
 .portfolio-entry { padding-bottom: 48px; margin-bottom: 48px; border-bottom: 1px solid var(--line); }
 .portfolio-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 28px; margin-bottom: 26px; }
@@ -299,9 +304,8 @@ main:focus { outline: none; }
   .paper-row { grid-template-columns: 1fr; gap: 11px; padding: 23px 0; }
   .paper-reference { flex-direction: row; flex-wrap: wrap; gap: 5px 12px; align-items: baseline; }
   .paper-content h2, .paper-content h3 { font-size: 19px; }
-  .year-index, .member-index { gap: 5px 22px; padding-block: 10px; }
-  .publication-year { margin-top: 30px; }
-  .publication-year > h2 { font-size: 27px; }
+  .member-index { gap: 5px 22px; padding-block: 10px; }
+  .publication-year > summary h2 { font-size: 27px; }
   .portfolio-entry { padding-bottom: 32px; margin-bottom: 32px; }
   .portfolio-heading { gap: 18px; margin-bottom: 22px; }
   .portfolio-heading h2 { font-size: 27px; }

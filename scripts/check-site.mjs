@@ -176,8 +176,8 @@ export async function checkSite() {
   const bibliography = pages.get(pathFor('/outputs'));
   assert.equal((bibliography.match(/class="paper-row"/g) || []).length, 46);
   for (const [year, count] of [[2026, 13], [2025, 14], [2024, 7], [2023, 5], [2022, 2], [2021, 1], [2020, 1], [2019, 2], [2018, 1]]) {
-    assert.ok(bibliography.includes(`href="#year-${year}"`));
-    const section = bibliography.match(new RegExp(`<section class="publication-year" aria-labelledby="year-${year}">([\\s\\S]*?)<\\/section>`))?.[1];
+    assert.ok(bibliography.includes(`<summary id="year-${year}">`));
+    const section = bibliography.match(new RegExp(`<details class="publication-year"${year === 2026 ? ' open' : ''}><summary id="year-${year}">([\\s\\S]*?)<\\/details>`))?.[1];
     assert.ok(section, 'Year section: ' + year);
     assert.equal((section.match(/class="paper-row"/g) || []).length, count);
     assert.equal((section.match(/<h3>/g) || []).length, count);
