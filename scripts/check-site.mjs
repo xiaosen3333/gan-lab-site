@@ -125,7 +125,7 @@ export async function checkSite() {
   assert.match(home, /id="culture-title">文化实践与展览<\/h2>/);
   assert.doesNotMatch(home, /精选成果|DisBack/);
   assert.doesNotMatch(home, /参与项目|创作团队成员|团队成员参与内容撰写/);
-  assert.match(home, /id="partners-title">合作单位<\/h2>/);
+  assert.match(home, /id="partners-title">合作伙伴<\/h2>/);
   for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);
   const researchHTML = pages.get(pathFor('/research'));
   assert.equal((researchHTML.match(/<h2><a /g) || []).length, 3);

@@ -55,7 +55,7 @@ function home() {
       <h2 class="section-title" id="culture-title">文化实践与展览</h2>
       <div class="selected-list">${homepageExhibitions.map(selectedWork).join('')}</div>
     </section>
-    ${partnersSection({ compact: true })}
+    ${partnersSection()}
   </div>`;
 }
 function research() {
@@ -357,9 +357,9 @@ function projectFigure(project) {
   return `<figure class="project-figure">${projectImage(media)}<figcaption>${escapeHTML(media.caption)}</figcaption>${project.id === 'canal-growth' ? `<a class="inline-link" href="${escapeHTML(media.path)}" target="_blank" rel="noopener">查看完整原图 ${iconArrow}</a>` : ''}</figure>`;
 }
 
-function partnersSection({ compact = false } = {}) {
-  return `<section class="project-partners${compact ? ' partners-compact' : ''}" aria-labelledby="partners-title">
-    <h2 class="section-title" id="partners-title">合作单位</h2>
+function partnersSection() {
+  return `<section class="project-partners" aria-labelledby="partners-title">
+    <h2 class="section-title" id="partners-title">合作伙伴</h2>
     <ul class="partner-logos" aria-label="合作单位">${projectPartners.map(partner => `<li><img class="partner-logo partner-logo-${partner.id}" src="${escapeHTML(partner.logo)}" alt="${escapeHTML(partner.name)}" width="${partner.width}" height="${partner.height}" loading="lazy" decoding="async"></li>`).join('')}</ul>
   </section>`;
 }
