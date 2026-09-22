@@ -24,7 +24,7 @@ function selectedWork(selection) {
   const research = selection.kind === 'research';
   const work = (research ? works : projects).find(work => work.id === selection.id);
   const href = research ? '#/research/' + work.id : '#/projects#' + work.id;
-  const label = research ? '研究详情' : work.action;
+  const label = '查看详情';
   const panoramic = ['canal-growth', 'ai-history-atlas'].includes(work.id);
   const media = work.media ? `<figure class="project-figure${work.media.rotate === -90 ? ' selected-atlas' : ''}">${projectImage(work.media)}${research ? `<figcaption>${escapeHTML(work.media.caption)}</figcaption>` : ''}</figure>` : '';
   const context = research ? `${work.venue} ${work.year}` : [work.period, work.homepage.venue || work.venue].filter(Boolean).join(' · ');
@@ -181,7 +181,7 @@ function about() {
     <section class="page-section about-grid"><h2>研究关注</h2><div>
       <p>在生成模型研究中，我们关注生成效率、内容可控性与质量评价：如何用更少的计算步骤得到高质量结果，如何让模型响应人的意图，以及如何评价生成内容是否符合预期。<a href="#/research/disback">DisBack</a>研究扩散模型蒸馏的训练方法，通过分布回溯改善收敛过程；团队成员也参与了面向实时交互场景的 MoWorld 世界模型研究。</p>
       <p>在人机交互研究中，我们关注人如何表达想法、探索方案并调整生成结果。<a href="#/projects#poempalette">PoemPalette</a>将诗歌意象组织为可供创作的视觉线索，RealtimeGen 探索生成过程中的实时干预，FusionProtor 结合实体原型与扩展现实支持设计探索。这些工作通过系统实现与用户研究，考察交互方式如何影响创作过程和使用体验。</p>
-      <div class="profile-links">${inline('#/outputs', '研究论文')}</div>
+      <div class="profile-links">${inline('#/outputs', '论文目录')}</div>
     </div></section>
     <section class="page-section about-grid"><h2>文化与艺术实践</h2><div>
       <p>文化艺术是团队持续开展研究与创作的领域。团队成员参与的“墨染”国画创作系统，在浙江大学—阿里巴巴前沿技术联合研究中心开展，探索国画长卷合成、字体设计、风格与笔触迁移等方法。<a href="#/projects#canal-growth">《运河·生长·万象》</a>以京杭大运河杭州段遥感影像为基础，生成国画长卷与动态影像，展于浙江美术馆“大地史诗——中国大运河主题艺术展”。成员参与内容撰写与视觉设计的人工智能发展简史图谱，也在浙江美术馆展出。</p>

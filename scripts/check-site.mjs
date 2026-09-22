@@ -113,6 +113,7 @@ export async function checkSite() {
     const entry = selected[index][2];
     assert.ok(entry.includes(`href="${href}"`) && entry.includes(`<h3>${work.name || work.title}</h3>`), 'Selected work title and real destination');
     assert.ok(entry.includes(work.homepage.summary), 'Selected summary comes from its work source');
+    assert.match(entry, /class="project-card-action">查看详情 /, 'Homepage detail actions use one shared label');
     assert.equal(entry.includes('<figure'), Boolean(work.media), 'No empty media placeholder');
     if (work.media) assert.ok(entry.includes(`src="${site.basePath}${work.id === 'moworld' ? 'assets/projects/moworld-960.webp' : work.id === 'ai-history-atlas' ? 'assets/projects/ai-history-atlas.webp' : work.media.path}"`), 'Selected media follows deployment path');
   }
