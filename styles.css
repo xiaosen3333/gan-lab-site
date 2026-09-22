@@ -162,10 +162,10 @@ main:focus { outline: none; }
 .paper-content > p { font-size: 14px; color: var(--muted); margin-top: 12px; }
 .bibliography-page { padding-bottom: 64px; }
 .publication-year { border-top: 1px solid var(--line); }
-.publication-year > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 22px; cursor: pointer; list-style: none; }
+.publication-year > summary { display: flex; align-items: center; justify-content: flex-start; gap: 14px; padding-block: 22px; cursor: pointer; list-style: none; }
 .publication-year > summary::-webkit-details-marker { display: none; }
-.publication-year > summary::after { content: "+"; font-size: 26px; font-weight: 400; color: var(--muted); }
-.publication-year[open] > summary::after { content: "−"; }
+.publication-year > summary::before { content: ""; width: 8px; height: 8px; flex: 0 0 8px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: rotate(-45deg); }
+.publication-year[open] > summary::before { transform: rotate(45deg); }
 .publication-year[open] { padding-bottom: 24px; }
 .publication-year > summary h2 { font-size: 30px; font-weight: 500; }
 .member-index { display: flex; flex-wrap: wrap; gap: 6px 26px; border-block: 1px solid var(--line); padding-block: 12px; font-size: 13px; }
