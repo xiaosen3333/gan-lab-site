@@ -92,7 +92,6 @@ main:focus { outline: none; }
 .culture-meta { color: var(--muted); font-size: 12px; line-height: 1.7; }
 .culture-feature h3 { font-size: 34px; font-weight: 500; letter-spacing: -.025em; margin-top: 10px; }
 .culture-feature-copy > p:not(.culture-meta) { color: var(--muted); font-size: 16px; line-height: 1.9; margin-top: 14px; }
-.culture-feature-copy > span { display: block; font-size: 13px; margin-top: 18px; }
 .culture-feature-copy > strong, .culture-records a > span { display: inline-flex; align-items: center; gap: 9px; color: var(--blue); font-size: 13px; font-weight: 400; margin-top: 17px; }
 .culture-feature:hover h3, .culture-records a:hover h3 { color: var(--blue); }
 .culture-records { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }

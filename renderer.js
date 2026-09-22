@@ -43,11 +43,11 @@ function culturalPractice() {
     <a class="culture-feature" id="project-card-canal-growth" tabindex="-1" href="#/projects#${canal.id}">
       <figure>${projectImage(canal.media)}<figcaption>${escapeHTML(canal.media.caption)}</figcaption></figure>
       <div class="culture-feature-copy"><p class="culture-meta">${canal.period} · ${escapeHTML(canal.venue)}</p><h3>${escapeHTML(canal.title)}</h3>
-        <p>${escapeHTML(canal.homepage.summary)}</p><span>李泽健为创作团队成员</span><strong>查看作品与展览 ${iconArrow}</strong></div>
+        <p>${escapeHTML(canal.homepage.summary)}</p><strong>查看作品与展览 ${iconArrow}</strong></div>
     </a>
     <div class="culture-records">
-      <a href="#/projects#${atlas.id}"><p class="culture-meta">${atlas.period} · ${escapeHTML(atlas.venue)}</p><h3>${escapeHTML(atlas.title)}</h3><p>团队成员参与内容撰写与视觉设计，以时间轴呈现人工智能的重要事件、技术节点与流派。</p><span>查看图谱 ${iconArrow}</span></a>
-      <a href="#/projects#${artist.id}"><p class="culture-meta">${artist.period} · 人工智能辅助创作油画展</p><h3>${escapeHTML(artist.title)}</h3><p>李泽健参与项目，相关作品围绕江南水乡、古镇与自然景观展开。</p><span>查看项目与展览 ${iconArrow}</span></a>
+      <a href="#/projects#${atlas.id}"><p class="culture-meta">${atlas.period} · ${escapeHTML(atlas.venue)}</p><h3>${escapeHTML(atlas.title)}</h3><p>以时间轴串联人工智能的重要事件、技术节点与主要流派，呈现不同研究路线的发展。</p><span>查看图谱 ${iconArrow}</span></a>
+      <a href="#/projects#${artist.id}"><p class="culture-meta">${artist.period} · 人工智能辅助创作油画展</p><h3>${escapeHTML(artist.title)}</h3><p>以人工智能辅助油画创作，描绘江南水乡、古镇与自然景观。</p><span>查看项目与展览 ${iconArrow}</span></a>
     </div>
     <div class="culture-collection-link">${inline('#/projects', '全部项目与作品')}</div>
   </section>`;

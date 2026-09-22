@@ -121,7 +121,7 @@ export async function checkSite() {
   assert.ok(collections.includes(`href="${pathFor('/outputs')}"`));
   assert.ok(home.includes('id="culture-title"') && home.includes('文化实践与展览'));
   for (const id of ['canal-growth', 'ai-history-atlas', 'artist-1']) assert.ok(home.includes(`href="${pathFor('/projects')}#${id}"`), 'Homepage culture project: ' + id);
-  assert.ok(home.includes('李泽健为创作团队成员') && home.includes('团队成员参与内容撰写与视觉设计') && home.includes('李泽健参与项目'));
+  assert.doesNotMatch(home, /参与项目|创作团队成员|团队成员参与内容撰写/);
   assert.ok(home.includes(`href="${pathFor('/projects')}"`) && home.includes('全部项目与作品'));
   for (const page of pages.values()) assert.doesNotMatch(page, /data-nav="research"/);
   const researchHTML = pages.get(pathFor('/research'));
