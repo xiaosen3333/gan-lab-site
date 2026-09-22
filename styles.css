@@ -34,6 +34,8 @@ main:focus { outline: none; }
 .header-inner { height: 80px; display: flex; align-items: center; gap: 36px; }
 .logo { font-size: 31px; font-weight: 700; letter-spacing: -.06em; white-space: nowrap; line-height: 1.2; }
 .logo span { font-weight: 400; letter-spacing: -.045em; }
+.brand-lockup { display: inline-flex; align-items: baseline; gap: 14px; min-width: 0; }
+.brand-cn { color: var(--muted); font-size: 13px; letter-spacing: .02em; white-space: nowrap; }
 .header-inner nav { display: flex; align-items: center; gap: 28px; margin-inline: auto; font-size: 14px; }
 .header-inner nav a { display: flex; align-items: center; min-height: 48px; position: relative; }
 .header-inner [aria-current=page] { color: var(--blue); }
@@ -267,6 +269,8 @@ html:has(.bibliography-page) { scrollbar-gutter: stable; }
   .shell { width: calc(100% - 40px); }
   .header-inner { height: auto; min-height: 72px; gap: 14px; flex-wrap: wrap; padding-block: 15px 0; }
   .logo { font-size: 28px; }
+  .brand-lockup { gap: 10px; }
+  .brand-cn { font-size: 12px; }
   .header-inner nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; margin: 0; }
   .header-inner nav a { min-height: 44px; }
   .contact-link { margin-left: auto; font-size: 12px; gap: 18px; min-height: 40px; }

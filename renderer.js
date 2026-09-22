@@ -172,7 +172,7 @@ function memberPage(member) {
   </article>`;
 }
 function about() {
-  return `<div class="shell">${heading('关于 GAN Lab', '生成式人工智能与交互实验室')}
+  return `<div class="shell">${heading('关于 GAN Lab', '生成式人工智能与交互实验室 · Generative Artificial Intelligence and Interaction Lab')}
     <section class="page-section about-grid"><h2>团队与背景</h2><div>
       <p>生成式人工智能与交互实验室（GAN Lab，Generative Artificial Intelligence and Interaction Lab）是浙江大学的研究团队，研究生成式人工智能、人机交互与智能设计，并将相关方法用于文化艺术创作与文化遗产的数字化体验。团队的工作涵盖生成模型算法、交互系统与艺术作品，关注技术如何进入具体的创作和使用过程。</p>
       <p>团队导师李泽健任职于<a href="http://www.cst.zju.edu.cn/" target="_blank" rel="noopener">浙江大学软件学院</a>，是浙江大学人工智能学院孙凌云教授团队成员。团队成员的研究涉及计算机视觉、三维内容生成、人机协同创作与文化遗产保护，从算法实验、系统设计到用户研究开展工作。</p>
