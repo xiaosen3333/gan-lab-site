@@ -101,7 +101,7 @@ function researchOverview(papers){
 }
 function publicationRows(papers,{level=2,type='all',linkTitles=false}={}){
  return papers.map(p=>`<article class="paper-row">
- <div class="paper-reference"><span>${p.year}</span><span>${p.venue}${p.format?' · '+p.format:''}</span>${p.award?`<span class="paper-award">${p.award}</span>`:''}</div>
+ <div class="paper-reference"><span>${p.year}</span><span>${p.venue}${p.format && p.format !== '已接收'?' · '+p.format:''}</span>${p.award?`<span class="paper-award">${p.award}</span>`:''}</div>
  <div class="paper-content"><h${level}>${linkTitles || presentation.publicationTitleLinks?`<a href="${linkTitles?p.url:(p.detail?'#/research/'+p.id:p.url)}"${!linkTitles && p.detail?'':' target="_blank" rel="noopener"'} title="${escapeHTML(p.sourceLabel || '论文原文')}">${p.title}</a>`:p.title}</h${level}>
  ${presentation.publicationDescriptions?`<p>${p.summary}</p>`:''}
  ${presentation.publicationParticipants?`<div class="publication-people"><span>团队参与</span><div class="participant-links">${memberLinks(p.memberIds)}</div></div>`:''}
