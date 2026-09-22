@@ -160,6 +160,8 @@ main:focus { outline: none; }
 .paper-content { min-width: 0; }
 .paper-content h2, .paper-content h3 { font-size: 21px; font-weight: 500; line-height: 1.6; letter-spacing: -.015em; text-wrap: pretty; overflow-wrap: anywhere; }
 .paper-content > p { font-size: 14px; color: var(--muted); margin-top: 12px; }
+/* Reserve scrollbar space so expanding years cannot shift the page sideways. */
+html:has(.bibliography-page) { scrollbar-gutter: stable; }
 .bibliography-page { padding-bottom: 64px; }
 .publication-year { border-top: 1px solid var(--line); }
 .publication-year > summary { display: flex; align-items: center; justify-content: flex-start; gap: 14px; padding-block: 22px; cursor: pointer; list-style: none; }
